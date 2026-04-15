@@ -257,24 +257,49 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
   <form id="__gateForm" style="text-align:center;color:#f6f5f0;max-width:320px;padding:24px">
     <div style="font-family:'Cormorant Garamond',serif;font-size:34px;margin-bottom:8px">CARNET</div>
     <div style="font-size:13px;opacity:.6;margin-bottom:24px;letter-spacing:2px">PAULO PENNA · PRIVADO</div>
-    <input id="__gatePw" type="password" autocomplete="current-password" placeholder="Senha" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid #333;background:#1a1825;color:#f6f5f0;font-size:16px;text-align:center;outline:none">
-    <button type="submit" style="margin-top:12px;width:100%;padding:12px;border-radius:10px;border:0;background:#c9a46b;color:#0b0a12;font-weight:600;font-size:15px;cursor:pointer">Entrar</button>
+    <div style="position:relative">
+      <input id="__gatePw" type="password" autocomplete="current-password" placeholder="Senha" style="width:100%;padding:12px 44px 12px 14px;border-radius:10px;border:1px solid #333;background:#1a1825;color:#f6f5f0;font-size:16px;text-align:center;outline:none;box-sizing:border-box">
+      <button type="button" id="__gateEye" aria-label="Mostrar senha" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:#c9a46b;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center">
+        <svg id="__eyeOn" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg id="__eyeOff" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a19.8 19.8 0 0 1 5.06-5.94M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a19.8 19.8 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      </button>
+    </div>
+    <label style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;font-size:14px;opacity:.85;cursor:pointer;user-select:none">
+      <input type="checkbox" id="__gateRemember" checked style="accent-color:#c9a46b;width:16px;height:16px"> Lembrar senha neste dispositivo
+    </label>
+    <button type="submit" style="margin-top:14px;width:100%;padding:12px;border-radius:10px;border:0;background:#c9a46b;color:#0b0a12;font-weight:600;font-size:15px;cursor:pointer">Entrar</button>
     <div id="__gateErr" style="margin-top:10px;font-size:13px;color:#e57373;min-height:18px"></div>
   </form>
 </div>
 <script>
 (function(){
   const H="1b15e5961fd2796056ca2d33cd4ae9d4c90fd56cb3f1454cf528e05e7895c373";
+  const KEY="__carnet_ok";
   const g=document.getElementById('__gate');
   async function sha(s){const b=new TextEncoder().encode(s);const h=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(h)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-  if(sessionStorage.getItem('__carnet_ok')==='1'){g.remove();return}
+  if(localStorage.getItem(KEY)==='1'||sessionStorage.getItem(KEY)==='1'){g.remove();return}
+  const pw=document.getElementById('__gatePw');
+  const eye=document.getElementById('__gateEye');
+  const eyeOn=document.getElementById('__eyeOn');
+  const eyeOff=document.getElementById('__eyeOff');
+  eye.addEventListener('click',()=>{
+    const showing=pw.type==='text';
+    pw.type=showing?'password':'text';
+    eyeOn.style.display=showing?'':'none';
+    eyeOff.style.display=showing?'none':'';
+    eye.setAttribute('aria-label',showing?'Mostrar senha':'Ocultar senha');
+  });
   document.getElementById('__gateForm').addEventListener('submit',async e=>{
     e.preventDefault();
-    const v=document.getElementById('__gatePw').value;
-    if(await sha(v)===H){sessionStorage.setItem('__carnet_ok','1');g.remove()}
-    else{document.getElementById('__gateErr').textContent='Senha incorreta'}
+    if(await sha(pw.value)===H){
+      const remember=document.getElementById('__gateRemember').checked;
+      (remember?localStorage:sessionStorage).setItem(KEY,'1');
+      g.remove();
+    } else {
+      document.getElementById('__gateErr').textContent='Senha incorreta';
+    }
   });
-  setTimeout(()=>document.getElementById('__gatePw').focus(),100);
+  setTimeout(()=>pw.focus(),100);
 })();
 </script>
 
