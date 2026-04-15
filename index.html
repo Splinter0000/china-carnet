@@ -630,9 +630,39 @@ const TRIP = {
     {occ:"Antonio (portuguesa Macau)",style:"Camisa + calça. Ambiente aconchegante, não precisa blazer."},
   ],
   packing:[
-    {g:"Roupas",ico:"i-shirt",items:["Camisa social branca (manga longa) · 1","Calças Uniqlo pretas/marinho · 2","Camisetas lisas (brancas/pretas/oliva) · 4 BR","Polo premium · 1","Blazer leve ou comprar em HK","Moletom/cardigan leve · 1","Jeans ou calça casual · 1"]},
-    {g:"Íntimas & meias",ico:"i-shirt",items:["Cuecas · 4 BR (mais 7 Airism HK)","Meias sociais pretas · 3 BR (mais 5 HK)","Pijama · 1"]},
-    {g:"Calçados",ico:"i-bag",items:["Sapatênis marrom (social/casual)","Tênis marrom casual","Chinelo hotel"]},
+    {g:"Roupas (mala fechada)",ico:"i-shirt",items:[
+      {t:"Camiseta preta M · Ricardo Almeida",c:1},
+      {t:"Camiseta M · Zac Marrón",c:1},
+      {t:"Camiseta verde M · Uniqlo Supima",c:1},
+      {t:"Camiseta branca M · Sergio K",c:1},
+      {t:"Camiseta cinza M · Uniqlo Supima",c:1},
+      {t:"Camiseta preta M · Uniqlo Supima",c:1},
+      {t:"Polo preta · VOR (BR)",c:1},
+      {t:"Camiseta verde escuro L · Dragonfly",c:1},
+      {t:"Polo azul-marinho · VOR (BR)",c:1},
+      {t:"Polo azul-marinho · VOR (BR) — segunda",c:1},
+      {t:"Camiseta preta M · Uniqlo Supima — extra",c:1},
+    ]},
+    {g:"Calçados (mala fechada)",ico:"i-bag",items:[
+      {t:"Sapato couro marrom · Reserva (sola branca)",c:1},
+      {t:"Tênis preto e cinza · Reserva (sola branca)",c:1},
+    ]},
+    {g:"COMPRAR EM HONG KONG · imprescindíveis",ico:"i-star",items:[
+      {t:"⚠ Camisa social manga longa branca — DRESS CODE Caprice/Lung King Heen/Robuchon",c:0},
+      {t:"⚠ Camisa social manga longa azul-claro (alternativa) — Uniqlo Super Non-Iron",c:0},
+      {t:"⚠ Blazer leve navy — Robuchon, Caprice, jantares formais YPO (The Armoury Pedder Building)",c:0},
+      {t:"⚠ Calça social preta · Uniqlo (jantares Michelin)",c:0},
+      {t:"⚠ Calça social marinho · Uniqlo",c:0},
+      {t:"⚠ Cinto preto couro (combina com sapato preto futuro)",c:0},
+      {t:"Cinto marrom couro (combina com sapato Reserva marrom)",c:0},
+      {t:"Cuecas Uniqlo Airism × 7",c:0},
+      {t:"Meias sociais pretas × 5 · Uniqlo",c:0},
+      {t:"Pijama leve · Uniqlo",c:0},
+      {t:"Cardigan/moletom leve (ar-condicionado avião)",c:0},
+      {t:"Jeans/calça casual",c:0},
+      {t:"Guarda-chuva compacto Uniqlo (HK chove garantido)",c:0},
+      {t:"Chinelo de quarto (se hotel não fornecer suficiente)",c:0},
+    ]},
     {g:"Tech & trabalho",ico:"i-briefcase",items:["MacBook + carregador","iPad + Pencil","iPhone + cabos USB-C","Adaptador universal tomadas","Power bank","Fone Bose/AirPods","Fone com fio backup"]},
     {g:"Toiletries",ico:"i-sun",items:["Kit barba (lâmina + pós)","Shampoo/condicionador travel","Creme hidratante rosto","Perfume (travel size)","Remédios rotina","Escova + pasta","Protetor solar"]},
     {g:"Docs & dinheiro",ico:"i-globe",items:["Passaporte BR + visto China","Passaporte UE","Carteira com cartões","Dinheiro USD/HKD/CNY","Seguro viagem impresso","Vouchers hotéis & voos"]},
@@ -990,10 +1020,12 @@ function renderPacking(){
   $('#packing').innerHTML = TRIP.packing.map(g=>`
     <div class="card" style="padding:18px">
       <h4 style="margin-top:0">${ico(g.ico||'i-check')}${g.g}</h4>
-      ${g.items.map((it,i)=>{
+      ${g.items.map((raw,i)=>{
+        const it = typeof raw==='string' ? {t:raw,c:0} : raw;
         const id = `carnet_${TRIP.id}_pack_${g.g}_${i}`.replace(/\W+/g,'_');
-        const checked = localStorage.getItem(id)==='1';
-        return `<label class="check"><input type="checkbox" data-id="${id}" ${checked?'checked':''}><span class="box"></span><span class="lbl">${it}</span></label>`;
+        const stored = localStorage.getItem(id);
+        const checked = stored==null ? !!it.c : stored==='1';
+        return `<label class="check"><input type="checkbox" data-id="${id}" ${checked?'checked':''}><span class="box"></span><span class="lbl">${it.t}</span></label>`;
       }).join('')}
     </div>`).join('');
   updateProgress();
