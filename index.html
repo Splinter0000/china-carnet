@@ -1117,7 +1117,7 @@ $('#blazers').innerHTML = TRIP.blazers.map((b,i)=>{
     <div style="color:var(--text-3);font-size:13px;margin:10px 0;line-height:1.6">${b.note}</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center">
       <a class="btn" href="https://maps.apple.com/?q=${b.map}" target="_blank">${ico('i-map')}Mapa</a>
-      <a class="btn" href="tel:${b.tel.replace(/\s/g,'')}">${ico('i-phone')}${b.tel}</a>
+      ${b.tel?`<a class="btn" href="tel:${b.tel.replace(/\s/g,'')}">${ico('i-phone')}${b.tel}</a>`:''}
       <a class="btn" href="${b.site}" target="_blank">${ico('i-ext')}Site</a>
       ${selBox('blazer',i,hk,brl,b.n)}
     </div>
