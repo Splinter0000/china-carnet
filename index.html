@@ -250,6 +250,40 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
   .check .lbl{font-size:15.5px}
   .btn{padding:11px 16px;font-size:14px;min-height:44px}
 }
+
+/* ========== HOJE · timeline ========== */
+.tline{position:relative;margin:0;padding:0;list-style:none}
+.tline::before{content:"";position:absolute;left:22px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,var(--purple-2),var(--olive-2),var(--gold));opacity:.35}
+.tstep{position:relative;padding:0 0 22px 64px;display:block}
+.tstep:last-child{padding-bottom:0}
+.tdot{position:absolute;left:10px;top:2px;width:26px;height:26px;border-radius:50%;background:var(--bg-2);border:2px solid var(--purple-2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;z-index:1}
+.tdot:hover{transform:scale(1.12);box-shadow:0 0 0 6px color-mix(in oklab, var(--purple-2) 30%, transparent)}
+.tdot svg{width:14px;height:14px;color:var(--text-3);opacity:0;transform:scale(.6);transition:all .2s}
+.tstep.done .tdot{background:linear-gradient(135deg,var(--gold),#c89e56);border-color:var(--gold);box-shadow:0 0 0 6px color-mix(in oklab, var(--gold) 22%, transparent)}
+.tstep.done .tdot svg{opacity:1;transform:scale(1);color:#1a1018}
+.tstep.done .tcontent{opacity:.68}
+.tstep.done .ttitle{text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--gold)}
+.tcontent{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;transition:opacity .3s}
+.ttime{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px}
+.ttitle{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;line-height:1.2;margin:0;color:var(--text)}
+.tsub{color:var(--text-2);font-size:13.5px;margin-top:3px;line-height:1.5}
+.trow{display:flex;align-items:flex-start;gap:6px;color:var(--text-2);font-size:13px;margin-top:8px;line-height:1.5}
+.trow svg{flex-shrink:0;margin-top:2px;color:var(--text-3)}
+.trow b{color:var(--text);font-weight:600}
+.tdetail{background:color-mix(in oklab, var(--purple) 10%, transparent);border-left:3px solid var(--purple-2);padding:10px 14px;margin-top:12px;border-radius:0 10px 10px 0;font-size:13.5px;color:var(--text-2);line-height:1.6}
+.tdetail b{color:var(--text)}
+.tbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ttags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.ttags .tg{font-size:10.5px;padding:3px 8px;border-radius:6px;background:var(--card-2);color:var(--text-2);border:1px solid var(--line);letter-spacing:.5px;text-transform:uppercase}
+.ttags .tg.gold{background:color-mix(in oklab, var(--gold) 18%, transparent);color:var(--gold);border-color:color-mix(in oklab, var(--gold) 40%, transparent)}
+.ttags .tg.warn{background:color-mix(in oklab, #d97757 20%, transparent);color:#e8937a;border-color:color-mix(in oklab, #d97757 40%, transparent)}
+@media(max-width:560px){
+  .tstep{padding-left:54px}
+  .tline::before{left:18px}
+  .tdot{left:6px;width:24px;height:24px}
+  .tcontent{padding:14px 16px}
+  .ttitle{font-size:19px}
+}
 </style>
 </head>
 <body>
@@ -338,6 +372,17 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
 <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M6.7 17.3 17.3 6.7"/></symbol>
 <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
 <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.3c1.7 7.3-1.7 12.7-8.2 17.7"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></symbol>
+<symbol id="i-today" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+<symbol id="i-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM6 2v3M10 2v3M14 2v3"/></symbol>
+<symbol id="i-mountain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></symbol>
+<symbol id="i-temple" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 6l7-4 7 4M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></symbol>
+<symbol id="i-ship" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1M3 16l2-8h14l2 8M12 3v5"/></symbol>
+<symbol id="i-bag-shop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3 6h18M16 10a4 4 0 0 1-8 0"/></symbol>
+<symbol id="i-moonlamp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2z"/></symbol>
+<symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M6 17v-5l2-6h8l2 6v5M6 17v2M18 17v2M8 14h8"/></symbol>
+<symbol id="i-walk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M6 20l3-7 3 3-2 5M15 20l-1-8-4-3"/></svg></symbol>
+<symbol id="i-bed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20V8h20v12M2 14h20M6 10a2 2 0 1 0 0 4h2a2 2 0 1 0 0-4H6z"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
 </defs></svg>
 
 <!-- TOPBAR -->
@@ -371,7 +416,8 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
 
 <!-- TABS -->
 <div class="tabs" id="tabs">
-  <button class="tab on" data-tab="roteiro"><svg class="ico"><use href="#i-calendar"/></svg>Roteiro</button>
+  <button class="tab on" data-tab="hoje"><svg class="ico"><use href="#i-today"/></svg>Hoje</button>
+  <button class="tab" data-tab="roteiro"><svg class="ico"><use href="#i-calendar"/></svg>Roteiro</button>
   <button class="tab" data-tab="voos"><svg class="ico"><use href="#i-plane"/></svg>Voos</button>
   <button class="tab" data-tab="hoteis"><svg class="ico"><use href="#i-bed"/></svg>Hotéis</button>
   <button class="tab" data-tab="reservas"><svg class="ico"><use href="#i-fork"/></svg>Reservas</button>
@@ -384,8 +430,45 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
   <button class="tab" data-tab="tam"><svg class="ico"><use href="#i-ruler"/></svg>Tamanhos</button>
 </div>
 
+<!-- HOJE -->
+<div class="section" data-pane="hoje">
+  <div class="card" style="background:linear-gradient(135deg, color-mix(in oklab, var(--purple) 55%, var(--bg-2)), color-mix(in oklab, var(--olive) 45%, var(--bg-2)));color:#fff;padding:24px 26px">
+    <div style="display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase"><svg class="ico"><use href="#i-today"/></svg>Sábado · 18 abr 2026 · Hong Kong</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(34px,6vw,48px);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin-top:6px">HK Day 2 · Peak ao Kowloon</div>
+    <div style="color:rgba(255,255,255,.88);font-size:14px;margin-top:10px;max-width:680px;line-height:1.55">Único dia cheio em HK na ida. Corte definitivo: sem rugby (Kai Tak drena o dia) e sem teleférico Ngong Ping (Lantau fica 1h30 só ida). Sequência abaixo testada em marcha real · clima ~29° com chance de chuva · leva o guarda-chuva.</div>
+    <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-mountain"/></svg>Peak cedo</span>
+      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-temple"/></svg>Man Mo · Tai Kwun</span>
+      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-star"/></svg>Lung King Heen 3★</span>
+      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-ship"/></svg>Star Ferry pôr-do-sol</span>
+      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-moon"/></svg>Melody's opcional</span>
+    </div>
+    <div id="todayProgress" style="margin-top:22px;background:rgba(0,0,0,.25);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px">
+      <div style="flex:1">
+        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7)">Progresso do dia</div>
+        <div style="height:8px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin-top:6px"><div id="todayBar" style="height:100%;width:0;background:linear-gradient(90deg,var(--gold),#fff);transition:width .4s"></div></div>
+      </div>
+      <div id="todayCount" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;min-width:68px;text-align:right">0/0</div>
+    </div>
+  </div>
+  <div class="card" style="padding:22px 24px">
+    <h3 style="margin-top:0"><svg class="ico"><use href="#i-route"/></svg>Passo a passo · checkável</h3>
+    <p style="color:var(--text-2);font-size:13px;margin:0 0 18px">Cada parada tem endereço, como chegar, duração e o que fazer lá. Clica no círculo pra dar check. Progresso salvo no navegador.</p>
+    <div id="todaySteps"></div>
+  </div>
+  <div class="card" style="padding:20px 22px">
+    <h3 style="margin-top:0"><svg class="ico"><use href="#i-spark"/></svg>Plan B · se bater cansaço ou chover forte</h3>
+    <div style="display:grid;gap:10px;font-size:14px;color:var(--text-2);line-height:1.6">
+      <div><b style="color:var(--text)">Pular o Peak</b> → trocar por <b>M+ Museum</b> (Herzog &amp; de Meuron, West Kowloon) · tudo coberto, Apple-store-vibe.</div>
+      <div><b style="color:var(--text)">Pular Sheung Wan</b> → táxi direto do hotel pro Four Seasons pelo almoço. Ganha 1h30 de descanso.</div>
+      <div><b style="color:var(--text)">Pular Star Ferry</b> → jantar cedo e descansar pro voo de amanhã. HK volta 27/abr tem meio dia livre, dá pra fazer lá.</div>
+      <div><b style="color:var(--text)">Chuva forte à noite</b> → cancela Melody's e fica no <b>Argo</b> (Four Seasons lobby · World's 50 Best Bars) depois do Lung King Heen. Tudo coberto.</div>
+    </div>
+  </div>
+</div>
+
 <!-- ROTEIRO -->
-<div class="section" data-pane="roteiro">
+<div class="section hide" data-pane="roteiro">
   <div class="card">
     <h3><svg class="ico"><use href="#i-calendar"/></svg>Dia a dia</h3>
     <p style="color:var(--text-2);font-size:13px;margin:0 0 16px;display:flex;gap:8px;flex-wrap:wrap">
@@ -788,6 +871,22 @@ const TRIP = {
       {n:"Lord Stow's Bakery · Coloane",stars:0,cuisine:"Pastel de nata original",addr:"1 Rua do Tassara, Coloane Village",hours:"07:00–22:00",price:"MOP 12/unidade · R$ 10",order:"Portuguese egg tart original · café",map:"Lord+Stow's+Bakery+Coloane+Macau",note:"Andrew Stow inventou aqui a versão moderna · walk-in · obrigatório.",tags:["Walk-in","Doceria","Parada rápida"]},
       {n:"Sky 21",stars:0,cuisine:"Rooftop bar · lounge",addr:"AIA Tower, 21F · 251A Avenida Comercial",hours:"18:00–01:00",price:"MOP 150–250/drink · R$ 120–200",order:"Cocktails · vista Grand Lisboa + skyline Cotai",map:"Sky+21+AIA+Tower+Macau",note:"Bar rooftop clássico · preferir final de tarde.",tags:["Rooftop","Drink vista"]},
     ]},
+  ],
+  today:[
+    {id:"cafe",t:"07:00",ico:"i-coffee",title:"Café da manhã no hotel",sub:"Park Lane Brasserie · Lobby L1",addr:"310 Gloucester Rd, Causeway Bay",map:"Park+Lane+Hong+Kong+310+Gloucester+Road+Causeway+Bay",howto:"Dentro do seu hotel — pega o elevador até o lobby (L1). Brasserie fica à direita saindo do elevador.",duration:"40 min",order:"Congee + fruta fresca + café duplo. Evita pastelaria açucarada (piora jetlag).",tip:"Toma 500ml de água. Hidratação é metade da batalha contra jetlag.",tags:["Hotel","Leve"]},
+    {id:"uber-peak",t:"07:45",ico:"i-car",title:"Uber / DiDi até o Peak Tram Lower Terminus",sub:"~15 min · HK$ 80 (R$ 57)",addr:"33 Garden Road, Central",map:"Peak+Tram+Lower+Terminus+33+Garden+Road+Central+Hong+Kong",howto:"DiDi Greater China (branco/laranja) ou Uber HK funcionam igual BR. Destino: 'Peak Tram Lower Terminus · 山頂纜車總站'. Se falhar, táxi na porta do hotel e mostra essa tela.",duration:"15 min trajeto",tip:"Compra o ticket online ANTES no app Klook ou site oficial thepeak.com.hk (HK$ 148 combo Peak Tram round-trip + Sky Terrace 428). Ingresso no celular = fura fila.",tags:["Chegar cedo","Ticket online"]},
+    {id:"peak",t:"08:00",ico:"i-mountain",title:"Peak Tram + Sky Terrace 428",sub:"Funicular histórico 1888 · mirante 428m",addr:"The Peak Tower, Sky Terrace 428",map:"Sky+Terrace+428+Peak+Tower+Hong+Kong",howto:"1) Entra no Lower Terminus · 2) Escaneia QR do celular no gate de Peak Tram · 3) Subida de 8 min em 27° de inclinação · 4) Desembarca no Peak Tower · 5) Elevador até o Sky Terrace 428 (topo, 428m acima do mar).",duration:"2h (incluindo Lugard)",order:"Fotos skyline a 360°. Depois, saia pela placa 'Lugard Road' e faz o Lugard Loop (3.5 km plano, 1h, melhor trilha mirante de HK — passa por casas art-deco dos anos 30).",tip:"Chegando 8:00 você é o primeiro da fila. Depois das 11h a fila vira 90min. Manhã tem menos neblina que tarde.",tags:["Imperdível","Chegar 08:00"]},
+    {id:"taxi-manmo",t:"10:15",ico:"i-car",title:"Descer Peak Tram → táxi até Sheung Wan",sub:"~8 min · HK$ 60",addr:"124-126 Hollywood Road, Sheung Wan",map:"Man+Mo+Temple+Hollywood+Road+Sheung+Wan+Hong+Kong",howto:"Peak Tram de volta pro Lower Terminus. Na saída tem ponto de táxi. Diga ao motorista: 'Man Mo Temple, Hollywood Road' ou mostra em chinês: 文武廟.",duration:"8 min trajeto",tip:"Se chover forte, passarelas elevadas cobrem Central inteira — peça Uber.",tags:["Táxi","Rápido"]},
+    {id:"manmo",t:"10:30",ico:"i-temple",title:"Man Mo Temple + Hollywood Road antiquários",sub:"Templo taoísta 1847 · espirais de incenso",addr:"124-126 Hollywood Rd, Sheung Wan",map:"Man+Mo+Temple+Hollywood+Road+Sheung+Wan+Hong+Kong",howto:"Templo fica na esquina Hollywood Rd x Ladder Street. Entrada gratuita. Dentro: centenas de espirais de incenso pendurados do teto — a imagem definitiva de HK tradicional. 15 min dentro dá conta.",duration:"45 min (templo + caminhada)",order:"Depois, desce Hollywood Rd para o leste: Cat Street Market (antiquários, jade, propaganda antiga) até PMQ (Police Married Quarters — hub de designers locais). É caminhada de 500m.",tip:"Ombros cobertos por respeito. Fotografia permitida na área externa, evite flash interno.",tags:["Cultura","Gratuito"]},
+    {id:"lung-king",t:"11:45",ico:"i-star",title:"Almoço · Lung King Heen (3★ Michelin)",sub:"Primeira cantonesa 3★ do mundo · Chef Chan Yan Tak",addr:"Four Seasons HK, 4F · 8 Finance St, Central",map:"Lung+King+Heen+Four+Seasons+Hong+Kong",howto:"Caminhada 10 min de PMQ via Central Escalator descendo + passarelas cobertas. OU táxi direto. No Four Seasons: entra pelo lobby principal → elevador até 4F → siga placas 'Lung King Heen'.",duration:"1h30–2h",order:"Baked abalone puff with diced chicken · steamed lobster dumpling · roasted Peking duck (2 courses) · wok-fried prawns · mango pomelo sago (sobremesa clássica).",tip:"Mínimo HKD 700 + 10% por pessoa em 2026. Dress smart casual (calça, camisa social, tênis ok se discreto). SEM bermuda, boné ou regata. Se não tiver reserva confirmada, liga +852 3196 8882 agora pedindo walk-in 11:30 (sábado abre 11:30).",tags:["3★ Michelin","Smart casual","PICK"]},
+    {id:"taikwun",t:"14:00",ico:"i-camera",title:"Tai Kwun (Herzog & de Meuron)",sub:"Prisão colonial 1841 → centro de arte 2018",addr:"10 Hollywood Rd, Central",map:"Tai+Kwun+Centre+Heritage+Arts+Central+Hong+Kong",howto:"Do Four Seasons: sai pelo IFC Mall Podium 4 → passarela elevada coberta → segue placas 'Central MTR / Pedder St' → 8 min a pé, tudo coberto. Entrada principal por Arbuthnot Road.",duration:"1h30",order:"Ver: JC Contemporary (galeria de arte principal, prédio branco novo H&dM) · F Hall Stairhall · Prison Yard (pátio com as antigas blocos). Grátis. Se tiver exposição temporária com ticket, compra em tai-kwun.com antes.",tip:"Se chover, Tai Kwun tem passarelas cobertas entre todos os edifícios. Bom refúgio.",tags:["Arquitetura","Gratuito"]},
+    {id:"shop",t:"15:45",ico:"i-bag-shop",title:"Cinto Brunello Cucinelli + meias Uniqlo",sub:"Últimas compras pendentes do look chinês",addr:"Opção A: Brunello IFC Mall · Opção B: Brunello Lee Gardens One Causeway Bay",map:"Brunello+Cucinelli+IFC+Mall+Hong+Kong",howto:"OPÇÃO A (rápida): Tai Kwun → escalator Central-Mid-Levels DESCENDO → IFC Mall Podium 1 → loja Brunello Cucinelli. 10 min a pé. OPÇÃO B (melhor curadoria): táxi 15 min direto até Lee Gardens One · Shop 112-115, 1/F, 33 Hysan Avenue, Causeway Bay — 5 min do seu hotel. Mais estoque, flagship nova com sala de charutos.",duration:"45 min",order:"Cinto Brunello: couro fosco marrom-escuro ou preto, fivela pequena sem logo. HK$ 3.500-4.500 (R$ 2.485-3.195). Meias: 5 pares Uniqlo Dress Socks pretas (Uniqlo Lee Theatre Plaza, Causeway Bay, 3 min do Park Lane) · HK$ 245 (R$ 174).",tip:"Se for pra Lee Gardens One, já resolve Uniqlo de quebra e cai direto no hotel pra descansar.",tags:["Compras","Quiet luxury"]},
+    {id:"rest",t:"16:45",ico:"i-bed",title:"Voltar ao Park Lane · banho · troca de roupa",sub:"1h de descanso · investimento, não pausa",addr:"The Park Lane Hong Kong · Causeway Bay",map:"Park+Lane+Hong+Kong+310+Gloucester+Road+Causeway+Bay",howto:"Se você seguiu a Opção B (Lee Gardens), é 5 min a pé. Se Opção A (IFC), táxi 15 min.",duration:"1h",order:"Banho. Troca pro look de jantar (calça + camisa social + blazer novo do Ring Jacket — a primeira vez dele em ação). Água + 1 café.",tip:"Power nap de 30 min se o jetlag apertar. Mais que isso entra em sono profundo e quebra a noite.",tags:["Recarga","Jetlag"]},
+    {id:"ferry",t:"17:45",ico:"i-ship",title:"Táxi Central Pier 7 → Star Ferry → TST",sub:"Travessia lendária · HK$ 5 · 10 min",addr:"Central Pier 7 · Star Ferry",map:"Central+Pier+7+Star+Ferry+Hong+Kong",howto:"Táxi 12 min do Park Lane até Central Pier 7. Compra ficha HK$ 5 na catraca (só moeda/octopus). Entra na balsa (tem andar superior — vai pro upper deck, vista melhor). Travessia 10 min até Tsim Sha Tsui (TST) Star Ferry Pier.",duration:"1h total (ferry + passeio)",order:"Ao desembarcar em TST: siga placas 'Avenue of Stars' à direita (5 min caminhada). Pôr-do-sol ~18:45 em abril — timing perfeito com a virada da luz. Skyline do Central e IFC Tower 2 iluminando do lado de cá do porto.",tip:"A balsa opera até 23:30, então volta fácil. Se chover forte, pula essa parada e vai direto pro jantar — não vale a pena molhar o terno novo.",tags:["Ritual HK","Pôr-do-sol"]},
+    {id:"symphony",t:"20:00",ico:"i-sun",title:"Symphony of Lights (opcional, 13 min)",sub:"40 prédios coreografados com música",addr:"TST Promenade · Avenue of Stars",map:"Avenue+of+Stars+Tsim+Sha+Tsui+Hong+Kong",howto:"Já estando em TST, só ficar no mesmo lugar. Todo dia às 20:00 em ponto, dura 13 min. Música por rádio (FM 103.4) ou pelo PA local. Se não estiver lá na hora, pula — não vale atrasar o jantar.",duration:"13 min",tip:"Já reservado para 20:00? Pula esse item e pega táxi de volta às 19:30 pro jantar.",tags:["Grátis","20:00 exato"]},
+    {id:"dinner",t:"20:30",ico:"i-star",title:"Jantar · 8½ Otto e Mezzo BOMBANA (3★ italiano)",sub:"Umberto Bombana · única 3★ italiana fora da Itália",addr:"Shop 202, Landmark Alexandra · 18 Chater Rd, Central",map:"8%C2%BD+Otto+e+Mezzo+Bombana+Landmark+Alexandra+Central+Hong+Kong",howto:"Se você está em TST: Star Ferry de volta (10 min) OU MTR Tsuen Wan Line TST → Central (4 min, uma parada). No Landmark Alexandra: entre pela Chater Road → pegue elevador direto pro 2F.",duration:"2h",order:"Menu degustação 6 courses (HK$ 2.880) com pairing OU à la carte: hand-cut tagliolini with white truffle (quando em temporada) · black cod miso · Wagyu tenderloin · tiramisu. Liga +852 2537 8859 agora se ainda não confirmou reserva. Alternativa walk-in: Mott 32 (4-4A Des Voeux Rd, Peking duck estrela) ou Man Wah no Mandarin Oriental (25F, vista harbour).",tip:"Dress smart casual obrigatório — teu Ring Jacket navy brilha aqui. Sem boné, sem tênis esportivo.",tags:["3★ Michelin","Reserva obrigatória"]},
+    {id:"melody",t:"22:45",ico:"i-moon",title:"Listening bar · Melody's Music Room (opcional)",sub:"Sucessor oficial do Potato Head · Abbey Road gear",addr:"100 Third Street, Sai Ying Pun",map:"Melody+House+of+Food+and+Music+Third+Street+Sai+Ying+Pun",howto:"Táxi 10 min de Central até Sai Ying Pun (dizer o endereço em inglês resolve). Entrada discreta — toca a campainha se parecer fechado.",duration:"1h–1h30",order:"Japanese Highball (Hibiki 17) · Old Fashioned clássico · bites indonesian-inspired. Pede pro Johnny Hiller (music director) passar um disco se ele estiver presente.",tip:"Monitores Roger Quested/ATC vindos do Abbey Road Studio 3 (onde gravaram Beatles, Pink Floyd, Amy Winehouse). 8.000+ vinis. Se estiver morto de cansaço, PULA e vai direto dormir — o Argo (Four Seasons lobby) é alternativa mais próxima se o jantar foi no Landmark.",tags:["Listening bar","Fecha 02:00"]},
+    {id:"sleep",t:"00:15",ico:"i-bed",title:"Volta ao Park Lane · dormir",sub:"Amanhã cedo: check-out + voo HK→Pequim",addr:"The Park Lane Hong Kong",map:"Park+Lane+Hong+Kong+310+Gloucester+Road+Causeway+Bay",howto:"Táxi 15 min de Sai Ying Pun ou 10 min do Landmark.",duration:"até 07:00",tip:"Deixa mala 80% pronta antes de deitar. Voo MU 5016 HKG→Daxing 13:35 amanhã — vai pra dormir com paz.",tags:["Fechar o dia"]},
   ],
   nightlife:[
     // ============ HONG KONG ============
@@ -1209,6 +1308,62 @@ $('#nightlife').innerHTML = TRIP.nightlife.map(group=>`
       ${group.list.map(cityCard).join('')}
     </div>
   </div>`).join('');
+
+// ============ HOJE · timeline checklist ============
+const TODAY_KEY = 'carnet-today-2026-04-18';
+function loadTodayState(){
+  try{ return JSON.parse(localStorage.getItem(TODAY_KEY)||'{}'); }catch(e){ return {}; }
+}
+function saveTodayState(s){
+  try{ localStorage.setItem(TODAY_KEY, JSON.stringify(s)); }catch(e){}
+}
+function renderTodaySteps(){
+  const state = loadTodayState();
+  const container = $('#todaySteps');
+  if(!container) return;
+  container.innerHTML = '<ul class="tline">' + TRIP.today.map(s=>{
+    const done = !!state[s.id];
+    const tagHtml = (s.tags||[]).map(t=>{
+      const cls = /3★|PICK|Imperdível/i.test(t) ? 'gold' : /Ticket|Reserva|Chegar|20:00/i.test(t) ? 'warn' : '';
+      return `<span class="tg ${cls}">${t}</span>`;
+    }).join('');
+    return `<li class="tstep ${done?'done':''}" data-id="${s.id}">
+      <button class="tdot" aria-label="Marcar ${s.title}" data-step="${s.id}">${ico('i-check')}</button>
+      <div class="tcontent">
+        <div class="ttime">${ico(s.ico||'i-clock')}${s.t} · ${s.duration||''}</div>
+        <h4 class="ttitle">${s.title}</h4>
+        ${s.sub?`<div class="tsub">${s.sub}</div>`:''}
+        ${s.addr?`<div class="trow">${ico('i-map')}<span>${s.addr}</span></div>`:''}
+        ${s.howto?`<div class="trow">${ico('i-route')}<span><b>Como ir:</b> ${s.howto}</span></div>`:''}
+        ${s.order?`<div class="trow">${ico('i-fork')}<span><b>O que fazer / pedir:</b> ${s.order}</span></div>`:''}
+        ${s.tip?`<div class="tdetail"><b>💡 Dica:</b> ${s.tip}</div>`:''}
+        ${tagHtml?`<div class="ttags">${tagHtml}</div>`:''}
+        ${s.map?`<div class="tbtns"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=${s.map}" target="_blank">${ico('i-map')}Abrir no Maps</a></div>`:''}
+      </div>
+    </li>`;
+  }).join('') + '</ul>';
+  updateTodayProgress();
+}
+function updateTodayProgress(){
+  const state = loadTodayState();
+  const total = TRIP.today.length;
+  const done = TRIP.today.filter(s=>state[s.id]).length;
+  const pct = total? Math.round(done/total*100):0;
+  const bar = $('#todayBar'); const count = $('#todayCount');
+  if(bar) bar.style.width = pct+'%';
+  if(count) count.textContent = done+'/'+total;
+}
+$('#todaySteps').addEventListener('click', e=>{
+  const btn = e.target.closest('.tdot'); if(!btn) return;
+  const id = btn.dataset.step;
+  const state = loadTodayState();
+  state[id] = !state[id];
+  saveTodayState(state);
+  const li = btn.closest('.tstep');
+  li.classList.toggle('done', !!state[id]);
+  updateTodayProgress();
+});
+renderTodaySteps();
 
 // Dress
 $('#dress').innerHTML = TRIP.dress.map(d=>`
