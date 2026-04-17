@@ -376,6 +376,7 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
   <button class="tab" data-tab="hoteis"><svg class="ico"><use href="#i-bed"/></svg>Hotéis</button>
   <button class="tab" data-tab="reservas"><svg class="ico"><use href="#i-fork"/></svg>Reservas</button>
   <button class="tab" data-tab="comer"><svg class="ico"><use href="#i-fork"/></svg>Comer</button>
+  <button class="tab" data-tab="bares"><svg class="ico"><use href="#i-moon"/></svg>Bares</button>
   <button class="tab" data-tab="biblia"><svg class="ico"><use href="#i-book"/></svg>Bíblia</button>
   <button class="tab" data-tab="dress"><svg class="ico"><use href="#i-shirt"/></svg>Dress Code</button>
   <button class="tab" data-tab="mala"><svg class="ico"><use href="#i-luggage"/></svg>Mala</button>
@@ -431,6 +432,15 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
     <h3><svg class="ico"><use href="#i-fork"/></svg>Onde comer · curadoria completa</h3>
     <p style="color:var(--text-2);font-size:14px;margin:0 0 16px">Todas as recomendações da viagem, por cidade. Michelin + clássicos locais + bares. Cada card abre Google Maps direto.</p>
     <div id="restaurants"></div>
+  </div>
+</div>
+
+<!-- BARES -->
+<div class="section hide" data-pane="bares">
+  <div class="card">
+    <h3><svg class="ico"><use href="#i-moon"/></svg>Bares & Baladas · curadoria pelo seu gosto</h3>
+    <p style="color:var(--text-2);font-size:14px;margin:0 0 16px">Listening bars, speakeasies, whisky bars, rooftops e clubs de designer crowd. Sem mass market. Cada card abre Google Maps.</p>
+    <div id="nightlife"></div>
   </div>
 </div>
 
@@ -779,6 +789,63 @@ const TRIP = {
       {n:"Sky 21",stars:0,cuisine:"Rooftop bar · lounge",addr:"AIA Tower, 21F · 251A Avenida Comercial",hours:"18:00–01:00",price:"MOP 150–250/drink · R$ 120–200",order:"Cocktails · vista Grand Lisboa + skyline Cotai",map:"Sky+21+AIA+Tower+Macau",note:"Bar rooftop clássico · preferir final de tarde.",tags:["Rooftop","Drink vista"]},
     ]},
   ],
+  nightlife:[
+    // ============ HONG KONG ============
+    {city:"Hong Kong",sub:"17–19 abr + 27–28 abr · cena Central / LKF / Soho",list:[
+      {n:"COA",type:"Cocktail bar · Mezcaleria",pick:true,addr:"Shop LG/F, 29 Wellington St, Central",hours:"18:00–01:30 · fechado dom",price:"HK$ 120–200/drink · R$ 85–140",order:"Mezcal flight · La Cucaracha · Guacamole + tacos bar",map:"COA+Wellington+Street+Central+Hong+Kong",tel:"+852 2813 5787",note:"#1 Asia's 50 Best Bars (2024) · reserva forte 3–5 dias · mezcal de pequenos produtores.",tags:["Asia's 50 Best #1","Reserva 3–5 dias"]},
+      {n:"Argo",type:"Cocktail bar · Four Seasons lobby",pick:true,addr:"Four Seasons HK, lobby · 8 Finance St, Central",hours:"15:00–02:00",price:"HK$ 180–300/drink · R$ 130–215",order:"Osmanthus Martini · Hong Kong Highball · classics menu",map:"Argo+Four+Seasons+Hong+Kong",tel:"+852 3196 8830",note:"World's 50 Best Bars · ingredientes raros (mel de abelhas HK).",tags:["World's 50 Best","Smart casual"]},
+      {n:"The Old Man",type:"Cocktail bar",addr:"LG/F, Aberdeen St (Soho Stairs)",hours:"17:00–02:00",price:"HK$ 150–200/drink · R$ 105–140",order:"Old Man and the Sea · A Moveable Feast · menu Hemingway",map:"The+Old+Man+Aberdeen+Street+Soho+Hong+Kong",tel:"+852 2703 1899",note:"Asia's 50 Best · tema Hemingway · reserva 3 dias.",tags:["Asia's 50 Best","Reserva 3 dias"]},
+      {n:"Penicillin",type:"Sustainable cocktails",addr:"G/F, 14 On Lan St, Central",hours:"17:00–00:30",price:"HK$ 140–200/drink · R$ 100–140",order:"Sustainable classics · rum-based signature",map:"Penicillin+On+Lan+Street+Central+Hong+Kong",note:"Asia's 50 Best · waste-free · ingredientes fermentados in-house.",tags:["Asia's 50 Best","Sustentável"]},
+      {n:"Quinary",type:"Molecular cocktails · Antonio Lai",addr:"56–58 Hollywood Rd, Central",hours:"17:00–02:00",price:"HK$ 150–250/drink · R$ 105–180",order:"Earl Grey Caviar Martini · Smoked Negroni · Nitrogen Whisky Sour",map:"Quinary+Hollywood+Road+Central+Hong+Kong",tel:"+852 2851 3223",note:"Top 10 Asia's 50 Best · Antonio Lai · cocktail-lab sério.",tags:["Asia's 50 Best","Molecular"]},
+      {n:"Foxglove",type:"Speakeasy + jazz ao vivo",pick:true,addr:"2/F, 6 Duddell St, Central",hours:"18:00–02:00",price:"HK$ 150–250/drink · R$ 105–180",order:"Signature gin cocktails · jazz live 21:00",map:"Foxglove+Duddell+Street+Central+Hong+Kong",tel:"+852 2116 8949",note:"Entrada secreta atrás de loja de guarda-chuvas · jazz terças/sábados · dress smart.",tags:["Speakeasy","Jazz","Smart dress"]},
+      {n:"Mizunara: The Library",type:"Whisky bar · 1.600+ japoneses",pick:true,addr:"3/F, LL Tower, 2–4 Shelley St, Central",hours:"18:00–01:00 · reserva obrigatória",price:"HK$ 200–500/drink · R$ 140–355",order:"Yamazaki 18 · Hibiki 21 · Hakushu flight · Karuizawa raro",map:"Mizunara+The+Library+Shelley+Street+Central+Hong+Kong",tel:"+852 2380 5698",note:"Maior acervo de whisky japonês de HK · reserva 1 sem · experiência sommelier.",tags:["Whisky japonês","Reserva 1 sem","Experiência"]},
+      {n:"OZONE · Ritz-Carlton ICC",type:"Rooftop bar · 118F, 480m",pick:true,addr:"The Ritz-Carlton, 118F · 1 Austin Rd West, Kowloon",hours:"17:00–01:00",price:"HK$ 250–400/drink · R$ 175–285",order:"Dragon's Back · Ozone-tini · tapas asiáticas",map:"OZONE+Ritz+Carlton+ICC+Hong+Kong",tel:"+852 2263 2270",note:"Bar mais alto do mundo · peça mesa janela · vista Kowloon+Harbour.",tags:["Rooftop","Reserva janela","Bar mais alto do mundo"]},
+      {n:"Sevva",type:"Rooftop garden · Prince's Building",addr:"25/F, Prince's Building · 10 Chater Rd, Central",hours:"12:00–01:00 · fechado dom",price:"HK$ 150–250/drink · R$ 105–180",order:"Cocktails Bonnie Gokson · vista Bank of China I.M. Pei",map:"Sevva+Prince's+Building+Central+Hong+Kong",tel:"+852 2537 1388",note:"Rooftop mais elegante de Central · vista 360 edifícios icônicos.",tags:["Rooftop","Elegante"]},
+      {n:"Peel Fresco Music Lounge",type:"Jazz bar · live music",addr:"49 Peel St, Soho",hours:"17:00–02:00 · live jazz 21:30",price:"HK$ 120–180/drink · R$ 85–130",order:"Classic cocktails · whisky · cerveja",map:"Peel+Fresco+Soho+Hong+Kong",tel:"+852 2540 2046",note:"Jazz bar intimista · músicos locais e tournês · chegue 21:00.",tags:["Jazz","Live music","Casual"]},
+      {n:"Iron Fairies",type:"Atmospheric bar + live music",addr:"LG/F, 1–13 Hollywood Rd, LKF",hours:"18:00–02:00",price:"HK$ 120–180/drink · R$ 85–130",order:"Signature cocktails · live band daily",map:"Iron+Fairies+Hollywood+Road+LKF+Hong+Kong",note:"Ambiente forja/fadas + música ao vivo · virou ícone LKF.",tags:["Atmosférico","Live music"]},
+      {n:"Zentral",type:"Nightclub · designer crowd",pick:true,addr:"California Tower, 4–5/F · 32 D'Aguilar St, LKF",hours:"22:30–05:00 · qui/sex/sáb",price:"HK$ 300+ entry · garrafa HK$ 3.500+",order:"House/tech-house · DJ sets internacionais",map:"Zentral+California+Tower+LKF+Hong+Kong",note:"Top nightclub HK · crowd sofisticado · dress designer/smart · reserva mesa se for em grupo.",tags:["Nightclub","Designer crowd","Reserva mesa"]},
+      {n:"Dragon-i",type:"Nightclub icônico",addr:"UG/F, The Centrium · 60 Wyndham St, LKF",hours:"23:00–05:00",price:"HK$ 300 entry",order:"Hip-hop/house · bottle service",map:"Dragon-i+Wyndham+Street+LKF+Hong+Kong",note:"20+ anos de LKF · mistura celebrities + business · dress code rigoroso.",tags:["Nightclub","Lendário","Dress code"]},
+    ]},
+    // ============ PEQUIM ============
+    {city:"Pequim",sub:"19–22 abr · cena Sanlitun / Gulou / CBD",list:[
+      {n:"Revolution (SG Club Beijing)",type:"Speakeasy · Shingo Gokan",pick:true,addr:"Taikoo Li Sanlitun N · Chaoyang",hours:"19:00–02:00",price:"¥ 100–160/drink · R$ 80–125",order:"SG signature · Japanese-style highballs · Tokyo Sour",map:"Revolution+SG+Club+Sanlitun+Beijing",tel:"+86 10 8588 2727",note:"Filial Pequim do lendário SG Club de Tóquio · Shingo Gokan · reserva essencial.",tags:["Speakeasy","Asia's 50 Best","Reserva 5 dias"]},
+      {n:"Janes + Hooch",type:"Speakeasy prohibition + jazz",pick:true,addr:"Sanlitun Courtyard 4, B1F · Chaoyang",hours:"19:00–02:00",price:"¥ 100–150/drink · R$ 80–120",order:"Classic cocktails · jazz live terças/sáb",map:"Janes+and+Hooch+Sanlitun+Beijing",tel:"+86 10 6503 2757",note:"Pioneiro speakeasy em Pequim · ambiente anos 20 · dress smart.",tags:["Speakeasy","Jazz","Smart dress"]},
+      {n:"Apothecary",type:"Cocktail bar pioneiro",addr:"Nali Patio, 3/F · 81 Sanlitun N St, Chaoyang",hours:"19:00–02:00",price:"¥ 100–150/drink · R$ 80–120",order:"Farm-to-bar seasonal · Chinese herb cocktails",map:"Apothecary+Nali+Patio+Sanlitun+Beijing",tel:"+86 10 5208 6040",note:"Um dos primeiros cocktail bars sérios de Pequim · uso de ervas chinesas.",tags:["Cocktail bar","Chinese twist"]},
+      {n:"Hanmei (汉美)",type:"Whisky bar hutong",addr:"Ju'er Hutong · Dongcheng",hours:"19:00–01:00",price:"¥ 150–400/drink · R$ 120–315",order:"Japanese whisky collection · flights",map:"Hanmei+Whisky+Bar+Ju'er+Hutong+Beijing",note:"Hutong tradicional convertido em whisky bar · intimista.",tags:["Whisky","Hutong","Intimista"]},
+      {n:"Mai Bar",type:"Speakeasy hutong",addr:"40 Beiluogu Xiang · Dongcheng",hours:"19:00–02:00",price:"¥ 80–130/drink · R$ 65–105",order:"Signature cocktails autorais · menu conciso",map:"Mai+Bar+Beiluogu+Xiang+Beijing",note:"Speakeasy pequeno em hutong · atmosfera Pequim autêntica.",tags:["Speakeasy","Hutong","Autoral"]},
+      {n:"Atmosphere",type:"Rooftop · 80F, vista Beijing",pick:true,addr:"China World Summit Wing, 80F · 1 Jianguomenwai Ave",hours:"17:00–01:00",price:"¥ 150–300/drink · R$ 120–240",order:"Beijing Mule · classic cocktails · champagne list",map:"Atmosphere+China+World+Summit+Wing+Beijing",tel:"+86 10 6505 2299",note:"Vista 360 de Pequim · mais alto lounge da cidade.",tags:["Rooftop","Vista 360","Smart casual"]},
+      {n:"Yue · Four Seasons",type:"Hotel cocktail bar",addr:"Four Seasons Beijing · 48 Liangmaqiao Rd",hours:"17:00–01:00",price:"¥ 120–250/drink · R$ 95–200",order:"Classic martini · whisky flight · Chinese-inspired cocktails",map:"Yue+Four+Seasons+Beijing",tel:"+86 10 5695 8888",note:"No seu hotel · backup fácil quando cansado do roadshow.",tags:["Hotel bar","No hotel"]},
+      {n:"Migas Mercado",type:"Rooftop Mediterranean",addr:"Sanlitun Soho Tower 3, 6F · Chaoyang",hours:"17:00–02:00",price:"¥ 100–180/drink · R$ 80–145",order:"Sangria · tapas · Spanish wine list",map:"Migas+Mercado+Sanlitun+Soho+Beijing",note:"Rooftop espanhol · vibe descontraída.",tags:["Rooftop","Descontraído"]},
+      {n:"Lantern Club",type:"Underground techno",addr:"Building 2, Dongcheng · perto Workers' Stadium",hours:"23:00–06:00 · sex/sáb",price:"¥ 50–100 entry",order:"Techno underground · DJ sets europeus",map:"Lantern+Club+Beijing",note:"Techno sério · underground · crowd internacional.",tags:["Techno","Underground","Club"]},
+      {n:"One Third",type:"Upscale nightclub",addr:"Sanlitun Workers' Stadium N Gate",hours:"22:30–05:00",price:"¥ 300 entry · garrafa ¥ 2.500+",order:"House/EDM · bottle service",map:"One+Third+Workers+Stadium+Beijing",note:"Top club Sanlitun · crowd local moneyed + expat.",tags:["Nightclub","Upscale"]},
+    ]},
+    // ============ SHANGHAI ============
+    {city:"Xangai",sub:"22–25 abr · capital mundial do listening bar · Bund / French Concession / Jing'an",list:[
+      {n:"Speak Low",type:"Speakeasy · Shingo Gokan",pick:true,addr:"579 Fuxing Middle Rd · Huangpu",hours:"19:00–02:00",price:"¥ 120–180/drink · R$ 95–145",order:"Japanese highball · Old Fashioned SG · signature drinks",map:"Speak+Low+Fuxing+Road+Shanghai",tel:"+86 21 6416 0133",note:"Top 10 Asia's 50 Best · entrada atrás de loja de utensílios · 4 andares.",tags:["Asia's 50 Best","Speakeasy","Shingo Gokan"]},
+      {n:"Sober Company",type:"4 bares conceituais em 1 prédio",pick:true,addr:"539 Jiashan Rd · Xuhui",hours:"Sober Society 18:00–02:00 · The Odd Couple 19:00–02:00",price:"¥ 100–180/drink · R$ 80–145",order:"Sober Society (main bar) · The Odd Couple (hidden upstairs) · Sober Kitchen",map:"Sober+Company+Jiashan+Road+Shanghai",tel:"+86 21 6474 7179",note:"Conceito multi-bar · Shingo Gokan · cada andar uma vibe.",tags:["Asia's 50 Best","Multi-conceito","Shingo Gokan"]},
+      {n:"Union Trading Company",type:"Cocktail bar · classic American",addr:"64 Fenyang Rd, 1F · French Concession",hours:"19:00–02:00",price:"¥ 100–150/drink · R$ 80–120",order:"Old Fashioned · rum-based · spiced classics",map:"Union+Trading+Company+Fenyang+Road+Shanghai",tel:"+86 21 6418 4210",note:"Asia's 50 Best · pioneiro spirit-forward em Xangai.",tags:["Asia's 50 Best","Spirit-forward"]},
+      {n:"Senator Saloon",type:"Speakeasy prohibition",addr:"98 Wuyuan Rd · French Concession",hours:"19:00–02:00",price:"¥ 100–150/drink · R$ 80–120",order:"Old Fashioned · whisky sour · rye selection",map:"Senator+Saloon+Wuyuan+Road+Shanghai",tel:"+86 21 5423 1330",note:"American prohibition · whisky-heavy · ambiente madeira escura.",tags:["Speakeasy","Whisky"]},
+      {n:"Potion",type:"Listening bar · vinil japonês",pick:true,addr:"Building 9, 696 Weihai Rd · Jing'an",hours:"20:00–02:00",price:"¥ 120–180/drink · R$ 95–145",order:"Whisky · sake · audiophile-friendly drinks",map:"Potion+Listening+Bar+Weihai+Road+Shanghai",note:"Listening bar sério · Japanese horn audio system · acervo de vinil jazz/funk · conversa contida.",tags:["Listening bar","Vinil","Audiophile"]},
+      {n:"Sense 5 (感官·五)",type:"Listening bar · audiophile",pick:true,addr:"Jing'an (perto de Kangding Rd)",hours:"20:00–02:00",price:"¥ 100–180/drink · R$ 80–145",order:"Whisky Highball · sake flight · cocktails clássicos",map:"Sense+5+Listening+Bar+Shanghai",note:"Culto dos audiófilos · vinil/digital com sistema McIntosh · música no primeiro plano.",tags:["Listening bar","Vinil","Sem reserva"]},
+      {n:"Laboratorio",type:"Audiophile bar",addr:"Julu Rd · French Concession",hours:"19:30–02:00",price:"¥ 100–150/drink · R$ 80–120",order:"Cocktails minimalistas · seleção de cervejas cult",map:"Laboratorio+Julu+Road+Shanghai",note:"Listening bar com foco em som e ambiente · crowd designer/music people.",tags:["Listening bar","Design crowd"]},
+      {n:"FLAIR Rooftop · Ritz-Carlton Pudong",type:"Rooftop · 58F, mais alto da China",pick:true,addr:"Ritz-Carlton Pudong, 58F · 8 Century Ave",hours:"17:00–01:00",price:"¥ 150–300/drink · R$ 120–240",order:"Lychee Martini · Shanghai Sling · robata light bites",map:"FLAIR+Rooftop+Ritz+Carlton+Pudong+Shanghai",tel:"+86 21 2020 1888",note:"Terrace mais alto da China · vista Bund iluminado · peça mesa.",tags:["Rooftop","Vista Bund","Reserva mesa"]},
+      {n:"Cloud 9 · Grand Hyatt",type:"Rooftop · 87F, Jin Mao Tower",addr:"Grand Hyatt Shanghai, 87F · 88 Century Ave",hours:"17:00–01:00",price:"¥ 150–280/drink · R$ 120–225",order:"Classic martinis · jazz live 21:00",map:"Cloud+9+Grand+Hyatt+Shanghai",tel:"+86 21 5049 1234",note:"No SEU hotel · jazz live à noite · deck iluminado.",tags:["No hotel","Rooftop","Jazz"]},
+      {n:"Bar Rouge",type:"Rooftop lounge · Bund",addr:"Bund 18, 7F · 18 Zhongshan E1 Rd",hours:"18:00–03:00",price:"¥ 100–250/drink · R$ 80–200",order:"Champagne · signature cocktails · DJ sets",map:"Bar+Rouge+Bund+18+Shanghai",note:"Ícone da noite Bund · vibe mais festa que Flair · crowd internacional.",tags:["Rooftop","Festa","Bund"]},
+      {n:"The Nest",type:"Bar Scandinavian · Bund 6",addr:"Bund 6, 6F · 20 Guangdong Rd",hours:"18:00–02:00",price:"¥ 120–200/drink · R$ 95–160",order:"Aquavit cocktails · gin tônicas · seafood bites",map:"The+Nest+Bund+6+Shanghai",note:"Conceito nórdico · vista Bund · reserva 3 dias.",tags:["Reserva 3 dias","Vista Bund"]},
+      {n:"TAXX Shanghai",type:"Nightclub top · designer crowd",pick:true,addr:"298 Weihai Rd · Jing'an",hours:"22:30–05:00 · qui/sex/sáb",price:"¥ 500 table min · garrafa ¥ 3.000+",order:"EDM/house · DJ sets internacionais · bottle service",map:"TAXX+Shanghai+Weihai+Road",note:"Top nightclub China · dress designer streetwear · reserva mesa essencial sex/sáb.",tags:["Nightclub","Designer crowd","Reserva mesa"]},
+      {n:"Arkham",type:"Techno club underground",addr:"1 Wulumuqi N Rd · French Concession",hours:"22:00–06:00 · sex/sáb",price:"¥ 100–200 entry",order:"Techno puro · DJ sets de Berlin/Tokyo",map:"Arkham+Shanghai+Wulumuqi+Road",note:"Lendário techno club · crowd internacional · underground sério.",tags:["Techno","Underground"]},
+    ]},
+    // ============ MACAU ============
+    {city:"Macau",sub:"25–27 abr · cena hotel/casino · Cotai + Península",list:[
+      {n:"The Macallan Whisky Bar & Lounge",type:"Whisky bar · Macallan flagship",pick:true,addr:"Galaxy Macau · Cotai",hours:"18:00–01:00",price:"MOP 150–600/drink · R$ 120–475",order:"Macallan 18/25/Rare Cask · Japanese whisky flight",map:"The+Macallan+Whisky+Bar+Galaxy+Macau",tel:"+853 8883 2221",note:"Maior coleção Macallan da Ásia · 100+ whisky japoneses · dress smart casual.",tags:["Whisky","Macallan","Smart casual"]},
+      {n:"Morpheus Bar",type:"Cocktail lobby · design Zaha Hadid",pick:true,addr:"Morpheus, lobby · City of Dreams, Estrada do Istmo",hours:"12:00–01:00",price:"MOP 120–200/drink · R$ 95–160",order:"Signature cocktails · champagne list",map:"Morpheus+Bar+City+of+Dreams+Macau",tel:"+853 8868 3338",note:"No seu hotel · o esqueleto Zaha como cenário · drink rápido antes de jantar.",tags:["No hotel","Design icônico","Smart casual"]},
+      {n:"Ritz-Carlton Bar & Lounge",type:"Hotel lounge · 51F Galaxy",addr:"Ritz-Carlton Macau, 51F · Galaxy Macau, Cotai",hours:"15:00–01:00",price:"MOP 120–250/drink · R$ 95–200",order:"Classic cocktails · afternoon tea · piano live",map:"Ritz+Carlton+Macau+Bar+Lounge+Galaxy",tel:"+853 8886 6868",note:"Vista Cotai · piano ao vivo · ambiente Ritz clássico.",tags:["Hotel lounge","Live music","Smart casual"]},
+      {n:"Mandarin's Bar",type:"Hotel lounge · piano live",addr:"Mandarin Oriental Macau · 945 Avenida Dr. Sun Yat-Sen",hours:"17:00–01:00",price:"MOP 120–220/drink · R$ 95–175",order:"MO signature cocktails · champagne",map:"Mandarin's+Bar+Mandarin+Oriental+Macau",tel:"+853 8805 8888",note:"Ambiente MO clássico · piano live noite.",tags:["Hotel lounge","Piano live"]},
+      {n:"Sky 21",type:"Rooftop · AIA Tower 21F",addr:"AIA Tower, 21F · 251A Avenida Comercial, Macau",hours:"18:00–02:00",price:"MOP 150–250/drink · R$ 120–200",order:"Cocktails clássicos · vista Grand Lisboa + Cotai",map:"Sky+21+AIA+Tower+Macau",note:"Rooftop mais alto da Península · vista skyline casino.",tags:["Rooftop","Vista skyline"]},
+      {n:"Cubic Nightclub",type:"Nightclub · EDM",pick:true,addr:"City of Dreams · Estrada do Istmo",hours:"22:00–05:00 · qui/sex/sáb",price:"MOP 300 entry · garrafa MOP 2.500+",order:"EDM · DJ sets · bottle service",map:"Cubic+Nightclub+City+of+Dreams+Macau",note:"No seu hotel · top club de Macau · crowd internacional casino/design.",tags:["Nightclub","No hotel"]},
+      {n:"Pacha Macau",type:"Nightclub · franquia global",addr:"Studio City · Estrada do Istmo",hours:"22:00–05:00 · sex/sáb",price:"MOP 300 entry · garrafa MOP 2.000+",order:"House/EDM · DJs internacionais",map:"Pacha+Macau+Studio+City",note:"Franquia Ibiza · decor neon · EDM mainstream.",tags:["Nightclub","Franquia global"]},
+    ]},
+  ],
 };
 
 // ============ RENDER ============
@@ -1094,30 +1161,47 @@ $('#reservations').innerHTML = TRIP.reservations.map(r=>`
     <span class="badge ${r.s==='ok'?'ok':'pending'}">${ico(r.s==='ok'?'i-check':'i-clock')}${r.s==='ok'?'Confirmado':'Aguardando'}</span>
   </div>`).join('');
 
+// Shared render helper for city-grouped cards (restaurants + nightlife)
+function cityCard(r){
+  return `<div class="card" style="padding:18px 20px;position:relative">
+    ${r.pick?'<div style="position:absolute;top:14px;right:14px;color:var(--gold);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:4px">'+ico('i-star')+'PICK</div>':''}
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;line-height:1.2;padding-right:${r.pick?'60px':'0'}">${stars(r.stars||0)}${r.n}</div>
+    <div style="color:var(--text-2);font-size:13px;margin-top:3px">${r.cuisine||r.type||''}</div>
+    <div style="color:var(--text-2);font-size:13px;margin-top:8px;display:flex;align-items:flex-start;gap:6px">${ico('i-map')}<span>${r.addr}</span></div>
+    <div style="color:var(--text-3);font-size:12.5px;margin-top:4px;display:flex;align-items:center;gap:6px">${ico('i-clock')}${r.hours}</div>
+    <div style="color:var(--text-3);font-size:12.5px;margin-top:3px">💰 ${r.price}</div>
+    ${r.order?`<div style="color:var(--text-2);font-size:13px;margin-top:8px;line-height:1.5"><b style="color:var(--text)">O que pedir:</b> ${r.order}</div>`:''}
+    ${r.note?`<div style="color:var(--text-3);font-size:12.5px;margin-top:6px;line-height:1.5">${r.note}</div>`:''}
+    ${r.tags&&r.tags.length?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">${r.tags.map(t=>`<span class="badge" style="font-size:10.5px;padding:3px 8px;background:var(--card-2);color:var(--text-2);border:1px solid var(--line)">${t}</span>`).join('')}</div>`:''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=${r.map}" target="_blank">${ico('i-map')}Google Maps</a>
+      ${r.tel?`<a class="btn" href="tel:${r.tel.replace(/\s/g,'')}">${ico('i-phone')}${r.tel}</a>`:''}
+    </div>
+  </div>`;
+}
+function cityBanner(group,gradient){
+  return `<div style="background:${gradient};padding:20px 24px;border-radius:18px;margin:28px 0 16px;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow)">
+    <div style="display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.72);text-transform:uppercase">${ico('i-map')}Cidade</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,7vw,54px);font-weight:500;letter-spacing:-.02em;line-height:1;color:#fff">${group.city}</div>
+    <div style="color:rgba(255,255,255,.8);font-size:13px;margin-top:6px">${group.sub}</div>
+  </div>`;
+}
+
 // Restaurants — curated per city
 $('#restaurants').innerHTML = TRIP.restaurants.map(group=>`
-  <div style="margin:0 0 28px">
-    <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 4px 10px;border-bottom:1px solid var(--line);margin-bottom:14px">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:500;letter-spacing:-.01em">${group.city}</div>
-      <div style="color:var(--text-3);font-size:12.5px">${group.sub}</div>
-    </div>
+  <div style="margin:0 0 32px">
+    ${cityBanner(group,'linear-gradient(135deg, color-mix(in oklab, var(--purple) 65%, var(--bg-2)), color-mix(in oklab, var(--olive) 55%, var(--bg-2)))')}
     <div class="grid c2" style="gap:14px">
-      ${group.list.map(r=>`
-        <div class="card" style="padding:18px 20px;position:relative">
-          ${r.pick?'<div style="position:absolute;top:14px;right:14px;color:var(--gold);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:4px">'+ico('i-star')+'PICK</div>':''}
-          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;line-height:1.2;padding-right:${r.pick?'60px':'0'}">${stars(r.stars)}${r.n}</div>
-          <div style="color:var(--text-2);font-size:13px;margin-top:3px">${r.cuisine}</div>
-          <div style="color:var(--text-2);font-size:13px;margin-top:8px;display:flex;align-items:flex-start;gap:6px">${ico('i-map')}<span>${r.addr}</span></div>
-          <div style="color:var(--text-3);font-size:12.5px;margin-top:4px;display:flex;align-items:center;gap:6px">${ico('i-clock')}${r.hours}</div>
-          <div style="color:var(--text-3);font-size:12.5px;margin-top:3px">💰 ${r.price}</div>
-          ${r.order?`<div style="color:var(--text-2);font-size:13px;margin-top:8px;line-height:1.5"><b style="color:var(--text)">O que pedir:</b> ${r.order}</div>`:''}
-          ${r.note?`<div style="color:var(--text-3);font-size:12.5px;margin-top:6px;line-height:1.5">${r.note}</div>`:''}
-          ${r.tags&&r.tags.length?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">${r.tags.map(t=>`<span class="badge" style="font-size:10.5px;padding:3px 8px;background:var(--card-2);color:var(--text-2);border:1px solid var(--line)">${t}</span>`).join('')}</div>`:''}
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-            <a class="btn" href="https://www.google.com/maps/search/?api=1&query=${r.map}" target="_blank">${ico('i-map')}Google Maps</a>
-            ${r.tel?`<a class="btn" href="tel:${r.tel.replace(/\s/g,'')}">${ico('i-phone')}${r.tel}</a>`:''}
-          </div>
-        </div>`).join('')}
+      ${group.list.map(cityCard).join('')}
+    </div>
+  </div>`).join('');
+
+// Nightlife — curated per city
+$('#nightlife').innerHTML = TRIP.nightlife.map(group=>`
+  <div style="margin:0 0 32px">
+    ${cityBanner(group,'linear-gradient(135deg, #1a1224, #2d1b3e, #4c2a85)')}
+    <div class="grid c2" style="gap:14px">
+      ${group.list.map(cityCard).join('')}
     </div>
   </div>`).join('');
 
