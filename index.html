@@ -94,11 +94,20 @@ html[data-theme="light"] .hero-stat .i{background:rgba(107,70,193,.15);color:var
 .hero-stat .v{font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1;margin-top:2px;font-weight:500}
 
 /* TABS */
-.tabs{display:flex;gap:8px;margin:26px -4px 0;padding:4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs{display:flex;gap:8px;margin:26px -18px 0;padding:8px 18px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;position:sticky;top:var(--topbar-h,60px);z-index:45;background:var(--glass);backdrop-filter:saturate(180%) blur(24px);-webkit-backdrop-filter:saturate(180%) blur(24px);border-bottom:1px solid var(--line)}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:0 0 auto;padding:12px 18px;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--text-2);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .3s var(--ease);position:relative;overflow:hidden;display:flex;align-items:center;gap:7px;min-height:44px}
 .tab:hover{color:var(--text);border-color:var(--line-2)}
 .tab.on{color:#fff;background:linear-gradient(135deg,var(--purple-2),var(--olive-2));border-color:transparent;box-shadow:0 8px 24px -6px var(--purple-2)}
+
+/* MINI PROGRESS (sticky no topo, só aparece na aba Hoje) */
+.mini-progress{position:sticky;top:calc(var(--topbar-h,60px) + var(--tabs-h,56px));z-index:44;margin:0 -18px;padding:10px 18px;background:var(--glass);backdrop-filter:saturate(180%) blur(24px);-webkit-backdrop-filter:saturate(180%) blur(24px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.mini-progress.hide{display:none!important}
+.mini-progress .mp-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);white-space:nowrap;font-weight:600}
+.mini-progress .mp-bar{flex:1;height:6px;background:var(--card);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.mini-progress .mp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--olive-2));border-radius:99px;transition:width .6s var(--ease);box-shadow:0 0 10px color-mix(in oklab,var(--gold) 70%,transparent)}
+.mini-progress.done .mp-fill{background:linear-gradient(90deg,var(--olive-2),var(--gold))}
+.mini-progress .mp-count{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
 
 /* SECTIONS */
 .section{margin-top:26px;animation:fade .5s var(--ease)}
@@ -428,6 +437,13 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
   <button class="tab" data-tab="mala"><svg class="ico"><use href="#i-luggage"/></svg>Mala</button>
   <button class="tab" data-tab="shop"><svg class="ico"><use href="#i-bag"/></svg>Shopping</button>
   <button class="tab" data-tab="tam"><svg class="ico"><use href="#i-ruler"/></svg>Tamanhos</button>
+</div>
+
+<!-- MINI PROGRESS (sticky · só visível na aba Hoje) -->
+<div class="mini-progress" id="miniProgress" aria-hidden="false">
+  <span class="mp-label">Progresso</span>
+  <div class="mp-bar"><div class="mp-fill" id="miniProgressFill"></div></div>
+  <span class="mp-count" id="miniProgressCount">0/0</span>
 </div>
 
 <!-- HOJE -->
@@ -1353,6 +1369,12 @@ function updateTodayProgress(){
   const bar = $('#todayBar'); const count = $('#todayCount');
   if(bar) bar.style.width = pct+'%';
   if(count) count.textContent = done+'/'+total;
+  const mpFill = document.getElementById('miniProgressFill');
+  const mpCount = document.getElementById('miniProgressCount');
+  const miniBox = document.getElementById('miniProgress');
+  if(mpFill) mpFill.style.width = pct+'%';
+  if(mpCount) mpCount.textContent = done+'/'+total;
+  if(miniBox) miniBox.classList.toggle('done', total>0 && done===total);
 }
 $('#todaySteps').addEventListener('click', e=>{
   const btn = e.target.closest('.tdot'); if(!btn) return;
@@ -1581,13 +1603,33 @@ updateHeroWeather();
 setInterval(updateHeroWeather, 60*60*1000);
 
 // Tabs
+function syncMiniProgress(key){
+  const mini = document.getElementById('miniProgress');
+  if(mini) mini.classList.toggle('hide', key !== 'hoje');
+}
 $('#tabs').addEventListener('click',e=>{
   const t=e.target.closest('.tab'); if(!t) return;
   $$('.tab').forEach(x=>x.classList.toggle('on',x===t));
   const key=t.dataset.tab;
   $$('[data-pane]').forEach(p=>p.classList.toggle('hide',p.dataset.pane!==key));
+  syncMiniProgress(key);
   window.scrollTo({top:0,behavior:'smooth'});
 });
+
+// Medir topbar + tabs pra ancorar sticky (CSS vars)
+function measureStickyHeights(){
+  const tb = document.querySelector('.topbar');
+  const tabs = document.getElementById('tabs');
+  if(tb) document.documentElement.style.setProperty('--topbar-h', tb.offsetHeight+'px');
+  if(tabs) document.documentElement.style.setProperty('--tabs-h', tabs.offsetHeight+'px');
+}
+measureStickyHeights();
+window.addEventListener('resize', measureStickyHeights);
+window.addEventListener('orientationchange', measureStickyHeights);
+window.addEventListener('load', measureStickyHeights);
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(measureStickyHeights);
+// Estado inicial da mini progress (aba ativa = hoje)
+syncMiniProgress((document.querySelector('.tab.on')||{}).dataset?.tab || 'hoje');
 </script>
 </body>
 </html>
