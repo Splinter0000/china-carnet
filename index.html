@@ -454,39 +454,22 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
 
 <!-- HOJE -->
 <div class="section" data-pane="hoje">
-  <div class="card" style="background:linear-gradient(135deg, color-mix(in oklab, var(--purple) 55%, var(--bg-2)), color-mix(in oklab, var(--olive) 45%, var(--bg-2)));color:#fff;padding:24px 26px">
-    <div style="display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.75);text-transform:uppercase"><svg class="ico"><use href="#i-today"/></svg>Sábado · 18 abr 2026 · Hong Kong</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(34px,6vw,48px);font-weight:500;letter-spacing:-.02em;line-height:1.05;margin-top:6px">HK Day 2 · Peak ao Kowloon</div>
-    <div style="color:rgba(255,255,255,.88);font-size:14px;margin-top:10px;max-width:680px;line-height:1.55">Único dia cheio em HK na ida. Corte definitivo: sem rugby (Kai Tak drena o dia) e sem teleférico Ngong Ping (Lantau fica 1h30 só ida). Sequência abaixo testada em marcha real · clima ~29° com chance de chuva · leva o guarda-chuva.</div>
-    <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
-      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-mountain"/></svg>Peak cedo</span>
-      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-temple"/></svg>Man Mo · Tai Kwun</span>
-      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-star"/></svg>Mora 1★</span>
-      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-ship"/></svg>Star Ferry + Ozone 118F</span>
-      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)"><svg class="ico"><use href="#i-moon"/></svg>Baladinha LKF · Zentral sábado Sevens</span>
+  <div class="card" id="todayDayPickerCard" style="padding:16px 18px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-2)">Dia da viagem</div>
+      <button id="todayJumpBtn" type="button" style="background:color-mix(in oklab,var(--gold) 30%,transparent);color:var(--text);border:1px solid color-mix(in oklab,var(--gold) 55%,transparent);border-radius:99px;padding:6px 14px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-weight:600">Ir para hoje</button>
     </div>
-    <div id="todayProgress" style="margin-top:22px;background:rgba(0,0,0,.25);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px">
-      <div style="flex:1">
-        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7)">Progresso do dia</div>
-        <div style="height:8px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin-top:6px"><div id="todayBar" style="height:100%;width:0;background:linear-gradient(90deg,var(--gold),#fff);transition:width .4s"></div></div>
-      </div>
-      <div id="todayCount" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;min-width:68px;text-align:right">0/0</div>
-    </div>
+    <div id="todayDayButtons" style="display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding:4px 0 6px;scroll-snap-type:x proximity"></div>
   </div>
+  <div class="card" id="todayHero" style="color:#fff;padding:24px 26px"></div>
   <div class="card" style="padding:22px 24px">
     <h3 style="margin-top:0"><svg class="ico"><use href="#i-route"/></svg>Passo a passo · checkável</h3>
-    <p style="color:var(--text-2);font-size:13px;margin:0 0 18px">Cada parada tem endereço, como chegar, duração e o que fazer lá. Clica no círculo pra dar check. Progresso salvo no navegador.</p>
+    <p style="color:var(--text-2);font-size:13px;margin:0 0 18px">Cada parada tem endereço, como chegar, duração e o que fazer lá. Clica no círculo pra dar check. Progresso salvo no navegador por dia.</p>
     <div id="todaySteps"></div>
   </div>
-  <div class="card" style="padding:20px 22px">
-    <h3 style="margin-top:0"><svg class="ico"><use href="#i-spark"/></svg>Plan B · se bater cansaço ou chover forte</h3>
-    <div style="display:grid;gap:10px;font-size:14px;color:var(--text-2);line-height:1.6">
-      <div><b style="color:var(--text)">Pular o Peak</b> → trocar por <b>M+ Museum</b> (Herzog &amp; de Meuron, West Kowloon) · tudo coberto, Apple-store-vibe.</div>
-      <div><b style="color:var(--text)">Pular Sheung Wan</b> → táxi direto do hotel pro Four Seasons pelo almoço. Ganha 1h30 de descanso.</div>
-      <div><b style="color:var(--text)">Pular Star Ferry</b> → jantar cedo e descansar pro voo de amanhã. HK volta 27/abr tem meio dia livre, dá pra fazer lá.</div>
-      <div><b style="color:var(--text)">Chuva forte à noite</b> → mantém Ozone (sub-solo conecta ICC via MTR Kowloon, nada coberto de Central até lá mas táxi direto resolve) · cancela LKF balada e fica no <b>Argo</b> (Four Seasons lobby · World's 50 Best Bars · 10 min a pé da 8½) depois do jantar. Tudo coberto, zero logística.</div>
-      <div><b style="color:var(--text)">Sem energia pra balada</b> → pula LKF e vai direto dormir. O próximo 27/abr (volta HK) tem meio dia livre, dá pra fazer um drink no <b>Aqua Luna</b> ou <b>Felix (Peninsula)</b>.</div>
-    </div>
+  <div class="card" id="todayPlanBCard" style="padding:20px 22px">
+    <h3 style="margin-top:0"><svg class="ico"><use href="#i-spark"/></svg>Plan B · se bater cansaço, chover ou mudar de plano</h3>
+    <div id="todayPlanBList" style="display:grid;gap:10px;font-size:14px;color:var(--text-2);line-height:1.6"></div>
   </div>
 </div>
 
@@ -689,7 +672,7 @@ const TRIP = {
     {d:"16",m:"abr",city:"Milão → Hong Kong",mode:"transit",plan:"CX 234 MXP→HKG 12:45. Chegada 17/abr 06:15."},
     {d:"17",m:"abr",city:"Hong Kong · Park Lane",mode:"leisure",plan:"Jetlag-friendly: almoço Ho Hung Kee · táxi Central · The Armoury (Ring Jacket Navy ~R$ 8.9k ★) · Lane Crawford IFC (Boglioli/Lardini + camisa + cinto) · descanso · Melody's Music Room listening opcional (Abbey Road gear)."},
     {d:"18",m:"abr",city:"Hong Kong",mode:"hybrid",plan:"Peak Tram · Man Mo · Cat Street · Mora almoço · Tai Kwun · Ozone · 8½ Bombana."},
-    {d:"19",m:"abr",city:"Hong Kong → Pequim",mode:"transit",plan:"MU 5016 HKG→Daxing 13:35. Chegada 17:15. Check-in Four Seasons."},
+    {d:"19",m:"abr",city:"Hong Kong → Pequim",mode:"transit",plan:"MU 5016 HKG→Daxing 13:35. Chegada 17:15. Check-in Four Seasons. Jantar FCGI 19:00 · 99 Yurts 九十九顶毡房 (Qinghe) — Didi: 北京市海淀区东升乡马坊村永泰庄北路9号."},
     {d:"20",m:"abr",city:"Pequim · FCGI",mode:"work",plan:"Jantar inaugural de recepção FCGI."},
     {d:"21",m:"abr",city:"Pequim + Tianjin",mode:"work",plan:"Roadshow: Huawei · ICE Tech · Sinomega · CIC."},
     {d:"22",m:"abr",city:"Pequim → Xangai via Suzhou",mode:"work",plan:"Megvii · SYP · Lenovo · Zelos. Check-in Grand Hyatt Pudong."},
@@ -850,6 +833,7 @@ const TRIP = {
     ]},
     // ============ BEIJING ============
     {city:"Pequim",sub:"19–22 abr · base Four Seasons Sanlitun",list:[
+      {n:"99 Yurts · 九十九顶毡房 (Qinghe)",stars:0,pick:true,cuisine:"Mongol/Xinjiang · cordeiro assado + show",addr:"永泰庄北路9号 · Dongsheng, Haidian",hours:"11:00–22:00",price:"¥ 200–400 · R$ 160–315",order:"Cordeiro inteiro assado · skewers · chá com leite · pão naan",map:"九十九顶毡房+清河店+Beijing",note:"🎯 JANTAR FCGI 19/abr 19:00 — boas-vindas do grupo YPO · Didi endereço em chinês copia direto.",tags:["Jantar FCGI","19/abr 19:00","Grupo"]},
       {n:"Xin Rong Ji · Xinyuan Nan Lu",stars:3,pick:true,cuisine:"Cantonês/Taizhou · seafood + Iberico",addr:"A3 Xinyuan S Rd, Chaoyang",hours:"11:00–14:00 · 17:00–22:00",price:"¥ 600–1.200 · R$ 470–940",order:"Yellow croaker noodles · Iberico sautéed · sliced abalone",map:"Xin+Rong+Ji+Xinyuan+Nan+Lu+Beijing",tel:"+86 10 8589 5988",note:"Michelin 3★ 2026 · flagship · reserva essencial · concierge FS resolve.",tags:["Michelin 3★","Reserva 2–3 sem"]},
       {n:"Da Dong · Jinbao",stars:0,pick:true,cuisine:"Peking duck moderno",addr:"Jinbao Place, 5F · 88 Jinbao St, Dongcheng",hours:"11:00–22:00",price:"¥ 400–800 · R$ 315–630",order:"Peking duck super-lean · sweet and sour mandarin fish · truffle broth",map:"Da+Dong+Jinbao+Beijing",tel:"+86 10 8522 1234",note:"O pato de Pequim mais fotogênico · chef Dong Zhenxiang · reserva 3–5 dias.",tags:["Peking duck","Reserva 3–5 dias"]},
       {n:"Siji Minfu · Qianmen",stars:0,cuisine:"Peking duck clássico",addr:"32 Dengshikou W St, Dongcheng",hours:"10:30–22:00",price:"¥ 150–350 · R$ 120–275",order:"Roast duck 1/2 · cold cucumber · pea shoots",map:"Siji+Minfu+Qianmen+Beijing",note:"Melhor peking duck custo-benefício · sempre lotado · walk-in (fila).",tags:["Walk-in","Peking duck","Clássico"]},
@@ -895,7 +879,26 @@ const TRIP = {
       {n:"Sky 21",stars:0,cuisine:"Rooftop bar · lounge",addr:"AIA Tower, 21F · 251A Avenida Comercial",hours:"18:00–01:00",price:"MOP 150–250/drink · R$ 120–200",order:"Cocktails · vista Grand Lisboa + skyline Cotai",map:"Sky+21+AIA+Tower+Macau",note:"Bar rooftop clássico · preferir final de tarde.",tags:["Rooftop","Drink vista"]},
     ]},
   ],
-  today:[
+  days:{
+    "2026-04-18":{
+      header:"Sábado · 18 abr 2026 · Hong Kong",
+      title:"HK Day 2 · Peak ao Kowloon",
+      sub:"Único dia cheio em HK na ida. Corte definitivo: sem rugby (Kai Tak drena o dia) e sem teleférico Ngong Ping (Lantau fica 1h30 só ida). Sequência abaixo testada em marcha real · clima ~29° com chance de chuva · leva o guarda-chuva.",
+      badges:[
+        {ico:"i-mountain",label:"Peak cedo"},
+        {ico:"i-temple",label:"Man Mo · Tai Kwun"},
+        {ico:"i-star",label:"Mora 1★"},
+        {ico:"i-ship",label:"Star Ferry + Ozone 118F"},
+        {ico:"i-moon",label:"Baladinha LKF · Zentral sábado Sevens"},
+      ],
+      planB:[
+        {title:"Pular o Peak",text:"trocar por <b>M+ Museum</b> (Herzog &amp; de Meuron, West Kowloon) · tudo coberto, Apple-store-vibe."},
+        {title:"Pular Sheung Wan",text:"táxi direto do hotel pro Four Seasons pelo almoço. Ganha 1h30 de descanso."},
+        {title:"Pular Star Ferry",text:"jantar cedo e descansar pro voo de amanhã. HK volta 27/abr tem meio dia livre, dá pra fazer lá."},
+        {title:"Chuva forte à noite",text:"mantém Ozone (táxi direto de Central até ICC resolve) · cancela LKF balada e fica no <b>Argo</b> (Four Seasons lobby · World's 50 Best Bars · 10 min a pé da 8½) depois do jantar. Tudo coberto, zero logística."},
+        {title:"Sem energia pra balada",text:"pula LKF e vai direto dormir. 27/abr (volta HK) tem meio dia livre, dá pra fazer um drink no <b>Aqua Luna</b> ou <b>Felix (Peninsula)</b>."},
+      ],
+      steps:[
     {id:"cafe",t:"07:00",ico:"i-coffee",title:"Café da manhã no hotel",sub:"Park Lane Brasserie · Lobby L1",addr:"310 Gloucester Rd, Causeway Bay",map:"Park+Lane+Hong+Kong+310+Gloucester+Road+Causeway+Bay",howto:"Dentro do seu hotel — elevador até o lobby (L1). Brasserie fica à direita saindo do elevador. Mesa perto da janela pega vista Victoria Park acordando.",duration:"40 min",order:"Congee de peixe ou frango + fruta fresca + ovo mexido + café duplo. Pede também 'milk tea HK style' no bule — leite condensado + preto forte, é a bebida nacional. Evita pastelaria açucarada (piora jetlag).",tip:"500ml de água + 1 café = combo anti-jetlag. A Brasserie tem carta de chás chineses curada; se curtir, pede Pu-erh (fermentado, limpa o paladar). Observa o ritmo de Causeway Bay acordando pela janela — 07:00 é quando HK ainda está calma, em 2h vira formigueiro.",tags:["Hotel","Leve"]},
     {id:"uber-peak",t:"07:45",ico:"i-car",title:"Uber / DiDi até o Peak Tram Lower Terminus",sub:"~15 min · HK$ 80 (R$ 57)",addr:"33 Garden Road, Central",map:"Peak+Tram+Lower+Terminus+33+Garden+Road+Central+Hong+Kong",howto:"DiDi Greater China (branco/laranja) ou Uber HK funcionam igual BR. Destino: 'Peak Tram Lower Terminus · 山頂纜車總站'. Se falhar, táxi na porta do hotel e mostra essa tela.",duration:"15 min trajeto",tip:"Compra o ticket online ANTES no app Klook ou site oficial thepeak.com.hk (HK$ 148 combo Peak Tram round-trip + Sky Terrace 428). Ingresso no celular = fura fila.",tags:["Chegar cedo","Ticket online"]},
     {id:"peak",t:"08:00",ico:"i-mountain",title:"Peak Tram + Sky Terrace 428",sub:"Funicular histórico 1888 · mirante 428m",addr:"The Peak Tower, Sky Terrace 428",map:"Sky+Terrace+428+Peak+Tower+Hong+Kong",howto:"1) Entra no Lower Terminus · 2) Escaneia QR do celular no gate de Peak Tram · 3) Subida de 8 min em 27° de inclinação — olha pra janela lateral, os prédios parecem tombar (ilusão de ótica clássica, foto obrigatória) · 4) Desembarca no Peak Tower (prédio em forma de wok do arquiteto Terry Farrell, 1997) · 5) Elevador até o Sky Terrace 428 (topo, 428m acima do mar).",duration:"2h (incluindo Lugard)",order:"Fotos skyline 360°: a leste Causeway Bay/Happy Valley, norte Central/IFC/ICC, oeste SW Kowloon. Depois, saia pela placa 'Lugard Road' e faz o Lugard Loop (3.5 km plano, 1h). É a melhor trilha mirante de HK — passa por mansões art-deco dos anos 30 (residências de taipans britânicos ainda ocupadas), bambuzais densos e vistas que abrem pra cada ponto do porto. Sem subida forte, dá pra fazer de calça jeans.",tip:"Chegando 8:00 você é o primeiro da fila. Depois das 11h a fila vira 90min. Manhã tem menos neblina que tarde (inversão térmica sobe a bruma a partir das 11h). Curiosidade: o Peak Tram foi construído em 1888 pros brits não terem que subir de cadeira carregada por coolies — era o funicular mais íngreme do mundo na época.",tags:["Imperdível","Chegar 08:00"]},
@@ -910,7 +913,282 @@ const TRIP = {
     {id:"dinner",t:"21:00",ico:"i-star",title:"Jantar · 8½ Otto e Mezzo BOMBANA (3★ italiano)",sub:"Umberto Bombana · única 3★ italiana fora da Itália",addr:"Shop 202, Landmark Alexandra · 18 Chater Rd, Central",map:"8%C2%BD+Otto+e+Mezzo+Bombana+Landmark+Alexandra+Central+Hong+Kong",howto:"Saindo do Ozone (ICC 118F): pega elevador express de volta ao rua. Táxi 15 min pelo túnel Western Cross Harbour até Central (HK$ 95-115, peça 'Landmark Alexandra, Chater Road'). No Landmark Alexandra: entra pela Chater Road, pega elevador direto pro 2F. Restaurante fica à direita saindo do elevador, porta de carvalho escuro sem placa grande — discrição proposital.",duration:"2h",order:"Menu degustação 6 courses (HK$ 2.880 + pairing HK$ 1.680) OU à la carte: começa com o pane fresco (fazem in-house a cada 2h) + burrata di Puglia · hand-cut tagliolini al tartufo bianco (temporada out-dez — fora disso o del pescato é excelente) · black cod miso (a única concessão asiática do menu) · Wagyu tenderloin A5 · tiramisu al mascarpone (a receita do Bombana, leva marsala aged 10 anos). Vinhos: barolos Nebbiolo de Langhe, super-toscanos Sassicaia.",tip:"Umberto Bombana veio pra HK em 1993 via Il Milanese, fundou 8½ em 2010 (nome do Fellini). É a 1ª italiana do mundo a pegar 3 estrelas Michelin FORA da Itália. Dress: Ring Jacket navy, camisa branca, calça fina — blazer não é obrigatório mas valoriza. SEM tênis esportivo, SEM boné. Se ainda não confirmou reserva, liga +852 2537 8859 DA MESA DO OZONE dizendo 'table for tonight 21:00'. Walk-in fallback (sem reserva): Mott 32 (4-4A Des Voeux Rd, Peking duck 3★ MICHELIN) ou Man Wah no Mandarin Oriental (25F, cantonês 1★ com vista harbour).",tags:["3★ Michelin","Reserva obrigatória","Smart casual"]},
     {id:"balada",t:"23:30",ico:"i-moon",title:"Baladinha LKF · Zentral · sábado = a melhor noite do ano",sub:"California Tower · designer crowd · DJs internacionais · rooftop 4F-5F",addr:"Zentral · California Tower, 32 D'Aguilar St, Lan Kwai Fong, Central",map:"Zentral+California+Tower+D%27Aguilar+Street+Lan+Kwai+Fong+Hong+Kong",howto:"Saindo do 8½ Otto: 7 min a pé do Landmark Alexandra até D'Aguilar St (atravessa Des Voeux Rd → sobe Pedder St → direita em Wyndham → esquerda em D'Aguilar). California Tower é o prédio mais alto de LKF, entrada fica no térreo com porteiros de terno. Elevador express do Zentral no lobby, leva pro 4F (pista) + 5F (terrace bar com vista do caos lá embaixo). Cover HK$ 300-500 sábado (fica mais em cash/Octopus). Dress code enforced: sem tênis esportivo, sem regata. Ring Jacket + calça fina = entrada garantida.",duration:"1h30-2h (ou enquanto o corpo aguentar)",order:"Zentral é o club mais 'designer crowd' de HK — vem fashion de Mumbai, Singapura, Tokyo, crowd 28-45. DJs rotativos (frequentemente nomes do Ibiza/Berlin). Música: house melódico + techno + open-format, menos EDM chiclete. Pede Japanese Highball Hibiki (HK$ 180) ou champagne pelo copo. O terrace 5F tem vista pra D'Aguilar iluminada — é um dos lugares mais icônicos de HK pra noitadas. 2º plano: Dragon-i (UG/F Central Building, 32 Ice House St · 3 min a pé) — velho clássico LKF, mais misturado mas DJ consistente. 3º plano: Foxglove (2/F, 6 Duddell St · speakeasy com jazz ao vivo sábado até 02:00 · entrada escondida atrás de loja falsa de guarda-chuvas · mais sofisticado, menos balada).",tip:"Sábado de 18/abr é exatamente o último dia do Hong Kong Sevens 2026 no Kai Tak Stadium — toda LKF vai estar no pico do ano em movimento. Crowd rugbista de 30+ países, internacional como nunca. Se chegou cansado do jantar, pula e vai pro Argo (Four Seasons lobby, World's 50 Best) como plan C sofisticado. Se o Zentral tiver fila enorme (possível pós-Sevens), VIP host na porta: 'I'm a guest from 8½ Bombana, just had dinner' — ajuda fura-fila. Octopus card com saldo facilita cover + bebida. Não anda sozinho a pé saindo depois das 02h — ali é seguro mas pede Uber.",tags:["Baladinha","LKF","Sábado Sevens","Zentral"]},
     {id:"sleep",t:"01:30",ico:"i-bed",title:"Volta ao Park Lane · dormir",sub:"Amanhã 19/abr: check-out + voo HKG→Daxing 13:35",addr:"The Park Lane Hong Kong",map:"Park+Lane+Hong+Kong+310+Gloucester+Road+Causeway+Bay",howto:"Uber/táxi de LKF ao Park Lane: 10-12 min via Hennessy Rd, HK$ 70-95. Se vento virar, entrada pela Paterson St tem menos subida.",duration:"até 08:30",order:"Água na cabeceira. 1 ibuprofeno preventivo se passou muito do limite. Liga o blackout da cortina — 6ª andar pra cima pega luz forte do neon da Times Square Plaza antes das 7h.",tip:"Deixa mala 80% pronta antes de deitar. Voo MU 5016 HKG→Daxing 13:35 amanhã, check-in abre 10:35. Airport Express de Central leva 24 min (HK$ 115). Amanhã de manhã: café leve, despacha bagagem in-town check-in no Hong Kong Station (Airport Express), fica SEM mala até o aeroporto — é a melhor hack de HK. Vai dormir com paz.",tags:["Fechar o dia"]},
-  ],
+      ],
+    },
+    "2026-04-19":{
+      header:"Domingo · 19 abr 2026 · HK → Pequim",
+      title:"Checkout HK · voo p/ Beijing · jantar FCGI 99 Yurts",
+      sub:"Dia de transição. HKG→Daxing 13:35 (MU 5016). Chegada 17:15, carro FS ~70 min, check-in Four Seasons Beijing, jantar de abertura do grupo FCGI.",
+      badges:[
+        {ico:"i-plane",label:"MU 5016 HKG→PKX 13:35"},
+        {ico:"i-bed",label:"Four Seasons Beijing"},
+        {ico:"i-fork",label:"Jantar FCGI · 99 Yurts"},
+      ],
+      planB:[
+        {title:"Se voo atrasar",text:"avisa o grupo FCGI direto no WeChat. Jantar no 99 Yurts começa 19:00, eles esperam até 20:00. Depois disso cai pra jantar no hotel (Mio italiano no FS ou Cai Yi Xuan 1★)."},
+        {title:"Chuva/trânsito Beijing",text:"FS Beijing fica em Liangmaqiao, trânsito pesado 18-20h. Se pousar 17:15 sem mala despachada, carro pega a circular norte (G4502) — 55 min. Se atrasar, alertar jantar via WeChat Ricardo Geromel."},
+      ],
+      steps:[
+        {id:"cafe19",t:"08:30",ico:"i-coffee",title:"Café leve no Park Lane",sub:"Recuperação pós-Sevens · sem pesar",addr:"Park Lane Brasserie · L1",map:"Park+Lane+Hong+Kong+Causeway+Bay",howto:"Lobby L1. Não precisa acordar antes de 08:30 — tem tempo.",duration:"30 min",order:"Congee leve ou fruta + ovo. Evita fritura (voo longo). Muita água. Pede chá de jasmim pra limpar.",tip:"Um ibuprofeno + 500ml água se sentiu a noite de ontem. Pode pedir pro quarto separar gelo.",tags:["Leve","Hidratação"]},
+        {id:"pack19",t:"09:15",ico:"i-luggage",title:"Arrumar mala · check-out",sub:"Rimowa carry-on · passou roupa volta pro saco",addr:"Park Lane · quarto",map:"Park+Lane+Hong+Kong+Causeway+Bay",howto:"Roupa limpa pra Beijing separa no topo (Ring Jacket + camisa branca pro jantar FCGI). Roupa usada HK vai pro compartimento inferior em sacola lavanderia. Check-out L1, pede bellboy pra segurar mala até sair.",duration:"45 min",order:"Confere: passaporte, carteira, carregadores, VPN ligada, WeChat Pay com saldo, eSIM China ativada (ativa ainda em HK, leva 15 min). Roupa de jantar no topo (Ring Jacket navy + camisa branca Super Non-Iron + sapato couro).",tip:"Ativa eSIM China AGORA em HK — se esperar pousar em Daxing vira roleta (firewall + Apple Store não instala nada novo lá). Se já tem Airalo China ou China Unicom HK SIM, confirma que está rodando antes de sair.",tags:["Checkout","eSIM China"]},
+        {id:"intown19",t:"10:15",ico:"i-briefcase",title:"In-town check-in Airport Express · Hong Kong Station",sub:"Despacha mala em Central · voa sem bagagem",addr:"Hong Kong Station · IFC Mall · Central",map:"Hong+Kong+Station+Airport+Express+IFC+Central",howto:"Táxi Park Lane → Hong Kong Station IFC, HK$ 90, 12 min. Entra pelo IFC Mall L1, placa 'In-Town Check-In'. Apresenta passaporte + cartão de embarque MU 5016. China Eastern aceita in-town check-in? **Confirma no balcão — se não aceitar, segue com mala até o aeroporto. Plan B no Airport Express mesmo com mala é suave**.",duration:"30 min",order:"Se aceitar: despacha Rimowa + pega cartão de embarque MU 5016 + vai SEM mala até o aeroporto. Saindo da área de check-in, volta pra plataforma Airport Express L1.",tip:"⚠ China Eastern historicamente tem restrição em in-town check-in (só algumas cias aderem: Cathay, United, Singapore, ANA). Se não aderir, segue direto HKG com mala — Airport Express leva 24 min igual. Não perde tempo discutindo.",tags:["Hack HK","Airport Express"]},
+        {id:"axp19",t:"10:50",ico:"i-plane",title:"Airport Express Central → HKG",sub:"24 min · HK$ 115",addr:"Airport Express · Hong Kong Station",map:"Airport+Express+Hong+Kong+Station",howto:"Plataforma L1 Central. Trem sai a cada 10 min. Escolhe vagão com tomadas USB. Chegada HKG T1.",duration:"24 min trajeto",order:"Celular carregando · revisa grupo WhatsApp FCGI + confirma endereço jantar 99 Yurts em chinês pra mostrar motorista Beijing.",tip:"HKG T1 é gigante — MU 5016 sai dos portões 40-79, portão definido só 90 min antes. Entra imigração direto, sem enrolar.",tags:["Rápido","Central→HKG"]},
+        {id:"lounge19",t:"11:30",ico:"i-star",title:"Lounge The Pier · HKG · Cathay Business",sub:"Cathay Business Lounge · melhor de HKG",addr:"The Pier Business · HKG T1 · perto portão 65",map:"The+Pier+Cathay+Business+Lounge+Hong+Kong+Airport",howto:"MU 5016 é oneworld-aliado via SkyTeam? NÃO — MU é SkyTeam. Acesso Pier via status Cathay ou cartão Priority Pass. Se tiver o cartão Itaú Personnalité/Black, Priority Pass dá acesso ao Plaza Premium ou Chase Sapphire Lounge em HKG. Se MU te der voucher lounge SkyTeam, é o China Airlines Dynasty Lounge ou similar.",duration:"1h30 (almoço + descanso)",order:"Almoço ligeiro: noodles soup clássico de Dai Pai Dong + sushi leve. Evita gordura pesada (voo 3h40). Ducha 20 min no Pier (cabine privada com produtos Bamford) — recupera totalmente a noite de ontem.",tip:"Se o Pier não rolar (frequentemente limitam por status da aliança), tenta Plaza Premium Lounge T1 portão 1 ou First Class Lounge via Priority Pass — qualidade OK, chuveiro bom.",tags:["Lounge","Ducha","Almoço"]},
+        {id:"fly19",t:"13:35",ico:"i-plane",title:"MU 5016 HKG → Beijing Daxing (PKX)",sub:"3h40 · Airbus A320neo · Business SkyPriority",addr:"HKG Terminal 1",map:"Hong+Kong+International+Airport+Terminal+1",howto:"Portão divulgado 90 min antes. Embarque Business 20 min antes (SkyPriority). Assento atribuído no check-in — se tiver reserva preview, pede janela esquerda (vista Costa Sul China + Mar Amarelo).",duration:"3h40 voo · pouso 17:15 Daxing",order:"Refeição a bordo leve (sanduíche + fruta) · 2 copos de água a cada hora · evita vinho (deidratação). Assiste filme curto ou dorme power-nap de 1h — vai chegar na hora do trânsito Beijing.",tip:"Daxing (PKX) é o aeroporto Zaha Hadid 2019 — estrela gigante de 6 braços, é uma atração em si. Sai pelo terminal de conexões sul, vai direto pra saída de carro executivo. Four Seasons manda motorista (confirmar com concierge antes do voo). Sem motorista = Didi + VPN + WeChat Pay; distância PKX→FS ~45 km, 60-75 min.",tags:["Voo interno","Zaha Daxing"]},
+        {id:"arrival19",t:"17:15",ico:"i-car",title:"Desembarque Daxing · carro Four Seasons",sub:"Carro privativo via concierge · 70 min até Liangmaqiao",addr:"Beijing Daxing International Airport (PKX)",map:"Beijing+Daxing+International+Airport+PKX",howto:"Desembarque SkyPriority, sem escala em Pequim (primeiro pouso pós-HK). Imigração em Daxing é rápida pra estrangeiros (linha separada). Placa 'Private Driver' espera na saída — nome 'Paulo Penna'. Se concierge FS não mandou: Didi (app já configurado) + endereço do hotel em chinês: 北京市朝阳区亮马桥路48号 (Four Seasons Beijing, 48 Liangmaqiao Rd, Chaoyang).",duration:"70 min trajeto",order:"Se tiver trânsito (esperado 18-20h), motorista pega o G4502 (circular norte) ou S50 express. Aproveita pra dormir 30 min — vai ter jantar às 19:00.",tip:"VPN LIGADA antes do pouso (WhatsApp, Google, Instagram bloqueados). Se VPN falhar em Daxing, conecta no WiFi do aeroporto por SMS (passaporte) e ativa depois. WeChat/Alipay funcionam sem VPN.",tags:["Carro privado","Chegada Beijing"]},
+        {id:"checkin19",t:"18:30",ico:"i-bed",title:"Check-in Four Seasons Beijing",sub:"Liangmaqiao · bairro embaixadas · 15 min do jantar",addr:"48 Liang Ma Qiao Rd, Chaoyang, Beijing",map:"Four+Seasons+Hotel+Beijing+Liangmaqiao",howto:"Lobby L1. Concierge recebe, check-in express em 5 min. Quarto padrão Premier Room 43m² com vista Liangma River. Confere com concierge o endereço do jantar FCGI + pede pra chamar Didi XL pras 18:50.",duration:"30 min",order:"Troca banho quick (10 min). Veste calça + camisa branca Super Non-Iron + Ring Jacket navy (jantar casual-smart do grupo). Sapato couro. Perfume leve.",tip:"FS Beijing tem o melhor spa da cidade (Hidden Place) — guarda pra amanhã de manhã se tiver 30 min livres antes do roadshow. Pede ao concierge pra separar chá branco pelo quarto (bule).",tags:["Check-in","Troca rápida"]},
+        {id:"dinner19",t:"19:00",ico:"i-fork",title:"Jantar FCGI · 99 Yurts (九十九顶毡房)",sub:"Cordeiro mongol · lendário · sabor xinjiang em Pequim",addr:"北京市海淀区东升乡马坊村永泰庄北路9号 · Qinghe, Haidian",map:"99+Yurts+%E4%B9%9D%E5%8D%81%E4%B9%9D%E9%A1%B6%E6%AF%A1%E6%88%BF+Qinghe+Beijing",howto:"Didi do FS até o endereço. 20-30 min com trânsito, ¥ 70. Mostra o endereço chinês ao motorista: 海淀区东升乡马坊村永泰庄北路9号. É uma casa-restaurante com yurts reais (tendas mongólicas) no pátio. Pergunta no WhatsApp do grupo qual yurt (eles alugaram a sala privada).",duration:"2h30",order:"Grupo FCGI pediu menu. Pratos esperados: cordeiro inteiro assado (烤全羊 kǎo quán yáng — a assinatura, cordeiro leitão no espeto, servido cortado direto da pele crocante), naan uigur, kebabs de cordeiro com cominho, yogurt caseiro, chá com leite mongol. Vinho/licor: baijiu (destilado chinês 50%+) pros brindes — beba pouco, faz mal rápido. Tem cerveja local Yanjing/Qingdao como alternativa.",tip:"Este é O JANTAR DE ABERTURA do roadshow. Rui Cavendish e Ricardo Geromel vão fazer apresentação do grupo e das 4 empresas de amanhã (Huawei, ICE, Sinomega, CIC). Leva cartão de visita (pelo menos 20 unidades — YPO + Tecai). O brinde com baijiu chama 'gānbēi' (干杯 = fundo de copo); se não quiser secar, pede 'suí yì' (随意 = beber à vontade) — os chineses respeitam. Não falar da meia-maratona de robôs de hoje com chineses que perderam.",tags:["Jantar FCGI","Mongol","Baijiu"]},
+        {id:"sleep19",t:"22:30",ico:"i-bed",title:"Volta ao Four Seasons · dormir",sub:"Amanhã cedo: roadshow começa 09:00 · Huawei",addr:"Four Seasons Beijing",map:"Four+Seasons+Hotel+Beijing",howto:"Didi ¥ 70, 25 min (trânsito já leve às 22h).",duration:"até 07:00",order:"Cortina blackout. 500ml água na cabeceira. Celular no modo foco 06:45. Roupa de amanhã (segundo look) pendurada: terno navy + camisa clara + gravata discreta (não vermelha — politicamente carregada na China).",tip:"O jetlag HK→Beijing é zero (mesmo fuso GMT+8). O que mata é jetlag residual BR→Ásia — se não dormir, melatonina 1mg + água. Amanhã tem 4 visitas empresariais, precisa de 8h de sono.",tags:["Fechar o dia"]},
+      ],
+    },
+    "2026-04-20":{
+      header:"Segunda · 20 abr 2026 · Pequim · Roadshow FCGI · Dia 1",
+      title:"Beijing Day 1 · Huawei · ICE · Sinomega · CIC",
+      sub:"Abertura formal do roadshow. 4 empresas em 1 dia: 2 de manhã (tech + seguros de commodities), almoço 2 empresas (terras raras + private equity estatal), 2 de tarde. Foco: ouvir, tomar nota, trocar cartão, NÃO vender Tecai ainda.",
+      badges:[
+        {ico:"i-briefcase",label:"Huawei HQ 09:00"},
+        {ico:"i-briefcase",label:"ICE Tech 11:00"},
+        {ico:"i-fork",label:"Almoço Sinomega + CIC"},
+        {ico:"i-briefcase",label:"Beijing Static 15:00"},
+        {ico:"i-briefcase",label:"Megvii 17:00"},
+        {ico:"i-moon",label:"Jantar do grupo 20:00"},
+      ],
+      planB:[
+        {title:"Se atrasar 1ª visita",text:"FCGI avisa WeChat. Nunca chega atrasado numa empresa chinesa sem comunicação prévia — é quebra de respeito. Sai do hotel 08:00 (trânsito NE Beijing é brutal 08-09)."},
+        {title:"Cartão de visita esgotando",text:"FS Beijing business center imprime 100 unidades em 1h (¥ 300). Pede ao concierge assim que chegar — estoque completo por segurança."},
+        {title:"Se sentir mal/cansaço",text:"almoço é o menos crítico (networking solto); se precisar pular, avisa Ricardo Geromel no WeChat — Huawei e Megvii são as prioridades absolutas. Hotel tem médico 24h."},
+      ],
+      steps:[
+        {id:"café20",t:"07:00",ico:"i-coffee",title:"Café no Jin · Four Seasons",sub:"L2 · buffet internacional · executivo",addr:"Four Seasons Beijing · L2",map:"Jin+Restaurant+Four+Seasons+Beijing",howto:"Elevador L2 → Jin. Reserva mesa individual (não balcão). Peça rápido — 35 min.",duration:"35 min",order:"Ovos mexidos + bacon + dim sum misto (char siu bao + shumai) + fruta fresca + dois cafés. Chá verde pro bule (hidratação).",tip:"Café aqui é forte, peça 'doppio espresso + um copo água gelada' (estilo Milão). NÃO tome chá preto hoje — Huawei HQ serve Pu-erh forte na recepção, evita cafeína em excesso.",tags:["Hotel","Executivo"]},
+        {id:"bag20",t:"07:45",ico:"i-luggage",title:"Preparar mala executiva",sub:"Apple + cartões + caderno · tudo no couro preto",addr:"Four Seasons · quarto",map:"Four+Seasons+Hotel+Beijing",howto:"Mala-portfolio: MacBook Air + iPad + 30-50 cartões Tecai + caderno Moleskine + canetas + 2 adaptadores USB-C + ficha em chinês (Pleco print) com Tecai em português + tradução curta. Presente simbólico se quiser (chocolate BH Cacau Show ou cachaça premium — opcional). Celular c/ VPN + WeChat + WhatsApp verificados.",duration:"15 min",order:"Confere: passaporte digitalizado no iPhone (Huawei pede ID na recepção), cartão Tecai em chinês se tiver (pede ao FCGI versão traduzida se ainda não tem), visitcard app aberto pra trocar contato digital rápido.",tip:"Bolsa-pasta de couro discreta (não mochila). Cartão de visita segura com as DUAS mãos ao entregar, lado escrito em chinês virado pra pessoa. Ao receber, lê atentamente por 3 segundos antes de guardar — cortesia obrigatória.",tags:["Preparação","Cartões"]},
+        {id:"depart20",t:"08:15",ico:"i-car",title:"Saída para Huawei HQ Shenzhen… ops, Beijing Office",sub:"Bairro CBD · Central Business District · 25 min",addr:"Huawei Beijing Office · CBD",map:"Huawei+Beijing+Office+CBD",howto:"Van/carro do grupo FCGI sai do FS lobby às 08:15. O endereço exato da visita Huawei (escritório Beijing, não HQ Shenzhen) será confirmado pelo FCGI no WhatsApp — pode ser o prédio Huawei Wangjing (望京) no nordeste ou Zhongguancun (中关村). Trajeto 25-40 min dependendo do trânsito segunda de manhã.",duration:"25-40 min",order:"No carro: revisa o deck FCGI da Huawei (páginas dedicadas no PDF). Prepara 3 perguntas: 1) 'Como vocês veem o posicionamento Huawei + DeepSeek na automação residencial?' 2) 'Qual o papel do HarmonyOS fora da China até 2027?' 3) 'Ecosistema CarBYD + Harmony é a aposta pra Brasil?'",tip:"Segunda de manhã em Beijing é o pior trânsito da semana. Saída 08:15 dá 45 min de margem pra chegar até 09:00 com folga. Motorista sempre pega a 2ª circular (二环) se o CBD tiver bloqueio.",tags:["Transfer","Deck review"]},
+        {id:"huawei20",t:"09:00",ico:"i-briefcase",title:"Huawei · apresentação + Q&A + tour",sub:"5G + HarmonyOS + Cloud + Ascend IA · escala global",addr:"Huawei Beijing Office",map:"Huawei+Beijing+Office+Wangjing",howto:"Recepção pede passaporte + entrega crachá. Celular pode precisar ficar em locker (segurança — evita fotografia não autorizada). Sala de reunião formal, 2h com deck corporativo + Q&A + visita a showroom (5G stack, HarmonyOS devices, Ascend AI chips).",duration:"2h",order:"Apresentação institucional (30 min) + demo tech (30 min) + Q&A grupo (45 min) + café + cartões + networking curto (15 min). Anota: 1) ponto de entrada Brasil pós-sanções EUA, 2) parceiros locais autorizados Huawei LatAm, 3) status Kirin chips 2026.",tip:"Huawei é a mais sensível politicamente do roadshow. Não pergunta sobre Meng Wanzhou, Canadá, espionagem. NÃO fala mal dos EUA. Foco em tecnologia + negócios. A sala pode ter gravação discreta — assume que está. Usa inglês claro/devagar (intérprete presente).",tags:["2h","Deck + tour","Politicamente sensível"]},
+        {id:"ice20",t:"11:00",ico:"i-briefcase",title:"ICE Tech · plataforma de commodities",sub:"Hedge de commodities físicas · tech de liquidação",addr:"ICE Tech Beijing Office (confirmar com FCGI)",map:"ICE+Tech+Beijing",howto:"Transfer 15-20 min entre Huawei e ICE no CBD. No carro, Ricardo Geromel passa briefing curto da empresa. ICE Tech foca em plataformas digitais de hedge para commodities físicas (minério, soja, café) com liquidação blockchain — relevante para Tecai? Baixo acoplamento direto, mas vale ouvir.",duration:"1h30",order:"Apresentação (30 min) + demo plataforma (15 min) + Q&A (30 min). Pergunta: 'Qual a integração possível com exportadores brasileiros via Cainiao ou Alibaba?' — abre porta pra contato Yinjiang/Alibaba amanhã.",tip:"Empresa menos estratégica pra Tecai especificamente, mas é onde Paulo faz relacionamento YPO/FCGI — ouvir com atenção, perguntar educadamente. Anota contato do VP internacional.",tags:["1h30","Commodities","Networking"]},
+        {id:"lunch20",t:"12:30",ico:"i-fork",title:"Almoço com Sinomega + CIC",sub:"Private equity estatal + terras raras · o almoço mais denso",addr:"Local a confirmar pelo FCGI (provável restaurante executivo CBD)",map:"Beijing+CBD+China+World+Trade+Center+restaurants",howto:"Almoço organizado pelo FCGI com líderes da Sinomega (terras raras/magnéticos · strategic resources) e CIC (China Investment Corporation · sovereign wealth fund, gestão de USD 1,3 trilhão). Mesa redonda grande, 10-15 pessoas. Formato: 4 pratos + sopa + arroz + chá. 90-120 min.",duration:"2h",order:"Mesa redonda = conversa com vizinhos imediatos + 1 'speech' rápido (Rui Cavendish apresenta o grupo YPO). Se te convidarem a brindar: baijiu (1 gole), responde 'ao futuro da parceria Brasil-China' via tradutor. Pratos: frango kung pao, camarão wuxi, verduras salteadas, pato laqueado fatia, sopa quente, arroz branco. NÃO vire o peixe (superstição = virar o barco).",tip:"CIC é o fundo soberano + importante do mundo pra investimentos infra. Sinomega controla parcela estratégica de terras raras globais. Não vende Tecai nesse almoço — ouve, entende a dinâmica. Colete cartões. A oportunidade é descobrir se o CIC tem LP em fundos brasileiros de infra/energia (se sim, conexão direta via Pedro/Vale depois).",tags:["2h","Ouvir não vender","Terras raras","CIC fundo soberano"]},
+        {id:"static20",t:"15:00",ico:"i-briefcase",title:"Beijing Static · smart parking + IoT",sub:"Hardware + SaaS · sensores de vaga · cidade inteligente",addr:"Beijing Static Office (confirmar com FCGI)",map:"Beijing+Static+smart+parking",howto:"Transfer 20-30 min do almoço. Beijing Static = smart parking (sensores subterrâneos magnéticos + app pagamento + heatmaps de ocupação) + IoT urbano. Escala: operam 500+ cidades chinesas. Apresentação + showroom com sensor real + dashboard de cidade.",duration:"1h30",order:"Apresentação (30 min) + demo showroom (30 min) + Q&A (20 min). Pergunta-chave pra Tecai: 'Qual o stack tecnológico? Integração com Control4/KNX possível via API?' — smart parking + automação residencial são primos distantes, mas sensor + dashboard é reutilizável.",tip:"Esta é uma das empresas que PODE abrir porta pra parceria Tecai. Anota: protocolo do sensor (provável LoRaWAN), precificação por vaga, ciclo de venda a prefeitura. Se o CEO abrir pra conversa 1-a-1, foca em entender como escalaram o B2G (business-to-government) — Tecai pode aprender.",tags:["1h30","Smart parking","Potencial parceria Tecai"]},
+        {id:"megvii20",t:"17:00",ico:"i-briefcase",title:"Megvii · visão computacional + Face++ + Brain++",sub:"IA de visão · unicórnio 2015 · AIoT enterprise",addr:"Megvii HQ · Zhongguancun (中关村科技园)",map:"Megvii+Beijing+Zhongguancun",howto:"Transfer 30-40 min até Zhongguancun (Silicon Valley chinês). Megvii = uma das 4 grandes de visão computacional (junto com SenseTime, CloudWalk, Yitu — as 'AI Tigers'). Face++ é o framework de reconhecimento facial; Brain++ é a plataforma de deep learning interna.",duration:"1h30-2h",order:"Apresentação institucional (30 min) + demo tech (video analytics em tempo real · contagem de pessoas · reconhecimento de objetos · OCR) + Q&A (30 min) + showroom (20 min). Pergunta central: 'Como vocês veem a regulação LGPD-equivalent do Brasil impactando visão computacional em varejo e home?' + 'Qual o roadmap Brain++ como plataforma open-source?'",tip:"Megvii é CHAVE pra Tecai em dois ângulos: 1) visão computacional em casa (detecção de intruso + identificação de moradores integrado ao C4) é alta fidelidade no produto deles; 2) o stack Brain++ pode virar SDK embarcado. Pede apresentação técnica (pra Pedro depois). Não filmar/fotografar sem autorização (Megvii é politicamente sensível nos EUA — sanction list 2019).",tags:["1h30","IA visão","Zhongguancun","Estratégico Tecai"]},
+        {id:"break20",t:"19:00",ico:"i-spark",title:"Volta ao FS · pausa rápida",sub:"20 min · trocar camisa · hidratar",addr:"Four Seasons Beijing",map:"Four+Seasons+Hotel+Beijing",howto:"Transfer 30 min (pior hora do trânsito).",duration:"30 min",order:"Camisa limpa. 500ml água + 1 espresso. Anota no app Evernote as 3-4 pessoas importantes do dia (Huawei VP + Megvii CTO + CIC + Sinomega). Foto dos cartões de visita pro Notion.",tip:"Não trocar roupa completa. Só camisa + rápido refresh. Sapato não troca (mesmo couro).",tags:["Reset"]},
+        {id:"dinner20",t:"20:00",ico:"i-fork",title:"Jantar do grupo FCGI · Dia 1",sub:"Local definido pelo grupo · continuação do networking",addr:"Restaurante em Beijing (confirmar pelo grupo WhatsApp)",map:"Beijing+fine+dining+restaurants",howto:"Van do grupo sai do FS. Local pode ser Opera Bombana (italiano do Umberto Bombana em Beijing — provável escolha neutra), Da Dong (pato pequinês lendário · avenida Jinbao), ou Xin Rong Ji (3★ Michelin 2026 · Taizhou · se FCGI foi generoso).",duration:"2h30",order:"Se Opera Bombana: burrata + tagliolini + osso buco + vinho italiano. Se Da Dong: pato laqueado (a assinatura, corte teatral à mesa) + pratos do imperador + baijiu. Se Xin Rong Ji: degustação taizhou (peixes de água doce + ibérico Taizhou + molhos autorais 1★).",tip:"Jantar é descompressão + networking contínuo. Senta perto de quem tu não conseguiu falar durante o dia. Brinde: 'ao primeiro dia do roadshow e às parcerias que virão' — curto, elegante. NÃO fala de política, religião, Taiwan, Xinjiang, Tibete. Foca em negócios, cultura, arquitetura moderna (teu trunfo de conversa).",tags:["2h30","Networking","Grupo"]},
+        {id:"sleep20",t:"23:00",ico:"i-bed",title:"Volta ao FS · dormir",sub:"Amanhã 07:00 partida Tianjin · SYP + Lenovo",addr:"Four Seasons Beijing",map:"Four+Seasons+Hotel+Beijing",howto:"Táxi/van grupo, 15-25 min.",duration:"até 06:45",order:"Blackout. 500ml água. Celular carregando em 2 portas (iPhone + Mac). Alarme 06:45. Roupa de amanhã pendurada: blazer + calça escura + camisa branca (Lenovo tem cultura americana, aceita smart casual; SYP é indústria, aceita blazer).",tip:"Dia 2 do roadshow é mais longo (SYP em Tianjin + volta + Lenovo). Dormir 8h é obrigatório. Se não pegar no sono: melatonina 1mg + série leve no iPad (não trabalho).",tags:["Fechar o dia"]},
+      ],
+    },
+    "2026-04-21":{
+      header:"Terça · 21 abr 2026 · Pequim ↔ Tianjin · Dia 2",
+      title:"Tianjin bate-volta · SYP + Lenovo",
+      sub:"Dia mais operacional do roadshow. Trem-bala 35 min até Tianjin, visita indústria SYP (vidro solar/BIPV), almoço, Lenovo (PCs + IA DeepSeek/XiaoTen), volta Beijing. Jantar livre ou grupo.",
+      badges:[
+        {ico:"i-plane",label:"Trem-bala PEK↔TSN 35min"},
+        {ico:"i-briefcase",label:"SYP · vidro solar BIPV"},
+        {ico:"i-briefcase",label:"Lenovo · PCs + IA"},
+        {ico:"i-fork",label:"Jantar (livre ou grupo)"},
+      ],
+      planB:[
+        {title:"Se trem atrasar",text:"Beijing South (北京南站) é o principal terminal — saídas a cada 15-30 min pra Tianjin. Se perder o CR400 programado, concierge FS realoca no próximo (¥ 55-90 executiva)."},
+        {title:"Se grupo jantar cancelar",text:"jantar livre = chance de ir ao Xin Rong Ji (3★ Michelin 2026 · Taizhou/Ibérico) se ainda não cobriu ontem. Reserva pelo concierge FS com 3h antecedência. Plan B casual: Opera Bombana (italiano Umberto Bombana · FS Beijing)."},
+      ],
+      steps:[
+        {id:"café21",t:"06:30",ico:"i-coffee",title:"Café rápido · Jin",sub:"FS L2 · leve pra pegar trem",addr:"Four Seasons Beijing · L2",map:"Four+Seasons+Hotel+Beijing",howto:"Buffet simples. Evita pesado — trem sai 07:30 e Beijing South fica a 30 min.",duration:"25 min",order:"Ovo + toast + fruta + café. Sanduíche pra levar (congee no trem é opção).",tip:"Van do grupo sai 07:00 sharp.",tags:["Rápido"]},
+        {id:"train21a",t:"07:30",ico:"i-plane",title:"Trem-bala Beijing South → Tianjin",sub:"CR400 · 35 min · 330 km/h",addr:"Beijing South Railway Station (北京南站)",map:"Beijing+South+Railway+Station",howto:"Van grupo deixa no saguão. Passaporte + bilhete (FCGI organiza). Classe business. Plataforma sinalizada 15 min antes.",duration:"35 min voo",order:"Trem sai 07:30, chega Tianjin 08:05. Wi-Fi instável. Vista: urban sprawl Beijing → industrial Hebei → Tianjin Binhai. Revisa briefing SYP.",tip:"Tianjin South Station fica a 20 min do distrito industrial SYP. Van SYP espera na saída.",tags:["Trem-bala"]},
+        {id:"syp21",t:"09:00",ico:"i-briefcase",title:"SYP · Shanghai Yaohua Pilkington Glass",sub:"Vidro solar · TCO · BIPV · fachadas energéticas",addr:"SYP HQ · Tianjin industrial district",map:"SYP+Shanghai+Yaohua+Pilkington+Glass+Tianjin",howto:"Tour completo de fábrica. Óculos de segurança + capacete (fornecido). Percurso: linha de laminação + linha de TCO coating + showroom BIPV + centro P&D.",duration:"3h30 (tour + apresentação + almoço fábrica)",order:"Visita fábrica (1h30) + apresentação sala de reunião (45 min) + almoço na fábrica (1h · refeição chinesa executiva) + Q&A final (30 min). Pergunta-chave: 'Vocês licenciam tecnologia BIPV pra América Latina?' + 'Qual custo/m² instalado no Brasil considerando logística?' → Tecai faz integração Control4 + solar, direto relevante.",tip:"SYP é joint-venture com Pilkington UK (1983). Tecnologia vidro fotovoltaico integrado à fachada (BIPV) é o futuro em Escarpas/Atex. Pede contato direto do VP export + samples técnicos pro Pedro (anota tudo).",tags:["3h30","Fábrica","BIPV · futuro Atex"]},
+        {id:"transit21",t:"12:30",ico:"i-car",title:"Transfer Tianjin → Beijing",sub:"Trem CR400 de volta · 35 min",addr:"Tianjin South Railway Station",map:"Tianjin+South+Railway+Station",howto:"Van SYP deixa na estação. Trem 13:00-13:30. Chegada Beijing South ~14:00-14:30.",duration:"1h30 (transfer + trem + chegada Lenovo)",order:"No trem: power-nap de 20 min + revisa Lenovo (PCs, ThinkPad, IA DeepSeek/XiaoTen, aquisição IBM PC em 2005, Motorola 2014).",tip:"Em Beijing, van leva direto pra Lenovo (não passa pelo hotel).",tags:["Transfer"]},
+        {id:"lenovo21",t:"15:00",ico:"i-briefcase",title:"Lenovo · PCs + AI Assistant + ecossistema",sub:"Receita USD 18.8B Q3 FY24/25 · líder PC global",addr:"Lenovo Beijing HQ · Chaoyang",map:"Lenovo+Beijing+HQ",howto:"Lenovo HQ é um dos prédios mais modernos do distrito Wangjing. Recepção grande, registro biométrico + crachá. Showroom corporativo no L3 com toda linha ThinkPad, Legion, ThinkStation + AI Assistant integrado (Lenovo AI Assistant usa DeepSeek e XiaoTen — modelo interno).",duration:"2h",order:"Apresentação institucional (30 min) + demo AI stack (Lenovo AI Twin roda LLMs locais em PC · 'personal AI') (30 min) + tour showroom (30 min) + Q&A (30 min). Perguntas: 'Como vocês veem PC + LLM local para casa inteligente?' 'Roadmap Motorola Brasil 2026-27?'",tip:"Lenovo é a empresa chinesa mais globalizada (sede operacional em NC, EUA + Beijing). Cultura híbrida, inglês fluente. Pode ser a conversa mais direta do dia. Pede contato direto do VP Latin America (via Motorola BR).",tags:["2h","Lenovo","AI local"]},
+        {id:"hotel21",t:"17:30",ico:"i-bed",title:"Volta FS · pausa",sub:"Descanso + troca antes do jantar",addr:"Four Seasons Beijing",map:"Four+Seasons+Hotel+Beijing",howto:"Van 30 min.",duration:"1h15",order:"Banho. Power-nap 30 min opcional. Troca roupa. 500ml água + fruta.",tip:"Jantar 19:30 (grupo) ou 20:00 (livre).",tags:["Reset"]},
+        {id:"dinner21",t:"19:30",ico:"i-fork",title:"Jantar · grupo ou Xin Rong Ji 3★",sub:"Se grupo: local pelo FCGI · Se livre: Xin Rong Ji (Taizhou 3★)",addr:"Xin Rong Ji (Taizhou) · Beijing · 新荣记",map:"Xin+Rong+Ji+Taizhou+Beijing+3+star+Michelin",howto:"Xin Rong Ji fica em Xinyuan Nan Lu 3 (Chaoyang). Reserva pelo concierge FS (3h de antecedência). É o único 3★ Michelin 2026 em Beijing. Cozinha Taizhou (province de Zhejiang) — mais refinada e menos gordurosa que Beijing tradicional.",duration:"2h30",order:"Pratos: caranguejo steamed (especialidade da casa, temporada) + Ibérico braised (carne curada tipo pernil ibérico mas Taizhou-style) + peixe-amarelo vapor + camarão com vinho Shaoxing + verduras. Vinhos: tinto chinês Great Wall (é bom, surpresa) ou importado. Pairing com baijiu premium se quiser experimentar (pede o Moutai Flying Fairy 53% — o topo).",tip:"Se for grupo: mesma lógica de networking do dia 1. Se livre + Xin Rong Ji: vai em 2-4 pessoas máximo (Xin Rong Ji é formal e pessoal, não evento). Ótima chance de conversar com Rui Cavendish 1-a-1 sobre roadmap Macau/Shanghai.",tags:["3★ Michelin","Taizhou","Jantar"]},
+        {id:"sleep21",t:"23:00",ico:"i-bed",title:"Volta FS · dormir",sub:"Amanhã 06:00 · trem-bala pra Suzhou · o dia + longo",addr:"Four Seasons Beijing",map:"Four+Seasons+Hotel+Beijing",howto:"Táxi 15 min.",duration:"até 05:45",order:"Cortina. 500ml água. Alarme 05:45. Mala pronta (amanhã checkout 06:30).",tip:"Dia de amanhã é trem 4h30 + Suzhou visitas + Shanghai. Longuíssimo.",tags:["Fechar · dia longo amanhã"]},
+      ],
+    },
+    "2026-04-22":{
+      header:"Quarta · 22 abr 2026 · Pequim → Suzhou → Shanghai",
+      title:"Trem-bala longo · Zelos · Zeron · chegada Shanghai",
+      sub:"Dia de deslocamento. CR450 Beijing→Suzhou 4h30, almoço Suzhou, Zelos (robovans) + Zeron (caminhões autônomos), trem Suzhou→Shanghai 25min, check-in Grand Hyatt Pudong. Jantar livre ou grupo.",
+      badges:[
+        {ico:"i-plane",label:"Trem-bala Beijing→Suzhou 4h30"},
+        {ico:"i-briefcase",label:"Zelos · robovans L4"},
+        {ico:"i-briefcase",label:"Zeron · caminhões autônomos"},
+        {ico:"i-bed",label:"Grand Hyatt Pudong"},
+      ],
+      planB:[
+        {title:"Se trem atrasar em Beijing",text:"CR450 tem saídas a cada 60 min. Concierge FS realoca (+¥ 200 business). Ricardo Geromel avisa parceiros Suzhou."},
+        {title:"Se cansaço bater",text:"dorme no trem (4h30 é rest válido). No jantar: se grupo = fica; se livre = sushi do Grand Hyatt no Kobachi (L54, japonês 1★ equivalente) + dormir cedo pra Hangzhou amanhã."},
+      ],
+      steps:[
+        {id:"chkout22",t:"06:00",ico:"i-luggage",title:"Checkout FS Beijing",sub:"Mala pronta · fatura fechada · transfer 06:30",addr:"Four Seasons Beijing",map:"Four+Seasons+Hotel+Beijing",howto:"Bellboy pega Rimowa. Fatura revisa no concierge. Van do grupo 06:30.",duration:"30 min",order:"Café rápido no lobby (ou sanduíche pra viagem).",tip:"Pede ao concierge pra separar 2 garrafas d'água + chá pro trem.",tags:["Checkout"]},
+        {id:"train22a",t:"07:30",ico:"i-plane",title:"Trem-bala Beijing South → Suzhou North",sub:"CR450 · 4h30 · 450 km/h · fastest in the world",addr:"Beijing South Railway Station",map:"Beijing+South+Railway+Station",howto:"Business class. Wi-Fi bom. Comida no trem (carrinho). Vista: planície do norte → Yangtze River → Jiangsu.",duration:"4h30",order:"07:30-09:00 revisa Zelos (unicórnio Feb/26 · robovans L4 · 75% share China · fusão Cainiao Alibaba Jan/26) + Zeron (ex-Pony.ai · caminhões autônomos L4 · battery swap). 09:00-11:30 dorme/descansa. 11:30-12:00 almoço no trem.",tip:"Passa por Nanjing, Wuxi — sinaliza pela janela Yangtze River (o 3º maior do mundo). A cada parada, foto do painel digital — curiosidade.",tags:["Trem-bala","CR450","450km/h"]},
+        {id:"arrive22",t:"12:00",ico:"i-car",title:"Chegada Suzhou · van",sub:"Visita Zelos direto · 25 min",addr:"Suzhou Industrial Park",map:"Suzhou+Industrial+Park",howto:"Van FCGI na saída Suzhou North. 25 min até Zelos Suzhou (SIP = Suzhou Industrial Park, o centro de tech da cidade).",duration:"25 min",order:"Almoço leve no carro (sandwich · se não comeu no trem). Água.",tip:"Suzhou é a 'Veneza da China' — se der brecha de 30 min no fim do dia, passa pelo Jardim do Administrador Humilde (UNESCO). Se não der, passa direto.",tags:["Transfer"]},
+        {id:"zelos22",t:"13:00",ico:"i-briefcase",title:"Zelos · robovans L4 logística urbana",sub:"Unicórnio fev/26 · USD 2B · 75% share China · fusão Cainiao",addr:"Zelos HQ · Suzhou Industrial Park",map:"Zelos+Suzhou+Industrial+Park+robovan",howto:"Recepção + crachá. Tour incluí showroom com Z1 robovan (robô-entregador autônomo L4, tamanho de um carrinho · até 50kg de carga · opera em ruas públicas urbanas).",duration:"2h",order:"Apresentação (30 min) + demo ao vivo no pátio interno (30 min · ver o Z1 operar) + Q&A (30 min) + tour oficina (30 min). Pergunta: 'Como escalaram para 75% share em 3 anos?' + 'Parceria Brasil via Cainiao é plausível em 2027?'",tip:"Zelos é spin-off UISEE + founders ex-Baidu. Fundidos com Cainiao (logística Alibaba) em Jan/26. Esta é a empresa + estratégica pra Tecai em delivery-last-mile (condomínios, eventos). Pede contato VP internacional + materiais técnicos.",tags:["2h","Robovan L4","Unicórnio","Cainiao"]},
+        {id:"zeron22",t:"15:30",ico:"i-briefcase",title:"Zeron · caminhões elétricos autônomos + battery swap",sub:"Ex-Pony.ai · L4 · rotas rodoviárias · swap 3 min",addr:"Zeron Office Suzhou",map:"Zeron+Suzhou+autonomous+truck",howto:"Transfer 15 min. Zeron mostra stack L4 para caminhão (1/3 eléctrico para 2027) + estação battery swap — 3 min de troca, zero tempo morto operacional.",duration:"1h30",order:"Apresentação (30 min) + demo estação swap + caminhão no pátio (30 min) + Q&A (30 min). Pergunta: 'Battery swap viável em corredor Vale/mineração Brasil?' — conexão direta Vale (jantar Vale sexta com Marcelo Sampaio).",tip:"Founders ex-Pony.ai (unicórnio autonomus driving Toyota-backed). Zeron é o vertical truck deles. Logística Vale é case potencial. Anota para citar com Marcelo Sampaio sexta.",tags:["1h30","Truck autônomo","Battery swap","Vale"]},
+        {id:"transit22",t:"17:30",ico:"i-plane",title:"Trem Suzhou → Shanghai Hongqiao",sub:"25 min · saída a cada 15 min",addr:"Suzhou Railway Station",map:"Suzhou+Railway+Station",howto:"Van Zeron leva. Trem Business class 18:00-18:25. Chegada Shanghai Hongqiao 18:30.",duration:"1h (transfer + trem)",order:"Power nap 20 min.",tip:"Hongqiao é o 2º aeroporto + estação de trem — um dos maiores hubs da China. Van FCGI espera na saída.",tags:["Transfer"]},
+        {id:"hotel22",t:"19:30",ico:"i-bed",title:"Check-in Grand Hyatt Shanghai Pudong",sub:"Jin Mao Tower 54-87F · vista Bund · lendário",addr:"88 Century Ave, Lujiazui, Pudong",map:"Grand+Hyatt+Shanghai+Pudong+Jin+Mao",howto:"Van deixa no Jin Mao Tower. Lobby do Grand Hyatt fica no 54F (elevador dedicado). Check-in em 10 min. Quarto padrão no 60-70F com vista Bund (pede especificamente 'Bund view, high floor').",duration:"30 min",order:"Troca rápida. Pede jantar: grupo ou Kobachi (sushi 1★ equivalente · L54).",tip:"Grand Hyatt Pudong foi THE hotel de Shanghai pre-2010. Atrium interno do Jin Mao (54-87F) é a foto mais icônica de hotel de toda a Ásia — tira foto assim que chegar. Piscina L57 com vista oceânica — amanhã cedo pode render.",tags:["Check-in","Jin Mao","Vista Bund"]},
+        {id:"dinner22",t:"20:30",ico:"i-fork",title:"Jantar · grupo ou 8½ Otto e Mezzo Shanghai",sub:"Se grupo: local pelo FCGI · Se livre: 8½ Bombana Shanghai (2★)",addr:"8½ Otto e Mezzo Bombana Shanghai · Bund 6, 6F",map:"8%C2%BD+Otto+e+Mezzo+Bombana+Shanghai+Bund",howto:"Se 8½ Shanghai: táxi 15 min do Grand Hyatt até Bund 6 (6F). Reserva pelo concierge 2h antes. Vista Bund + Pudong do terraço (peça mesa janela).",duration:"2h30",order:"Se 8½ Shanghai: mesma carta do Bombana HK (18/abr) adaptada · pane fresco + burrata + tagliolini al tartufo (temporada out-dez, fora disso del pescato) + Wagyu + tiramisu. Se grupo: estilo chinês ou francês pelo FCGI.",tip:"Shanghai noite de quarta costuma ser +calma que sexta-sábado, ótimo para conversa 1-a-1. Se Umberto Bombana estiver em Shanghai (alterna HK/Shanghai), sala dele fica no Bund 6 — vale dizer ao maître 'Paulo Penna, Tecai Brasil' — às vezes aparece na sala.",tags:["2h30","Italiano 2★ · Bund view"]},
+        {id:"sleep22",t:"23:30",ico:"i-bed",title:"Volta Grand Hyatt · dormir",sub:"Amanhã Hangzhou (Alibaba · Unitree) · 07:00 saída",addr:"Grand Hyatt Shanghai Pudong",map:"Grand+Hyatt+Shanghai+Pudong",howto:"Táxi 15 min.",duration:"até 06:30",order:"Cortina. 500ml. Alarme 06:30. Olha piscina L57 da janela (foto de amanhã cedo).",tip:"Dia Hangzhou = trem Shanghai→Hangzhou 45 min + 3 empresas + volta. Dormir bem.",tags:["Fechar"]},
+      ],
+    },
+    "2026-04-23":{
+      header:"Quinta · 23 abr 2026 · Shanghai ↔ Hangzhou",
+      title:"Hangzhou · Yinjiang · Alibaba · Unitree",
+      sub:"Bate-volta Hangzhou. 3 empresas de peso: Yinjiang (saneamento smart), Alibaba HQ, Unitree (60% produção global robôs quadrúpedes/humanóides). Rooftop Bund à noite se tiver energia.",
+      badges:[
+        {ico:"i-plane",label:"Trem Shanghai↔Hangzhou 45min"},
+        {ico:"i-briefcase",label:"Yinjiang · Enjoy Water"},
+        {ico:"i-briefcase",label:"Alibaba HQ"},
+        {ico:"i-briefcase",label:"Unitree · robôs humanóides"},
+        {ico:"i-moon",label:"FLAIR rooftop opcional"},
+      ],
+      planB:[
+        {title:"Pular FLAIR",text:"se cansaço bater, pula rooftop e dorme cedo — amanhã é último dia roadshow (Sany + TongJi + Vale + jantar encerramento)."},
+        {title:"Chuva em Hangzhou",text:"Alibaba HQ é grande complexo com passadiços cobertos; Unitree tem showroom fechado — tudo ok. SE trem atrasar na volta: jantar no Grand Hyatt (Made in China · L56)."},
+      ],
+      steps:[
+        {id:"café23",t:"06:30",ico:"i-coffee",title:"Café Grand Cafe · Grand Hyatt",sub:"L54 · buffet asiático + ocidental · vista Bund",addr:"Grand Hyatt Shanghai · L54",map:"Grand+Cafe+Grand+Hyatt+Shanghai+Pudong",howto:"Elevador direto 54F. Mesa janela (pede explicitamente).",duration:"30 min",order:"Dim sum + fruta + ovo + café. Pode pedir xiao long bao (4 unidades — o dumpling shanghainense de sopa é aqui melhor do mundo em hotel).",tip:"Café fecha 10:30 — tem tempo. Pede cobrar pro quarto.",tags:["Vista Bund"]},
+        {id:"train23a",t:"07:30",ico:"i-plane",title:"Trem Shanghai Hongqiao → Hangzhou East",sub:"45 min · CR400 · business class",addr:"Shanghai Hongqiao Railway Station",map:"Shanghai+Hongqiao+Railway+Station",howto:"Van FCGI sai 07:00. Trem 07:30-08:15. Hangzhou East.",duration:"45 min",order:"No trem revisa Yinjiang (Enjoy Water · saneamento inteligente · Hangzhou).",tip:"Hangzhou é onde Alibaba nasceu (casa do Jack Ma). West Lake é UNESCO — se der tempo almoço, pede passagem curta.",tags:["Transfer"]},
+        {id:"yinjiang23",t:"09:00",ico:"i-briefcase",title:"Yinjiang Protection Group · Enjoy Water",sub:"Saneamento smart · tratamento + IoT água",addr:"Yinjiang HQ · Hangzhou",map:"Yinjiang+Protection+Group+Hangzhou",howto:"Tour estação de tratamento + centro de controle (operam 500+ cidades).",duration:"2h",order:"Apresentação (30 min) + tour (45 min) + Q&A (45 min). Pergunta: 'Água reuso residencial + integração smart home possível?' → Tecai/Control4 conecta.",tip:"Empresa menos famosa, mas é o futuro de saneamento. Anota stack + precificação B2G.",tags:["2h","Saneamento smart"]},
+        {id:"alibaba23",t:"11:30",ico:"i-briefcase",title:"Alibaba HQ Hangzhou · Xixi Campus",sub:"Ecossistema completo · Cloud · Ant · Cainiao · DingTalk",addr:"Alibaba Xixi Campus · Yuhang, Hangzhou",map:"Alibaba+Xixi+Campus+Hangzhou",howto:"Campus é gigante (vale uma Stanford). Entrada pelo portal leste. Crachá + tour guiado pelo time de relações públicas. Almoço no refeitório executivo do campus (experiência única).",duration:"3h (incl. almoço)",order:"Apresentação institucional (45 min · foco Alibaba Cloud + DAMO Academy + Qwen LLM) + almoço campus (1h) + tour (45 min · showroom tech + museu Jack Ma opcional) + Q&A (30 min). Perguntas: 'Qwen LLM roadmap América Latina?' + 'Cainiao Brasil expansão real?' + 'Parceria LatAm com Mercado Livre ainda viva?'",tip:"Alibaba é a maior do roadshow. Campus tem o original escritório do Jack Ma (apartamento 2F Hupan Garden) preservado como museu. Pede pra incluir no tour — história épica. Recarrega 1 café forte antes de Unitree.",tags:["3h","Almoço campus","Alibaba","Cloud + AI"]},
+        {id:"unitree23",t:"14:30",ico:"i-briefcase",title:"Unitree · robôs quadrúpedes + humanóides",sub:"B1 · G1 · H1 · 60% produção global · robôs Gangnam Style",addr:"Unitree Robotics · Hangzhou",map:"Unitree+Robotics+Hangzhou",howto:"Showroom espetacular: robôs em demo ao vivo (B1 quadrúpede, G1 humanóide entry-level, H1 humanóide premium). Vídeos dos robôs dançando Gangnam Style viralizaram em 2024.",duration:"2h",order:"Apresentação (30 min) + demo ao vivo (45 min · você anda com G1 lado a lado) + Q&A (30 min) + oportunidade comprar G1 Brasil (USD 16k entry-level). Perguntas: 'ROI residencial de um G1?' + 'Stack SDK aberto para integradores C4/KNX?'",tip:"Este é o highlight do dia. G1 cabe na Rimowa (desmontável parcialmente — pergunta). Se Paulo quiser voltar com 1 unidade para Escarpas/Sala de Reunião Tecai, Unitree vende direto pra YPO members com desconto. Foto obrigatória abraçando o B1/G1.",tags:["2h","Unitree","Robôs · imperdível","Comprar?"]},
+        {id:"train23b",t:"17:00",ico:"i-plane",title:"Trem volta Hangzhou → Shanghai",sub:"45 min · CR400",addr:"Hangzhou East Railway Station",map:"Hangzhou+East+Railway+Station",howto:"Van Unitree deixa. Trem 17:30. Chega Hongqiao 18:15.",duration:"1h (transfer + trem)",order:"Power-nap 30 min.",tip:"Van FCGI em Hongqiao deixa no Grand Hyatt 18:45.",tags:["Transfer"]},
+        {id:"hotel23",t:"19:00",ico:"i-bed",title:"Grand Hyatt · pausa · troca",sub:"Banho + troca · prepara jantar ou rooftop",addr:"Grand Hyatt Shanghai Pudong",map:"Grand+Hyatt+Shanghai+Pudong",howto:"Check in status ok.",duration:"45 min",order:"Banho. Camisa limpa. Blazer.",tip:"Se for grupo FCGI: confirma via WhatsApp. Se livre: opção FLAIR Ritz-Carlton rooftop (58F) + jantar curto Shanghai.",tags:["Reset"]},
+        {id:"flair23",t:"20:00",ico:"i-moon",title:"FLAIR Rooftop · Ritz-Carlton Pudong 58F · o mais alto",sub:"Vista Bund + Pearl Tower · drink ritualístico",addr:"Ritz-Carlton Shanghai Pudong · 8 Shiji Blvd · 58F",map:"Flair+Rooftop+Ritz+Carlton+Shanghai+Pudong",howto:"Táxi 5 min do Grand Hyatt (mesmo distrito Lujiazui). Elevador Ritz-Carlton direto 58F. Dress smart casual.",duration:"1h30",order:"Drink-combo: Shanghai Bund Martini + gin basil smash · tapas asiáticas · vista direta da Oriental Pearl Tower iluminada.",tip:"FLAIR é um dos rooftops mais iconicos da Ásia (58F aberto na lateral). Reserva pelo concierge (jantar não, só drinks). Se quiser jantar ali mesmo, Scenaa (andar abaixo) tem 5★ experiência.",tags:["Rooftop","58F","Pudong skyline"]},
+        {id:"dinner23",t:"21:30",ico:"i-fork",title:"Jantar leve · Mr & Mrs Bund · ou Grand Hyatt",sub:"Paul Pairet casual · French bistro on Bund 18",addr:"Bund 18 · 6F · 18 Zhongshan East 1st Rd",map:"Mr+and+Mrs+Bund+Shanghai+Bund+18",howto:"Táxi 15 min FLAIR/Ritz para Bund 18. 6F direto por elevador.",duration:"1h30",order:"Menu casual (Pairet é o chef do fechado Ultraviolet · 3★ do passado · Mr&Mrs é o casual dele): entradas compartilhadas (truffle burrata · beef tartare) + 1 prato principal cada (black cod · short rib). Vinho a copo.",tip:"Ambiente contemporâneo, vista Pudong. Se não tá com fome, pula jantar e volta Grand Hyatt (Kobachi sushi no L54 fecha 23:00 — opção leve).",tags:["1h30","Casual Pairet","Bund 18"]},
+        {id:"sleep23",t:"23:30",ico:"i-bed",title:"Volta Grand Hyatt · dormir",sub:"Amanhã último dia roadshow (Sany · TongJi · Vale · jantar encerramento)",addr:"Grand Hyatt Shanghai Pudong",map:"Grand+Hyatt+Shanghai+Pudong",howto:"Táxi 15 min.",duration:"até 06:30",order:"Cortina. Alarme.",tip:"Amanhã = fim roadshow. Energia pro jantar final.",tags:["Fechar"]},
+      ],
+    },
+    "2026-04-24":{
+      header:"Sexta · 24 abr 2026 · Shanghai · Dia final roadshow",
+      title:"Sany · TongJi · Vale · jantar encerramento",
+      sub:"Último dia oficial do roadshow FCGI. Sany (construção heavy 3ª do mundo), TongJi University (smart cities), Vale Shanghai office (CEO Marcelo Sampaio), jantar de encerramento com todo o grupo.",
+      badges:[
+        {ico:"i-briefcase",label:"Sany Heavy Industry"},
+        {ico:"i-briefcase",label:"TongJi University"},
+        {ico:"i-briefcase",label:"Vale Shanghai · Marcelo Sampaio"},
+        {ico:"i-star",label:"Jantar encerramento"},
+      ],
+      planB:[
+        {title:"Se Vale cancelar",text:"CEO Marcelo Sampaio pode ter agenda imprevisível. Se cair, a tarde fica livre para Long Museum (Atelier Deshaus) ou Fosun Foundation (Heatherwick) — arquitetura moderna, prioridade Paulo."},
+      ],
+      steps:[
+        {id:"café24",t:"07:00",ico:"i-coffee",title:"Café Grand Hyatt",sub:"Rápido · dia cheio",addr:"Grand Hyatt Shanghai · L54",map:"Grand+Hyatt+Shanghai+Pudong",howto:"Buffet.",duration:"30 min",order:"Leve: ovo + fruta + café duplo.",tip:"Van 07:45.",tags:["Rápido"]},
+        {id:"sany24",t:"09:00",ico:"i-briefcase",title:"Sany Heavy Industry · Lighthouse Factories",sub:"USD 11.9B receita · 3ª maior construção do mundo · 24h robot factory",addr:"Sany Shanghai Office (confirmar FCGI)",map:"Sany+Heavy+Industry+Shanghai",howto:"Tour + showroom maquinário pesado + linha Lighthouse Factory (fábrica 4.0 reconhecida pelo WEF, 100% robotizada).",duration:"2h30",order:"Apresentação (30 min) + tour Lighthouse (1h · fábrica opera 24h sem humanos na linha) + Q&A (30 min) + networking (30 min). Pergunta: 'Replicação Lighthouse em minas Vale/Brasil?' + 'Equipamentos elétricos/autônomos roadmap 2027?'",tip:"Sany é a Komatsu chinesa. Tecnologia brutal. Interessa a Pedro/Atex (construção). Anota contato VP International.",tags:["2h30","Sany","Lighthouse 4.0"]},
+        {id:"tongji24",t:"12:00",ico:"i-temple",title:"TongJi University · smart cities · arquitetura",sub:"1907 · referência mundial urbanismo + arquitetura",addr:"TongJi University · 1239 Siping Rd · Yangpu",map:"TongJi+University+Shanghai+Siping+Road",howto:"Van até o campus. Recepção com professores do depto de Arquitetura + Urbanismo + Smart Cities Lab. Tour campus (edifícios históricos + modernos) + laboratórios research.",duration:"3h (incl. almoço com acadêmicos)",order:"Apresentação (30 min · smart cities research · digital twin urbano · Shanghai modeled) + almoço campus (1h · conversar acadêmicos · agendar visita de volta futura) + tour (1h · lab + biblioteca arq · edifícios icônicos) + Q&A (30 min). Pergunta: 'Research digital twin residencial/condomínio — parcerias privadas Brasil?'",tip:"TongJi forma os melhores urbanistas da China. Paulo pode, se quiser, explorar parceria academia-Tecai (exchange programs, research conjunta). Guarda contato Prof. do depto (pede via FCGI).",tags:["3h","Acadêmico","Arquitetura"]},
+        {id:"vale24",t:"15:30",ico:"i-briefcase",title:"Vale Shanghai Office · Marcelo Sampaio",sub:"Escritório Vale Ásia · ex-Ministro Infraestrutura BR",addr:"Vale Shanghai · Jing An District",map:"Vale+Shanghai+Office+Jing+An",howto:"Van 40 min (trânsito pesado sexta tarde). Vale office em Jing An. Reunião executiva com Marcelo Sampaio + equipe LatAm-Ásia.",duration:"1h30-2h",order:"Conversa sobre: exportação minério Brasil→China (Cainiao/logística), parcerias Vale com Sany (equipamento pesado), papel tech (tech-brasileira? Tecai?) em mineração 4.0, roadmap 2027. Marcelo é brasileiro — conversa em português, ponto de ouro Paulo.",tip:"Marcelo Sampaio vem de governo federal (ex-Ministro Bolsonaro). Tem rede política forte. É uma das conversas mais valiosas do roadshow pra Paulo. Tecai + Vale + Pedro = possível ponte via equipamento pesado IoT Vale. Pede contato pessoal dele (WhatsApp).",tags:["2h","Vale","Marcelo Sampaio","BR-China"]},
+        {id:"hotel24",t:"18:00",ico:"i-bed",title:"Grand Hyatt · pausa e troca · jantar formal",sub:"Último jantar roadshow · Ring Jacket + melhor camisa",addr:"Grand Hyatt Shanghai Pudong",map:"Grand+Hyatt+Shanghai+Pudong",howto:"Transfer 45 min (Jing An → Pudong · trânsito pesado sexta).",duration:"1h",order:"Banho. Melhor look (Ring Jacket navy + camisa branca + calça escura + sapato couro). Perfume leve.",tip:"Este é o jantar de encerramento — todo o grupo YPO + FCGI + alguns CEOs chineses convidados. Aparecer bem vestido é respeito.",tags:["Formal"]},
+        {id:"dinner24",t:"19:30",ico:"i-star",title:"Jantar encerramento FCGI · local a confirmar",sub:"Grupo completo · chineses convidados · fechamento",addr:"Restaurante fine dining Shanghai (FCGI confirma)",map:"Shanghai+fine+dining+Bund+restaurants",howto:"Van grupo sai 19:00. Provável local: Jean-Georges (Three on the Bund · francês 2★), Ultraviolet (se reabrir), Sushi Shikon (3★ omakase), 8½ Otto e Mezzo (2★ italiano Bund 6) — FCGI anuncia.",duration:"3h",order:"Jantar formal de encerramento. Brindes (Rui Cavendish + Ricardo fazem speeches). Paulo, se convidado a falar: agradece grupo FCGI, destaca 3 empresas que mais marcaram (Megvii · Unitree · Vale), brinda ao 'futuro Brasil-China em tecnologia e infraestrutura'. Troca cartões finais — MUITO networking.",tip:"Momento 'agora ou nunca' do networking. Quem tu não falou nos 5 dias, puxa conversa aqui. Foco: 1) VP internacional Megvii, 2) Unitree sales Ásia/LatAm, 3) Marcelo Sampaio (se ele veio), 4) Cavendish/Geromel (agradecimento final).",tags:["3h","Formal · encerramento"]},
+        {id:"postdinner24",t:"22:30",ico:"i-moon",title:"Speak Low · speakeasy sofisticado · opcional",sub:"Se energia · Fuxing W Rd · pós-jantar formal",addr:"Speak Low · 579 Fuxing Middle Rd · 2F",map:"Speak+Low+Shanghai+Fuxing+Middle+Road",howto:"Táxi 15 min. Entrada escondida (atrás de loja de bartender tools). Elevador escondido pra 2F (speakeasy real). 3F tem lounge.",duration:"1h30",order:"Cocktail flight autoral (The Botany · Carne Suave · House Old Fashioned). Top 50 Asia's Best Bars.",tip:"Este é pro momento descontração pós-jantar formal. Crowd mais novo, designer. Se Paulo sozinho, ótimo para observar Shanghai noturna. Se grupo continuou, Speak Low acomoda até 6 pessoas em área VIP.",tags:["Speakeasy","Asia's 50 Best"]},
+        {id:"sleep24",t:"00:30",ico:"i-bed",title:"Volta Grand Hyatt · dormir",sub:"Amanhã último dia Shanghai + voo Macau 12:45",addr:"Grand Hyatt Shanghai Pudong",map:"Grand+Hyatt+Shanghai+Pudong",howto:"Táxi 15 min.",duration:"até 07:30",order:"Blackout. Água.",tip:"Amanhã: Bund walk matinal + checkout + voo PVG→MFM.",tags:["Fechar"]},
+      ],
+    },
+    "2026-04-25":{
+      header:"Sábado · 25 abr 2026 · Shanghai → Macau",
+      title:"Bund walk · voo PVG→MFM · check-in Morpheus (Zaha Hadid)",
+      sub:"Fim do roadshow. Manhã Bund walk, checkout Grand Hyatt, voo PVG→MFM 12:45 (MU 2007), check-in Morpheus (Zaha Hadid · City of Dreams), jantar Jade Dragon 3★ — a única experiência chinesa top-tier da viagem.",
+      badges:[
+        {ico:"i-route",label:"Bund walk sunrise"},
+        {ico:"i-plane",label:"MU 2007 PVG→MFM 12:45"},
+        {ico:"i-bed",label:"Morpheus · Zaha Hadid"},
+        {ico:"i-star",label:"Jade Dragon 3★"},
+      ],
+      planB:[
+        {title:"Chuva em Shanghai",text:"Bund walk substitui por visita Long Museum West Bund (Atelier Deshaus) ou Power Station of Art — tudo coberto, 1h."},
+        {title:"Cansaço · pular Bund walk",text:"Dorme até 09:00, café Grand Hyatt, checkout 10:30, taxi direto PVG. Não faz diferença no voo."},
+      ],
+      steps:[
+        {id:"bund25",t:"08:00",ico:"i-camera",title:"Bund walk sunrise · Pudong → Puxi",sub:"A imagem de Shanghai · 1h caminhada com luz da manhã",addr:"The Bund · Zhongshan East 1st Rd",map:"The+Bund+Shanghai+Huangpu+River",howto:"Táxi Grand Hyatt para Sightseeing Tunnel (opção divertida · 5 min debaixo do rio com show de luzes) OU direto para Puxi Bund. Caminha do Bund 22 (Peace Hotel) até Bund 5 (House of Roosevelt) — 1km plano. Do outro lado do rio você vê Jin Mao, Shanghai Tower, Oriental Pearl — sua mala está dentro do Jin Mao.",duration:"1h30 (walk + fotos)",order:"Fotos: 1) Pudong skyline frontal, 2) Bund art deco façade (Peace Hotel · The House of Tang · HSBC Building), 3) auto-retrato com Pudong ao fundo. Café: Peace Hotel (Jazz Bar dos anos 30, agora restaurado) ou Baker & Spice na Bund 18.",tip:"Abril manhã em Shanghai = 16-20°C, pode ter neblina matinal (fotogênica). Vai cedo pra não pegar turista chinês em massa pós-09:00.",tags:["Bund","Sunrise","Fotos"]},
+        {id:"chkout25",t:"10:30",ico:"i-luggage",title:"Checkout Grand Hyatt",sub:"Rimowa pronta · fatura · transfer PVG",addr:"Grand Hyatt Shanghai Pudong",map:"Grand+Hyatt+Shanghai+Pudong",howto:"Concierge chama táxi/Didi até PVG. 30-45 min.",duration:"30 min",order:"Checkout. Conferir fatura. Pegar Rimowa.",tip:"PVG Terminal 1 (MU 2007 é internacional). Check-in 2h antes do voo (10:45 → 12:45).",tags:["Checkout"]},
+        {id:"fly25",t:"12:45",ico:"i-plane",title:"MU 2007 PVG → MFM (Macau)",sub:"2h45 · A321 · Business · pouso 15:30",addr:"PVG Terminal 1",map:"Shanghai+Pudong+International+Airport",howto:"Check-in balcão SkyPriority. Lounge Cathay ou SkyTeam (Priority Pass). Embarque 30 min antes.",duration:"2h45",order:"Lounge 1h (leve): sopa wonton + refresh. No voo: 2h45 corridos, filme. Chegada Macau 15:30.",tip:"MFM é pequeno e rápido. Imigração Macau: desconsiderar filas longas — região administrativa especial, trâmites reduzidos se tiver passaporte com visto China. Carro Morpheus espera na saída (concierge organiza).",tags:["Voo"]},
+        {id:"morpheus25",t:"16:30",ico:"i-bed",title:"Check-in Morpheus · City of Dreams · Zaha Hadid",sub:"O ápice arquitetônico da viagem · exoesqueleto Zaha",addr:"City of Dreams · Estrada do Istmo · Cotai",map:"Morpheus+Hotel+City+of+Dreams+Macau",howto:"Lobby do Morpheus é uma catedral de aço · exoesqueleto exposto · atrium 40m. Check-in em 10 min. Quartos com vista Cotai (pede andar alto).",duration:"45 min",order:"Fotos obrigatórias: 1) lobby atrium olhando pra cima (escada do ExO de Zaha), 2) exterior com céu (melhor do final da tarde com luz dourada), 3) piscina na cobertura. Banho + troca.",tip:"Morpheus (2018) foi o último projeto Zaha Hadid concluído antes da morte dela (2016). É a última obra real + lendária da arquiteta. Paulo provavelmente vai querer passar 30 min só fotografando detalhes (curvas, janela triangular fractal).",tags:["Zaha Hadid","Arquitetura · ápice"]},
+        {id:"jade25",t:"19:30",ico:"i-star",title:"Jantar · Jade Dragon (3★ Michelin + 3 Black Pearl)",sub:"Cantonês imperial · Ibérico · A ÚNICA chinesa top-tier da viagem",addr:"The Shops at the Boulevard · City of Dreams · 2F",map:"Jade+Dragon+City+of+Dreams+Macau",howto:"Dentro do complexo City of Dreams (mesmo hotel). Vai andando (10 min pelo skywalk coberto). Dress code: smart (blazer).",duration:"3h",order:"Menu degustação 8 courses (MOP 2.680 · R$ 2.140) OU à la carte premium: barbecue meat platter (suckling pig · ibérico pork · goose) + dim sum (har gow + siu mai + truffle dumpling) + abalone sliced + steamed fish + peking duck (pato laqueado cantonês) + double-boiled soup + tofu dessert. Vinho: Riesling alemão (corta gordura · harmoniza) ou Bordeaux branco.",tip:"Esta é A experiência chinesa top-tier que Paulo topou — não vai desapontar. Jade Dragon tem 3★ Michelin + 3 Black Pearl (equivalente chinês). Chef Tam Kwok Fung é ex-Lung King Heen, bicampeão mundial. Se Paulo quiser levar memória visual: ibérico cantonês é a fusão mais elegante do mundo. Reserva pelo concierge Morpheus.",tags:["3★ Michelin","3 Black Pearl","Cantonês imperial","ÚNICA chinesa top-tier"]},
+        {id:"morpheus-bar25",t:"22:30",ico:"i-moon",title:"Drink no próprio Morpheus · Sky25 ou volta quarto",sub:"Opcional · fecha o dia com vista",addr:"Morpheus · Sky25 rooftop bar",map:"Sky+25+Morpheus+Macau+rooftop",howto:"Sky25 (25F Morpheus) ou piscina cobertura. Se bater sono: quarto + blackout.",duration:"45 min",order:"Champagne pelo copo · vista Cotai iluminada (Wynn · Venetian · Galaxy).",tip:"Hoje foi longo (voo + check-in + 3★). Se cansado, pula. Amanhã é dia livre em Macau — pode render.",tags:["Opcional","Fechar"]},
+        {id:"sleep25",t:"23:30",ico:"i-bed",title:"Dormir · Morpheus",sub:"Amanhã Macau livre · cultura + portuguesa + Robuchon 3★",addr:"Morpheus · City of Dreams",map:"Morpheus+Hotel+Macau",howto:"Quarto.",duration:"até 08:30",order:"Blackout. Água.",tip:"Dia relax amanhã. Dorme bem.",tags:["Fechar"]},
+      ],
+    },
+    "2026-04-26":{
+      header:"Domingo · 26 abr 2026 · Macau livre",
+      title:"Centro histórico · portuguesa · Robuchon au Dôme 3★",
+      sub:"O único dia 100% livre da viagem. Manhã UNESCO histórico (Ruínas São Paulo · Senado · Fortaleza · A-Má), almoço português clássico (Antonio ou Fernando's), tarde Coloane Village + Lord Stow's, jantar Robuchon au Dôme 3★.",
+      badges:[
+        {ico:"i-temple",label:"Centro histórico UNESCO"},
+        {ico:"i-fork",label:"Almoço português"},
+        {ico:"i-leaf",label:"Coloane + Lord Stow's"},
+        {ico:"i-star",label:"Robuchon au Dôme 3★"},
+      ],
+      planB:[
+        {title:"Chuva forte",text:"centro histórico substituído por Venetian Macau (canal + gondoleiros + shopping coberto · até 1h) ou Taipa Village coberto. Passadiços cobertos conectam Cotai. Sem prejuízo."},
+        {title:"Pular histórico (energia baixa)",text:"dorme até 10:30, piscina/spa Morpheus manhã inteira, almoço leve hotel, só sai à noite pra Robuchon. Dia de descompressão após roadshow."},
+      ],
+      steps:[
+        {id:"café26",t:"09:30",ico:"i-coffee",title:"Café · Morpheus · Chef Tam ou room service",sub:"Sem pressa · dia livre",addr:"Morpheus · L3",map:"Morpheus+Macau",howto:"Room service ou restaurante hotel.",duration:"45 min",order:"Relaxado. Café + ovo + pão português (Morpheus serve).",tip:"Se quer dormir até 10h, room service resolve. Sem pressa.",tags:["Livre"]},
+        {id:"historic26",t:"11:00",ico:"i-temple",title:"Centro Histórico · Ruínas São Paulo + Senado + Fortaleza + A-Má",sub:"UNESCO · herança portuguesa 450 anos",addr:"Ruínas São Paulo · Macau Peninsula",map:"Ruins+of+St+Paul+Macau+UNESCO",howto:"Táxi Morpheus (Cotai) até Centro Histórico (Península) — 20 min. Começa pelas Ruínas São Paulo (a fachada de 1602 é a imagem mais reconhecível de Macau). Desce Rua da Palha → Largo do Senado (praça portuguesa pura · piso em calçadão português) → 10 min a pé → Fortaleza do Monte (subida · vista Macau 360). Se tempo, Templo A-Má (o templo taoísta mais antigo · 1488) no sudoeste.",duration:"2h30",order:"Fotos: 1) Ruínas frontal, 2) Largo do Senado + fonte, 3) Fortaleza com canhões apontando para Guangdong (origem Macau = Portugal defendia contra chineses), 4) calçamento português (único fora de Portugal). 5) Templo A-Má se tiver tempo.",tip:"Macau foi o primeiro e último território europeu na China (1557-1999). A influência portuguesa é REAL — azulejos, igrejas, ruas com nomes em português, mix cultural único. Guia áudio gratuito no site turismo Macau (baixa antes).",tags:["2h30","UNESCO","Herança portuguesa"]},
+        {id:"lunch26",t:"13:30",ico:"i-fork",title:"Almoço · Antonio Taipa Village (português refinado)",sub:"Antonio Coelho · polvo lagareiro · bacalhau · único Michelin português Ásia",addr:"Antonio · Rua dos Clérigos 7 · Taipa Village",map:"Antonio+Restaurant+Taipa+Village+Macau",howto:"Táxi Centro Histórico → Taipa Village (15 min). Antonio fica numa rua tradicional. Reserva pelo concierge Morpheus (1 sem antecedência ideal).",duration:"2h",order:"Polvo à lagareiro (a assinatura — polvo braseado com azeite e alho · carro de apresentação) · bacalhau à Brás (revisitado) · leitão à Bairrada · arroz de pato · pastel de nata artesanal. Vinho verde ou Alentejo tinto.",tip:"Antonio Coelho é português de Portimão, 30+ anos em Macau. Restaurante micro · 20 lugares · vibe casa de família + arte portuguesa nas paredes. Chef vem à mesa. Fernando's em Hac Sa (Coloane) é a alternativa clássica walk-in · mais casual · foco no leitão. Escolha Antonio se quer refinado · Fernando's se quer clássico/bochicho.",tags:["2h","Português refinado","Michelin"]},
+        {id:"coloane26",t:"15:45",ico:"i-leaf",title:"Coloane Village + Lord Stow's original",sub:"Vila colonial + pastel de nata original · Andrew Stow 1989",addr:"Lord Stow's Bakery · Rua do Tassara 1 · Coloane Village",map:"Lord+Stow%27s+Bakery+Coloane+Macau",howto:"Táxi Taipa → Coloane (15 min). Coloane Village é vila pesqueira original · casinhas coloridas · San Hou Lei Temple · praia Cheoc Van.",duration:"1h30",order:"Lord Stow's: pastel de nata original. Andrew Stow (inglês, ex-farmacêutico) inventou a versão cremosa moderna em 1989 aqui mesmo. Compra 2-3 (MOP 12/un). Café ao lado na Lord Stow's Café. Caminhada Rua dos Navegantes (waterfront), Capela São Francisco Xavier (rosa · linda), San Hou Lei Temple.",tip:"Coloane é Macau pre-Vegas · zero cassinos · vila tranquila. Se quiser almoço em vez do Antonio, Fernando's (praia Hac Sa) é a opção clássica walk-in.",tags:["1h30","Coloane","Pastel de nata original"]},
+        {id:"spa26",t:"17:30",ico:"i-bed",title:"Retorno Morpheus · spa/piscina · descanso",sub:"Preparação para o jantar 3★",addr:"Morpheus · spa + piscina cobertura",map:"Morpheus+Macau+spa",howto:"Táxi 20 min de Coloane.",duration:"1h30",order:"Piscina 30 min + massagem 60 min (reserva antes via concierge) OU só banho + descanso + livro.",tip:"Spa Morpheus é excelente — massagem thai 60 min MOP 1.800. Vale como fechamento do dia.",tags:["Spa","Piscina"]},
+        {id:"robuchon26",t:"19:30",ico:"i-star",title:"Jantar · Robuchon au Dôme · 3★ Michelin · Grand Lisboa",sub:"Joël Robuchon legado · francês clássico · vista 360 · Dôme Grand Lisboa",addr:"Grand Lisboa · 43F · Avenida de Lisboa · Macau Peninsula",map:"Robuchon+au+Dome+Grand+Lisboa+Macau",howto:"Táxi Morpheus → Grand Lisboa (25 min · atravessa Ponte Sai Van). Grand Lisboa é o ícone cassino dourado em forma de chama. Elevador 43F · Dôme envidraçado · vista 360 Macau.",duration:"3h",order:"Menu degustação 6 courses (MOP 3.688 · R$ 2.940) · wine pairing adicional (MOP 2.488). Pratos assinatura Joël Robuchon: La Caille (codorna caramelizada com foie gras) · Le Homard (lagosta bretã) · L'Agneau (cordeiro assado) · La Cherry (sobremesa teatral). Vinho lista de 20.000+ rótulos — uma das maiores do mundo (Grand Lisboa tem a cave mais profunda da Ásia).",tip:"Robuchon au Dôme é um dos 3★ mais lendários do mundo — o próprio Joël Robuchon (falecido 2018) consagrou aqui. Dress code: terno ou blazer. Se não tiver blazer, o restaurante empresta. Reserva 3-4 sem antecedência obrigatória (concierge Morpheus) · se cheio, Robuchon The Workshop (Morpheus mesmo · 2★) é alternativa.",tags:["3★ Michelin","Joël Robuchon","Vista 360","Dress code"]},
+        {id:"nightcap26",t:"23:00",ico:"i-moon",title:"Drink final · Sky25 Morpheus ou quarto",sub:"Fechar noite com calma",addr:"Morpheus · Sky25 ou quarto",map:"Morpheus+Macau",howto:"Táxi de volta (25 min).",duration:"45 min",order:"Drink no Sky25 · vista Cotai noturna · ou direto no quarto.",tip:"Amanhã Ferry pra HK (ida livre · meio-dia).",tags:["Opcional"]},
+        {id:"sleep26",t:"00:00",ico:"i-bed",title:"Dormir · Morpheus",sub:"Amanhã: ferry Macau→HK + almoço Amber 2★ + Mandarin Oriental HK",addr:"Morpheus",map:"Morpheus+Macau",howto:"Quarto.",duration:"até 08:30",order:"Blackout. Água.",tip:"Amanhã é último dia de viagem.",tags:["Fechar"]},
+      ],
+    },
+    "2026-04-27":{
+      header:"Segunda · 27 abr 2026 · Macau → Hong Kong",
+      title:"TurboJet Ferry · Amber 2★ · Mandarin Oriental HK · último dia",
+      sub:"Último dia antes do voo. Ferry Macau→HK manhã, check-in Mandarin Oriental, almoço Amber 2★, tarde Tai Kwun + galleries, jantar Caprice 3★ ou The Chairman, drink Argo, voo CX 261 00:05 para CDG.",
+      badges:[
+        {ico:"i-ship",label:"TurboJet Macau→HK"},
+        {ico:"i-bed",label:"Mandarin Oriental HK"},
+        {ico:"i-star",label:"Amber 2★ · almoço"},
+        {ico:"i-camera",label:"Tai Kwun · galleries"},
+        {ico:"i-star",label:"Caprice 3★ · jantar final"},
+        {ico:"i-plane",label:"CX 261 00:05 · saída HKG"},
+      ],
+      planB:[
+        {title:"Se ferry atrasar",text:"TurboJet e Cotai Water Jet saem a cada 30 min. Atraso máx 1h. Mandarin avisado pelo concierge. Sem prejuízo."},
+        {title:"Chuva forte",text:"passadiços cobertos HK (Central → IFC → MO) resolve tudo. Pula Tai Kwun pra The Pedder Building (galerias Hauser+Wirth cobertas). Jantar interno MO (Man Wah 1★ no 25F)."},
+      ],
+      steps:[
+        {id:"chkout27",t:"09:00",ico:"i-luggage",title:"Checkout Morpheus",sub:"Mala pronta · transfer Cotai Ferry Terminal",addr:"Morpheus · City of Dreams",map:"Morpheus+Macau",howto:"Concierge organiza carro até Cotai Ferry Terminal (10 min).",duration:"45 min",order:"Checkout. Café rápido no quarto (room service · não precisa pressa).",tip:"TurboJet Macau→HK sai do Cotai Ferry Terminal (Taipa) direto pra Sheung Wan Pier (HK). Não confundir com Outer Harbour Ferry (mais longe).",tags:["Checkout"]},
+        {id:"ferry27",t:"10:30",ico:"i-ship",title:"TurboJet Ferry · Macau Cotai → HK Sheung Wan",sub:"55 min · HK$ 200 · super cat jet",addr:"Cotai Ferry Terminal",map:"Cotai+Ferry+Terminal+Macau",howto:"Check-in 30 min antes. Imigração Macau + HK (passaporte carimbado nos dois lados). Balsa hidrofólio TurboJet ou Cotai Water Jet. Classe Super Class (business).",duration:"55 min",order:"Descansa. Vista Pearl River Delta (a região mais densa economicamente do mundo).",tip:"Sheung Wan Pier (HK) fica em Central-adjacent. Táxi direto pra Mandarin Oriental (5 Connaught Rd · 5 min).",tags:["Ferry","Super Class"]},
+        {id:"mohk27",t:"12:00",ico:"i-bed",title:"Check-in Mandarin Oriental Hong Kong",sub:"5 Connaught Rd · Central · hotel icônico HK",addr:"Mandarin Oriental HK · 5 Connaught Rd · Central",map:"Mandarin+Oriental+Hong+Kong+Central",howto:"Táxi 10 min do pier. Lobby no L1 (entrada Connaught Rd). Check-in rápido.",duration:"30 min",order:"Quarto padrão Deluxe Harbour View (25-35F). Dica: pede 'high floor · harbour view · corner if possible'. Banho rápido + troca.",tip:"MO HK é o 2º hotel mais antigo de HK (1963) · ícone absoluto da colônia britânica. Clipper Lounge (25F) é lendário pra café da manhã. Man Wah (25F · cantonês 1★) é jantar alternativo se Caprice cheio.",tags:["Check-in","MO icônico"]},
+        {id:"amber27",t:"13:00",ico:"i-star",title:"Almoço · Amber · 2★ Michelin · Landmark Mandarin",sub:"Chef Richard Ekkebus · 'natural luxury' · modernismo francês",addr:"Landmark Mandarin Oriental · 7F · 15 Queen's Rd Central",map:"Amber+Restaurant+Landmark+Mandarin+Oriental+Hong+Kong",howto:"5 min a pé do MO Central pelo passadiço coberto (Central skyway). Entrada The Landmark Atrium · elevador 7F · restaurante.",duration:"2h",order:"Almoço 3-course (HK$ 1.147) ou 4-course (HK$ 2.046). Pratos: hokkaido sea urchin + cauliflower · Iberico pork + black garlic · Miyazaki beef A5 (suplemento HK$ 680) · chocolate espresso dessert. Wine pairing opcional.",tip:"Richard Ekkebus é 30 anos em HK · cozinha modernismo francês com ingredientes globais. Amber fez revamp total 2020 (vegetarianização parcial, 'natural luxury'). Smart casual. Reserva 2-3 sem antecedência.",tags:["2★ Michelin","Richard Ekkebus","Modernismo francês"]},
+        {id:"taikwun27",t:"15:30",ico:"i-camera",title:"Tai Kwun · revisita + Pedder Building galleries",sub:"Art stroll · Hauser & Wirth · Gagosian · Lévy Gorvy",addr:"Tai Kwun · 10 Hollywood Rd · Central",map:"Tai+Kwun+Centre+Heritage+Arts+Central",howto:"Táxi 5 min Amber → Tai Kwun. Se já viu 18/abr, vai rápido só pra expo contemporânea nova. 30 min. Depois caminha 10 min até Pedder Building (12 Pedder St) · 7 galerias internacionais empilhadas: Hauser & Wirth (3F) · Gagosian (7F) · Lévy Gorvy Dayan (4F). Entrada gratuita.",duration:"2h",order:"Tai Kwun: só expo JC Contemporary (galeria principal). Depois Pedder Building: 30 min por galeria. Se ver Hauser & Wirth com show de artista chinês contemporâneo (Zhang Enli · Zeng Fanzhi · quase sempre tem), vale o tempo dobrado.",tip:"Arte contemporânea HK é mundial · Art Basel HK acontece aqui em março. Em abril ainda tem shows remanescentes. Se Paulo gostar, pede compra/contato com gallerista (Hauser & Wirth tem viewings privados).",tags:["Arte","Pedder Building","Galerias"]},
+        {id:"mo-rest27",t:"17:30",ico:"i-bed",title:"Volta MO · pausa + troca · jantar formal",sub:"Banho + camisa limpa · Ring Jacket final",addr:"Mandarin Oriental HK",map:"Mandarin+Oriental+Hong+Kong",howto:"Passadiço coberto (MTR Central link) · 10 min.",duration:"45 min",order:"Banho. Camisa branca + Ring Jacket navy + calça escura + sapato couro. Perfume.",tip:"Último jantar fino da viagem · quer estar no ápice.",tags:["Reset"]},
+        {id:"caprice27",t:"19:30",ico:"i-star",title:"Jantar · Caprice · 3★ Michelin · Four Seasons HK",sub:"Guillaume Galliot · francesa clássica moderna · HK harbour view",addr:"Four Seasons HK · 6F · 8 Finance St · Central",map:"Caprice+Four+Seasons+Hong+Kong",howto:"Táxi 7 min MO → Four Seasons HK. 6F. Dress code: terno ou blazer (Ring Jacket conta).",duration:"2h30",order:"Menu degustação Caprice 6 courses (HK$ 2.680) ou 8 courses (HK$ 3.380) + wine pairing. Pratos assinatura: scallop Saint-Jacques bretão + black truffle sauce · turbot pan-seared + beurre blanc · pigeon Racan + cherry sauce · chocolate soufflé. Cave Caprice é 3.500+ rótulos.",tip:"Chef Guillaume Galliot é ex-MOF (Meilleur Ouvrier de France) · cozinha francesa pura com ingredientes HK premium. Reserva 3-4 sem antecedência obrigatória. Se Caprice cheio, Plan A: L'Envol (2★ · St. Regis HK). Plan B: The Chairman (Asia's 50 Best #2 · 1★ cantonês — oposto · se quiser algo não-europeu).",tags:["3★ Michelin","Caprice","Jantar final"]},
+        {id:"argo27",t:"22:00",ico:"i-moon",title:"Drink · Argo · Four Seasons lobby · World's 50 Best",sub:"Fecha a viagem · HK$ 220 drink + 30 min zen",addr:"Argo · Four Seasons HK lobby",map:"Argo+Four+Seasons+Hong+Kong",howto:"Sai do Caprice (6F) · desce ao lobby L1 · Argo está à esquerda.",duration:"45 min",order:"Osmanthus Martini (signature · gin + mel HK + osmanthus) OU Hong Kong Highball (Japanese whisky + yuzu). Tapas compartilhadas se pick.",tip:"Argo é top 20 World's 50 Best Bars. Ingredientes raros (mel de abelhas HK · chás autóctones). Last call do jantar Caprice.",tags:["World's 50 Best","Drink final"]},
+        {id:"chkout27hk",t:"22:45",ico:"i-luggage",title:"Volta MO · pegar mala · transfer aeroporto",sub:"Rimowa + passaporte + documentos voo · HKG em 45 min",addr:"Mandarin Oriental HK",map:"Mandarin+Oriental+Hong+Kong",howto:"Táxi Argo → MO (5 min). Concierge já guardou Rimowa pós-checkout. Pega mala. Táxi MO → HKG (35-45 min com trânsito · HK$ 350) OU Airport Express (24 min · HK$ 115, melhor opção). Express sai de Hong Kong Station (5 min a pé do MO).",duration:"1h30 (até portão)",order:"Rimowa. Passaporte. Cartão embarque CX 261 (00:05) pronto no wallet iPhone.",tip:"CX 261 HKG→CDG 00:05 · chega Paris 07:55. Embarque 23:30. HKG T1 · Cathay Business.",tags:["Checkout","Airport Express"]},
+        {id:"fly27",t:"00:05",ico:"i-plane",title:"CX 261 · HKG → CDG · Hong Kong → Paris",sub:"13h50 · A350-1000 · Cathay Business",addr:"HKG Terminal 1",map:"Hong+Kong+International+Airport+Terminal+1",howto:"Embarque portão 30 + 20 min antes. Lounge The Pier/The Wing (Cathay) opcional antes.",duration:"13h50",order:"Dormir 8h. Amenity kit Cathay. 2 refeições. Vista: Mar do Sul da China → Índia → Oriente Médio → Europa.",tip:"Fim da viagem. Amanhã (28/abr) pousa Paris 07:55, conexão LATAM LA 8067 CDG→GRU 13:00 → 29/abr 00:15 GRU→CNF LA 3545 → 29/abr 01:25 BH. Casa enfim.",tags:["Voo final","Cathay Business"]},
+      ],
+    },
+    "2026-04-28":{
+      header:"Terça · 28 abr 2026 · CDG → GRU",
+      title:"Conexão Paris · LATAM Business",
+      sub:"Dia de conexão. Pouso CDG 07:55, lounge LATAM, voo LA 8067 CDG→GRU 13:00 (11h50), pouso São Paulo 19:50, conexão LA 3545 GRU→CNF 00:15 (já dia 29).",
+      badges:[
+        {ico:"i-plane",label:"CDG 07:55 · pouso Paris"},
+        {ico:"i-plane",label:"LA 8067 CDG→GRU 13:00"},
+        {ico:"i-star",label:"Lounge LATAM CDG T1"},
+      ],
+      planB:[
+        {title:"Se CX 261 atrasar",text:"LATAM CDG tem saída LA 8067 diária 13:00. Se perder, próximo voo AF GRU ou LATAM 14:30 (quase sempre cabe — LATAM realoca)."},
+      ],
+      steps:[
+        {id:"land28",t:"07:55",ico:"i-plane",title:"Pouso Paris CDG T1",sub:"Imigração europeia · rápido",addr:"CDG Terminal 1",map:"Paris+Charles+de+Gaulle+Airport+Terminal+1",howto:"Desembarque SkyPriority. Imigração UE (passaporte brasileiro com visto/status válido). T1 é o terminal redondo (Paul Andreu 1974).",duration:"30 min",order:"Imigração → saguão → placas 'Connections' → Terminal 1 conexão (mesmo T1).",tip:"CDG T1 foi o primeiro terminal circular do mundo · design Paul Andreu · vale a foto do tubo de vidro central.",tags:["Conexão"]},
+        {id:"lounge28",t:"09:00",ico:"i-star",title:"Lounge LATAM/oneworld CDG T1",sub:"4h de conexão · banho + café + refeição",addr:"CDG T1 · Lounge Air France ou oneworld",map:"CDG+Terminal+1+lounge",howto:"Placa 'Lounges'. LATAM opera SkyTeam · usa Air France Lounge T1. Acesso via cartão embarque Business.",duration:"3h30",order:"Banho (30 min). Café francês · croissant · queijos · frios. Relax 1h. Refeição leve antes do voo.",tip:"Lounge Air France Salon em CDG T1 é o melhor do aeroporto. Duchas privadas com produtos Clarins.",tags:["Lounge","Banho"]},
+        {id:"fly28",t:"13:00",ico:"i-plane",title:"LA 8067 · CDG → GRU · Paris → São Paulo",sub:"11h50 · 787-9 LATAM · Business",addr:"CDG Terminal 1",map:"Paris+Charles+de+Gaulle+Airport+Terminal+1",howto:"Embarque SkyPriority. Assentos recomendados 3A/3J/5A/5J.",duration:"11h50",order:"Almoço LATAM Business (ou dormir direto). Vinho português/chileno disponível. Amenity kit. Dorme 7h pra chegar GRU 19:50 BRT sem jetlag fresco.",tip:"Chegada GRU 19:50 BRT. Conexão LA 3545 GRU→CNF 00:15 (dia 29) · 4h25 de conexão T3.",tags:["Voo volta","Business LATAM"]},
+      ],
+    },
+    "2026-04-29":{
+      header:"Quarta · 29 abr 2026 · GRU → CNF · casa",
+      title:"Última conexão · BH às 01:25 · fim da viagem",
+      sub:"Última perna. Pouso GRU 19:50 (28/abr), 4h25 de conexão T3, LA 3545 GRU→CNF 00:15, pouso Confins 01:25, casa. Fim do China Roadshow 2026.",
+      badges:[
+        {ico:"i-plane",label:"LA 3545 GRU→CNF 00:15"},
+        {ico:"i-bed",label:"Casa Escarpas · 01:25+"},
+      ],
+      planB:[
+        {title:"Se LA 8067 atrasar em GRU",text:"LATAM reoloca automaticamente em LA 3547 (próximo CNF · 03:00+) ou LA 3549 (manhã 07:00)."},
+      ],
+      steps:[
+        {id:"gru28",t:"19:50",ico:"i-plane",title:"Pouso GRU · conexão T3",sub:"4h25 na LATAM Business Lounge",addr:"São Paulo GRU Terminal 3",map:"Sao+Paulo+Guarulhos+Airport+Terminal+3",howto:"Desembarque internacional → imigração BR (rápida) → bagagem → reembarque Domestic T3.",duration:"4h25",order:"LATAM Business Lounge T3 (uma das melhores LATAM do mundo). Banho. Refeição brasileira (feijoada leve · queijo mineiro). Café forte.",tip:"Cadastre-se VAP (Viajante Automatizado Pré-aprovado) se ainda não fez — passa imigração em 30 seg.",tags:["Conexão","Lounge LATAM"]},
+        {id:"fly29",t:"00:15",ico:"i-plane",title:"LA 3545 · GRU → CNF · Confins",sub:"1h10 · A321 LATAM",addr:"GRU T3",map:"Sao+Paulo+Guarulhos+Airport",howto:"Embarque SkyPriority. Voo curto.",duration:"1h10",order:"Dorme no avião. Pouso Confins 01:25.",tip:"Última perna. Relax.",tags:["Voo doméstico"]},
+        {id:"home29",t:"01:25",ico:"i-bed",title:"Pouso CNF · casa",sub:"Fim da viagem · 15 dias · China domada",addr:"Aeroporto Internacional Tancredo Neves · Confins",map:"Confins+Airport+Belo+Horizonte",howto:"Motorista esperando saguão. 40 min até Escarpas (trânsito zero · madrugada).",duration:"casa",order:"Casa. Cama. Fim.",tip:"Reunião Tecai quinta-feira pós-chegada · pós-viagem debrief. Primeiro relato do roadshow pra Pedro + equipe. Prepara decks curtos das 4 empresas mais estratégicas (Megvii · Unitree · Sany · Vale).",tags:["Fim","Casa"]},
+      ],
+    },
+  },
   nightlife:[
     // ============ HONG KONG ============
     {city:"Hong Kong",sub:"17–19 abr + 27–28 abr · cena Central / LKF / Soho",list:[
@@ -1346,19 +1624,123 @@ $('#nightlife').innerHTML = TRIP.nightlife.map(group=>`
     </div>
   </div>`).join('');
 
-// ============ HOJE · timeline checklist ============
-const TODAY_KEY = 'carnet-today-2026-04-18';
+// ============ HOJE · timeline checklist (date-aware, multi-day) ============
+const DAY_KEYS = Object.keys(TRIP.days).sort();
+
+function todayKeyCN(){
+  try{
+    return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  }catch(e){
+    return new Date().toISOString().slice(0,10);
+  }
+}
+
+function resolveActiveDayKey(){
+  const today = todayKeyCN();
+  if(TRIP.days[today]) return today;
+  if(today < DAY_KEYS[0]) return DAY_KEYS[0];
+  if(today > DAY_KEYS[DAY_KEYS.length-1]) return DAY_KEYS[DAY_KEYS.length-1];
+  for(let i=DAY_KEYS.length-1;i>=0;i--){ if(DAY_KEYS[i] <= today) return DAY_KEYS[i]; }
+  return DAY_KEYS[0];
+}
+
+let activeDayKey = resolveActiveDayKey();
+
+function todayStorageKey(){ return 'carnet-today-' + activeDayKey; }
 function loadTodayState(){
-  try{ return JSON.parse(localStorage.getItem(TODAY_KEY)||'{}'); }catch(e){ return {}; }
+  try{ return JSON.parse(localStorage.getItem(todayStorageKey())||'{}'); }catch(e){ return {}; }
 }
 function saveTodayState(s){
-  try{ localStorage.setItem(TODAY_KEY, JSON.stringify(s)); }catch(e){}
+  try{ localStorage.setItem(todayStorageKey(), JSON.stringify(s)); }catch(e){}
 }
+
+function labelForDayKey(key){
+  const d = new Date(key + 'T00:00:00Z');
+  const dias = ['dom','seg','ter','qua','qui','sex','sáb'];
+  return d.getUTCDate() + ' · ' + dias[d.getUTCDay()];
+}
+
+const CITY_GRADIENTS = [
+  {match:['Hong Kong','HK'], grad:'linear-gradient(135deg,#0b1e3f,#2d1b3e,#a07838)'},
+  {match:['Pequim','Beijing'], grad:'linear-gradient(135deg,#3a0a0a,#7a1f1f,#c9a24b)'},
+  {match:['Tianjin'], grad:'linear-gradient(135deg,#2a2d3a,#4a3d5a,#8a7a3a)'},
+  {match:['Suzhou'], grad:'linear-gradient(135deg,#1a3a2a,#2d4a5a,#8a9a3a)'},
+  {match:['Xangai','Shanghai'], grad:'linear-gradient(135deg,#0a1a2a,#3a2a5a,#c9a24b)'},
+  {match:['Hangzhou'], grad:'linear-gradient(135deg,#0a2a2a,#2a4a4a,#8a9a3a)'},
+  {match:['Macau'], grad:'linear-gradient(135deg,#3a0a2a,#7a1f5a,#c9a24b)'},
+];
+const DEFAULT_GRADIENT = 'linear-gradient(135deg,#1a1224,#2d1b3e,#4c2a85)';
+
+function heroGradientFor(header){
+  for(const g of CITY_GRADIENTS){
+    for(const m of g.match){ if(header.indexOf(m) !== -1) return g.grad; }
+  }
+  return DEFAULT_GRADIENT;
+}
+
+function renderTodayHero(){
+  const hero = document.getElementById('todayHero');
+  const d = TRIP.days[activeDayKey];
+  if(!hero || !d) return;
+  hero.style.background = heroGradientFor(d.header || '');
+  const badges = (d.badges || []).map(b=>`<span class="badge" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.25)">${ico(b.ico||'i-star')}${b.label}</span>`).join('');
+  hero.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.72)">${d.header || ''}</div>
+      <div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,0.28);border-radius:99px;padding:6px 12px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#fff">
+        <span>Progresso</span>
+        <div style="width:80px;height:4px;border-radius:2px;background:rgba(255,255,255,0.22);overflow:hidden"><div id="todayBar" style="height:100%;background:var(--gold);width:0"></div></div>
+        <span id="todayCount">0/0</span>
+      </div>
+    </div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:28px;margin:0 0 10px;font-weight:500;letter-spacing:.5px;color:#fff">${d.title || ''}</h1>
+    ${d.sub ? `<p style="margin:0 0 14px;color:rgba(255,255,255,0.86);font-size:14px;line-height:1.65">${d.sub}</p>` : ''}
+    ${badges ? `<div style="display:flex;gap:8px;flex-wrap:wrap">${badges}</div>` : ''}
+  `;
+}
+
+function renderTodayPlanB(){
+  const list = document.getElementById('todayPlanBList');
+  const card = document.getElementById('todayPlanBCard');
+  const d = TRIP.days[activeDayKey];
+  if(!list) return;
+  const items = (d && d.planB) || [];
+  if(!items.length){
+    if(card) card.style.display = 'none';
+    list.innerHTML = '';
+    return;
+  }
+  if(card) card.style.display = '';
+  list.innerHTML = items.map(p=>`<div><b>${p.title}:</b> ${p.text}</div>`).join('');
+}
+
+function renderDayButtons(){
+  const container = document.getElementById('todayDayButtons');
+  if(!container) return;
+  const real = todayKeyCN();
+  container.innerHTML = DAY_KEYS.map(key=>{
+    const isActive = key === activeDayKey;
+    const isReal = key === real;
+    const base = 'background:color-mix(in oklab,var(--text) 8%,transparent);color:var(--text);border:1px solid color-mix(in oklab,var(--text) 18%,transparent)';
+    const act = 'background:var(--gold);color:#1a1224;border:1px solid var(--gold);font-weight:700';
+    const today = 'background:color-mix(in oklab,var(--gold) 22%,transparent);color:var(--text);border:1px solid var(--gold)';
+    const style = isActive ? act : (isReal ? today : base);
+    return `<button type="button" data-daykey="${key}" style="${style};border-radius:99px;padding:8px 14px;font-size:12px;letter-spacing:.5px;white-space:nowrap;cursor:pointer;scroll-snap-align:start;flex:0 0 auto;font-family:inherit">${labelForDayKey(key)}${isReal?' · HOJE':''}</button>`;
+  }).join('');
+}
+
 function renderTodaySteps(){
   const state = loadTodayState();
-  const container = $('#todaySteps');
+  const container = document.getElementById('todaySteps');
   if(!container) return;
-  container.innerHTML = '<ul class="tline">' + TRIP.today.map(s=>{
+  const d = TRIP.days[activeDayKey];
+  const steps = (d && d.steps) || [];
+  if(!steps.length){
+    container.innerHTML = '<p style="color:var(--text-3);font-style:italic;margin:0">Sem passo-a-passo cadastrado pra este dia.</p>';
+    updateTodayProgress();
+    return;
+  }
+  container.innerHTML = '<ul class="tline">' + steps.map(s=>{
     const done = !!state[s.id];
     const tagHtml = (s.tags||[]).map(t=>{
       const cls = /3★|PICK|Imperdível/i.test(t) ? 'gold' : /Ticket|Reserva|Chegar|20:00/i.test(t) ? 'warn' : '';
@@ -1381,12 +1763,16 @@ function renderTodaySteps(){
   }).join('') + '</ul>';
   updateTodayProgress();
 }
+
 function updateTodayProgress(){
   const state = loadTodayState();
-  const total = TRIP.today.length;
-  const done = TRIP.today.filter(s=>state[s.id]).length;
-  const pct = total? Math.round(done/total*100):0;
-  const bar = $('#todayBar'); const count = $('#todayCount');
+  const d = TRIP.days[activeDayKey];
+  const steps = (d && d.steps) || [];
+  const total = steps.length;
+  const done = steps.filter(s=>state[s.id]).length;
+  const pct = total ? Math.round(done/total*100) : 0;
+  const bar = document.getElementById('todayBar');
+  const count = document.getElementById('todayCount');
   if(bar) bar.style.width = pct+'%';
   if(count) count.textContent = done+'/'+total;
   const mpFill = document.getElementById('miniProgressFill');
@@ -1396,6 +1782,35 @@ function updateTodayProgress(){
   if(mpCount) mpCount.textContent = done+'/'+total;
   if(miniBox) miniBox.classList.toggle('done', total>0 && done===total);
 }
+
+function setActiveDay(key){
+  if(!TRIP.days[key]) return;
+  activeDayKey = key;
+  renderTodayHero();
+  renderTodayPlanB();
+  renderTodaySteps();
+  renderDayButtons();
+}
+
+renderTodayHero();
+renderTodayPlanB();
+renderTodaySteps();
+renderDayButtons();
+
+$('#todayDayButtons').addEventListener('click', e=>{
+  const btn = e.target.closest('button[data-daykey]'); if(!btn) return;
+  setActiveDay(btn.dataset.daykey);
+  const active = e.currentTarget.querySelector(`button[data-daykey="${btn.dataset.daykey}"]`);
+  if(active && active.scrollIntoView) active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+});
+
+$('#todayJumpBtn').addEventListener('click', ()=>{
+  setActiveDay(resolveActiveDayKey());
+  const container = document.getElementById('todayDayButtons');
+  const btn = container && container.querySelector(`button[data-daykey="${activeDayKey}"]`);
+  if(btn && btn.scrollIntoView) btn.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+});
+
 $('#todaySteps').addEventListener('click', e=>{
   const btn = e.target.closest('.tdot'); if(!btn) return;
   const id = btn.dataset.step;
@@ -1406,7 +1821,6 @@ $('#todaySteps').addEventListener('click', e=>{
   li.classList.toggle('done', !!state[id]);
   updateTodayProgress();
 });
-renderTodaySteps();
 
 // Dress
 $('#dress').innerHTML = TRIP.dress.map(d=>`
