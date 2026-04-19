@@ -160,6 +160,13 @@ html[data-theme="light"] .hero-stat .i{background:rgba(107,70,193,.15);color:var
 .day:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .day .chev{opacity:.35;margin-left:auto;transition:transform .2s ease}
 .day:hover .chev{opacity:1;transform:translateX(3px)}
+.day.is-today{border-color:var(--gold);background:color-mix(in oklab,var(--gold) 10%,var(--card));animation:dayTodayPulse 1.8s ease-in-out infinite}
+.day.is-today::after{width:6px;background:linear-gradient(180deg,var(--gold),var(--accent));animation:dayTodaySide 1.8s ease-in-out infinite}
+.day.is-today .date .d{color:var(--gold);text-shadow:0 0 14px color-mix(in oklab,var(--gold) 60%,transparent)}
+.day.is-today::before{content:"HOJE";position:absolute;top:-9px;right:14px;background:linear-gradient(135deg,var(--gold),var(--accent));color:#fff;font-size:9px;letter-spacing:2.2px;font-weight:800;padding:4px 9px;border-radius:99px;box-shadow:0 3px 10px color-mix(in oklab,var(--gold) 55%,transparent);animation:bibleTodayBadge 1.8s ease-in-out infinite;pointer-events:none;z-index:2}
+@keyframes dayTodayPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in oklab,var(--gold) 55%,transparent),0 6px 18px -8px color-mix(in oklab,var(--gold) 40%,transparent)}50%{box-shadow:0 0 0 8px color-mix(in oklab,var(--gold) 18%,transparent),0 12px 30px -10px color-mix(in oklab,var(--gold) 80%,transparent)}}
+@keyframes dayTodaySide{0%,100%{opacity:.85}50%{opacity:1;box-shadow:0 0 18px color-mix(in oklab,var(--gold) 80%,transparent)}}
+@media (prefers-reduced-motion:reduce){.day.is-today,.day.is-today::before,.day.is-today::after{animation:none}}
 .bible-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;margin-bottom:8px;transition:all .2s ease;position:relative}
 .bible-item:hover{border-color:var(--accent);background:var(--card-2);transform:translateX(3px)}
 .bible-item .n{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--accent);min-width:40px}
@@ -1769,9 +1776,19 @@ function markTodayInBible(){
     el.classList.toggle('is-today', parseInt(el.dataset.bi,10)===bi);
   });
 }
+// Marca o card do roteiro do dia em vigência com pulso dourado
+function markTodayInItinerary(){
+  const now = new Date();
+  const isTrip = now.getFullYear()===2026 && now.getMonth()===3;
+  const day = isTrip ? String(now.getDate()) : '';
+  document.querySelectorAll('#itinerary .day').forEach(el=>{
+    el.classList.toggle('is-today', el.dataset.day===day);
+  });
+}
 markTodayInBible();
+markTodayInItinerary();
 // Reavalia ao virar meia-noite (ou próxima mudança de dia)
-setInterval(markTodayInBible, 60*1000);
+setInterval(()=>{ markTodayInBible(); markTodayInItinerary(); }, 60*1000);
 
 // Modal
 function openModal(title, html){
