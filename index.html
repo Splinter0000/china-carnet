@@ -432,6 +432,7 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
 <!-- TABS -->
 <div class="tabs" id="tabs">
   <button class="tab on" data-tab="hoje"><svg class="ico"><use href="#i-today"/></svg>Hoje</button>
+  <button class="tab" data-tab="briefing"><svg class="ico"><use href="#i-briefcase"/></svg>Briefing</button>
   <button class="tab" data-tab="roteiro"><svg class="ico"><use href="#i-calendar"/></svg>Roteiro</button>
   <button class="tab" data-tab="voos"><svg class="ico"><use href="#i-plane"/></svg>Voos</button>
   <button class="tab" data-tab="hoteis"><svg class="ico"><use href="#i-bed"/></svg>Hotéis</button>
@@ -471,6 +472,16 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
     <h3 style="margin-top:0"><svg class="ico"><use href="#i-spark"/></svg>Plan B · se bater cansaço, chover ou mudar de plano</h3>
     <div id="todayPlanBList" style="display:grid;gap:10px;font-size:14px;color:var(--text-2);line-height:1.6"></div>
   </div>
+</div>
+
+<!-- BRIEFING -->
+<div class="section hide" data-pane="briefing">
+  <div class="card" style="padding:22px 24px">
+    <h3 style="margin-top:0"><svg class="ico"><use href="#i-briefcase"/></svg>Os 17 do Roadshow · dossiês rápidos</h3>
+    <p style="color:var(--text-2);font-size:13.5px;line-height:1.55;margin:0 0 14px">17 participantes YPO-BH. Filtro por prioridade · clica no card pra abrir o dossiê completo: contexto, patrimônio, como abordar e frase-gancho.</p>
+    <div id="briefingFilters" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px"></div>
+  </div>
+  <div id="briefingList" style="display:grid;gap:14px"></div>
 </div>
 
 <!-- ROTEIRO -->
@@ -954,14 +965,15 @@ const TRIP = {
         {ico:"i-moon",label:"Jantar do grupo 20:00"},
       ],
       planB:[
-        {title:"Se atrasar 1ª visita",text:"FCGI avisa WeChat. Nunca chega atrasado numa empresa chinesa sem comunicação prévia — é quebra de respeito. Sai do hotel 08:00 (trânsito NE Beijing é brutal 08-09)."},
+        {title:"Se atrasar 1ª visita",text:"FCGI avisa WeChat. Nunca chega atrasado numa empresa chinesa sem comunicação prévia — é quebra de respeito. Ônibus do grupo sai do Four Seasons 08:30 sharp; todo mundo junto."},
         {title:"Cartão de visita esgotando",text:"FS Beijing business center imprime 100 unidades em 1h (¥ 300). Pede ao concierge assim que chegar — estoque completo por segurança."},
         {title:"Se sentir mal/cansaço",text:"almoço é o menos crítico (networking solto); se precisar pular, avisa Ricardo Geromel no WeChat — Huawei e Megvii são as prioridades absolutas. Hotel tem médico 24h."},
       ],
       steps:[
-        {id:"café20",t:"07:00",ico:"i-coffee",title:"Café no Jin · Four Seasons",sub:"L2 · buffet internacional · executivo",addr:"Four Seasons Beijing · L2",map:"Jin+Restaurant+Four+Seasons+Beijing",howto:"Elevador L2 → Jin. Reserva mesa individual (não balcão). Peça rápido — 35 min.",duration:"35 min",order:"Ovos mexidos + bacon + dim sum misto (char siu bao + shumai) + fruta fresca + dois cafés. Chá verde pro bule (hidratação).",tip:"Café aqui é forte, peça 'doppio espresso + um copo água gelada' (estilo Milão). NÃO tome chá preto hoje — Huawei HQ serve Pu-erh forte na recepção, evita cafeína em excesso.",tags:["Hotel","Executivo"]},
-        {id:"bag20",t:"07:45",ico:"i-luggage",title:"Preparar mala executiva",sub:"Apple + cartões + caderno · tudo no couro preto",addr:"Four Seasons · quarto",map:"Four+Seasons+Hotel+Beijing",howto:"Mala-portfolio: MacBook Air + iPad + 30-50 cartões Tecai + caderno Moleskine + canetas + 2 adaptadores USB-C + ficha em chinês (Pleco print) com Tecai em português + tradução curta. Presente simbólico se quiser (chocolate BH Cacau Show ou cachaça premium — opcional). Celular c/ VPN + WeChat + WhatsApp verificados.",duration:"15 min",order:"Confere: passaporte digitalizado no iPhone (Huawei pede ID na recepção), cartão Tecai em chinês se tiver (pede ao FCGI versão traduzida se ainda não tem), visitcard app aberto pra trocar contato digital rápido.",tip:"Bolsa-pasta de couro discreta (não mochila). Cartão de visita segura com as DUAS mãos ao entregar, lado escrito em chinês virado pra pessoa. Ao receber, lê atentamente por 3 segundos antes de guardar — cortesia obrigatória.",tags:["Preparação","Cartões"]},
-        {id:"depart20",t:"08:15",ico:"i-car",title:"Saída para Huawei HQ Shenzhen… ops, Beijing Office",sub:"Bairro CBD · Central Business District · 25 min",addr:"Huawei Beijing Office · CBD",map:"Huawei+Beijing+Office+CBD",howto:"Van/carro do grupo FCGI sai do FS lobby às 08:15. O endereço exato da visita Huawei (escritório Beijing, não HQ Shenzhen) será confirmado pelo FCGI no WhatsApp — pode ser o prédio Huawei Wangjing (望京) no nordeste ou Zhongguancun (中关村). Trajeto 25-40 min dependendo do trânsito segunda de manhã.",duration:"25-40 min",order:"No carro: revisa o deck FCGI da Huawei (páginas dedicadas no PDF). Prepara 3 perguntas: 1) 'Como vocês veem o posicionamento Huawei + DeepSeek na automação residencial?' 2) 'Qual o papel do HarmonyOS fora da China até 2027?' 3) 'Ecosistema CarBYD + Harmony é a aposta pra Brasil?'",tip:"Segunda de manhã em Beijing é o pior trânsito da semana. Saída 08:15 dá 45 min de margem pra chegar até 09:00 com folga. Motorista sempre pega a 2ª circular (二环) se o CBD tiver bloqueio.",tags:["Transfer","Deck review"]},
+        {id:"café20",t:"07:15",ico:"i-coffee",title:"Café no Jin · Four Seasons",sub:"L2 · buffet internacional · executivo",addr:"Four Seasons Beijing · L2",map:"Jin+Restaurant+Four+Seasons+Beijing",howto:"Elevador L2 → Jin. Reserva mesa individual (não balcão). Peça rápido — 40 min.",duration:"40 min",order:"Ovos mexidos + bacon + dim sum misto (char siu bao + shumai) + fruta fresca + dois cafés. Chá verde pro bule (hidratação).",tip:"Café aqui é forte, peça 'doppio espresso + um copo água gelada' (estilo Milão). NÃO tome chá preto hoje — Huawei HQ serve Pu-erh forte na recepção, evita cafeína em excesso.",tags:["Hotel","Executivo"]},
+        {id:"bag20",t:"08:00",ico:"i-luggage",title:"Preparar mala executiva",sub:"Apple + cartões + caderno · tudo no couro preto",addr:"Four Seasons · quarto",map:"Four+Seasons+Hotel+Beijing",howto:"Mala-portfolio: MacBook Air + iPad + 30-50 cartões Tecai + caderno Moleskine + canetas + 2 adaptadores USB-C + ficha em chinês (Pleco print) com Tecai em português + tradução curta. Presente simbólico se quiser (chocolate BH Cacau Show ou cachaça premium — opcional). Celular c/ VPN + WeChat + WhatsApp verificados.",duration:"20 min",order:"Confere: passaporte digitalizado no iPhone (Huawei pede ID na recepção), cartão Tecai em chinês se tiver (pede ao FCGI versão traduzida se ainda não tem), visitcard app aberto pra trocar contato digital rápido.",tip:"Bolsa-pasta de couro discreta (não mochila). Cartão de visita segura com as DUAS mãos ao entregar, lado escrito em chinês virado pra pessoa. Ao receber, lê atentamente por 3 segundos antes de guardar — cortesia obrigatória.",tags:["Preparação","Cartões"]},
+        {id:"lobby20",t:"08:25",ico:"i-walk",title:"Descer pro lobby · reunir com o grupo",sub:"Lobby FS · 5 min antes da partida",addr:"Four Seasons Beijing · lobby",map:"Four+Seasons+Hotel+Beijing",howto:"Desce 08:25 com portfolio pronto. Ricardo Geromel / Rui Cavendish fazem a chamada do grupo antes do embarque.",duration:"5 min",order:"Cumprimenta o grupo YPO + FCGI (são 17 pessoas no total). Confere com o Rui/Ricardo a ordem das visitas do dia. Hidrata (500 ml água no lobby).",tip:"Chega ANTES dos 08:30 — ônibus do grupo não espera ninguém. Cultura YPO + cultura chinesa = pontualidade absoluta. Quem atrasa paga táxi por conta.",tags:["Pontualidade","Reunião grupo"]},
+        {id:"depart20",t:"08:30",ico:"i-car",title:"Ônibus do grupo FCGI · saída pra Huawei",sub:"Ônibus YPO sai do Four Seasons com todo mundo · 25-40 min",addr:"Huawei Beijing Office · CBD",map:"Huawei+Beijing+Office+CBD",howto:"Ônibus do grupo FCGI sai do Four Seasons às 08:30 sharp com os 17 participantes. O endereço exato da visita Huawei (escritório Beijing, não HQ Shenzhen) será confirmado pelo FCGI no WhatsApp — pode ser o prédio Huawei Wangjing (望京) no nordeste ou Zhongguancun (中关村). Trajeto 25-40 min dependendo do trânsito segunda de manhã.",duration:"25-40 min",order:"No ônibus: revisa o deck FCGI da Huawei (páginas dedicadas no PDF). Senta ao lado de alguém do grupo com quem ainda não conversou muito (checa aba Briefing pra saber quem é quem). Prepara 3 perguntas: 1) 'Como vocês veem o posicionamento Huawei + DeepSeek na automação residencial?' 2) 'Qual o papel do HarmonyOS fora da China até 2027?' 3) 'Ecosistema CarBYD + Harmony é a aposta pra Brasil?'",tip:"Segunda de manhã em Beijing é o pior trânsito da semana. Saída 08:30 dá 30 min de margem pra chegar até 09:00 com folga. Motorista sempre pega a 2ª circular (二环) se o CBD tiver bloqueio.",tags:["Ônibus grupo","Deck review","08:30 sharp"]},
         {id:"huawei20",t:"09:00",ico:"i-briefcase",title:"Huawei · apresentação + Q&A + tour",sub:"5G + HarmonyOS + Cloud + Ascend IA · escala global",addr:"Huawei Beijing Office",map:"Huawei+Beijing+Office+Wangjing",howto:"Recepção pede passaporte + entrega crachá. Celular pode precisar ficar em locker (segurança — evita fotografia não autorizada). Sala de reunião formal, 2h com deck corporativo + Q&A + visita a showroom (5G stack, HarmonyOS devices, Ascend AI chips).",duration:"2h",order:"Apresentação institucional (30 min) + demo tech (30 min) + Q&A grupo (45 min) + café + cartões + networking curto (15 min). Anota: 1) ponto de entrada Brasil pós-sanções EUA, 2) parceiros locais autorizados Huawei LatAm, 3) status Kirin chips 2026.",tip:"Huawei é a mais sensível politicamente do roadshow. Não pergunta sobre Meng Wanzhou, Canadá, espionagem. NÃO fala mal dos EUA. Foco em tecnologia + negócios. A sala pode ter gravação discreta — assume que está. Usa inglês claro/devagar (intérprete presente).",tags:["2h","Deck + tour","Politicamente sensível"]},
         {id:"ice20",t:"11:00",ico:"i-briefcase",title:"ICE Tech · plataforma de commodities",sub:"Hedge de commodities físicas · tech de liquidação",addr:"ICE Tech Beijing Office (confirmar com FCGI)",map:"ICE+Tech+Beijing",howto:"Transfer 15-20 min entre Huawei e ICE no CBD. No carro, Ricardo Geromel passa briefing curto da empresa. ICE Tech foca em plataformas digitais de hedge para commodities físicas (minério, soja, café) com liquidação blockchain — relevante para Tecai? Baixo acoplamento direto, mas vale ouvir.",duration:"1h30",order:"Apresentação (30 min) + demo plataforma (15 min) + Q&A (30 min). Pergunta: 'Qual a integração possível com exportadores brasileiros via Cainiao ou Alibaba?' — abre porta pra contato Yinjiang/Alibaba amanhã.",tip:"Empresa menos estratégica pra Tecai especificamente, mas é onde Paulo faz relacionamento YPO/FCGI — ouvir com atenção, perguntar educadamente. Anota contato do VP internacional.",tags:["1h30","Commodities","Networking"]},
         {id:"lunch20",t:"12:30",ico:"i-fork",title:"Almoço com Sinomega + CIC",sub:"Private equity estatal + terras raras · o almoço mais denso",addr:"Local a confirmar pelo FCGI (provável restaurante executivo CBD)",map:"Beijing+CBD+China+World+Trade+Center+restaurants",howto:"Almoço organizado pelo FCGI com líderes da Sinomega (terras raras/magnéticos · strategic resources) e CIC (China Investment Corporation · sovereign wealth fund, gestão de USD 1,3 trilhão). Mesa redonda grande, 10-15 pessoas. Formato: 4 pratos + sopa + arroz + chá. 90-120 min.",duration:"2h",order:"Mesa redonda = conversa com vizinhos imediatos + 1 'speech' rápido (Rui Cavendish apresenta o grupo YPO). Se te convidarem a brindar: baijiu (1 gole), responde 'ao futuro da parceria Brasil-China' via tradutor. Pratos: frango kung pao, camarão wuxi, verduras salteadas, pato laqueado fatia, sopa quente, arroz branco. NÃO vire o peixe (superstição = virar o barco).",tip:"CIC é o fundo soberano + importante do mundo pra investimentos infra. Sinomega controla parcela estratégica de terras raras globais. Não vende Tecai nesse almoço — ouve, entende a dinâmica. Colete cartões. A oportunidade é descobrir se o CIC tem LP em fundos brasileiros de infra/energia (se sim, conexão direta via Pedro/Vale depois).",tags:["2h","Ouvir não vender","Terras raras","CIC fundo soberano"]},
@@ -1189,6 +1201,290 @@ const TRIP = {
       ],
     },
   },
+  briefing:[
+    {
+      id:"gustavo-maia", num:"01", name:"Gustavo Figueiredo Maia", conf:"AAA", priority:"AAA",
+      role:"Ex-Founder G-Maia · exit 14/abr/2026", company:"G-Maia Construtora (Priner · PRNR3)",
+      sector:"Engenharia estrutural · reforço · impermeabilização", base:"BH/MG",
+      age:"50-58", wealth:"R$ 60-120 mi",
+      event:"⚠ Exit total há 5 dias — janela mais valiosa do roadshow",
+      tags:["Exit recente","Timing único","Ex-YPO provável"],
+      context:"Fundou G-Maia em 2002 (saiu da Colymar). Especializou-se em impermeabilização, proteção e reforço de estruturas industriais/infra — não incorporação. Vendeu 51% à Priner em 2022; em 14/abr/2026 a Priner exerceu opção e absorveu os 49% restantes. Preço somado estimado R$ 80-140M. Gustavo acabou de receber liquidez total e precisa decidir o destino do capital.",
+      metrics:[["Idade","50-58"],["Receita 12m","R$ 63 mi"],["Funcionários","680"],["Patrimônio","R$ 60-120 mi"],["YPO","Provável · confirmar"]],
+      approach:[
+        "<b>Timing do exit.</b> \"Parabéns pelo fechamento com a Priner. Já decidiu o que fazer com o cash?\"",
+        "<b>Sinergia técnica.</b> Atex faz laje nervurada nova; GMaia faz patologia e reforço. Complementares, não concorrentes.",
+        "<b>Equity como moeda.</b> Sondar co-investimento em tese de family office mineiro (imobiliário, agritech, IA).",
+        "<b>Empresa familiar → listada.</b> Rota que Atex/Tecai pode eventualmente considerar."
+      ],
+      quote:"Gustavo, venho da Atex — concreto armado, laje nervurada. Minha empresa entra no novo, a sua no reforço. Virou complemento perfeito."
+    },
+    {
+      id:"luiz-gustavo", num:"02", name:"Luiz Gustavo Rocha de M. Pereira", conf:"AAA", priority:"AAA",
+      role:"Presidente Holding e Conselho · Tracbel", company:"Grupo Tracbel (Volvo/SDLG/Tigercat/Kalmar/John Deere)",
+      sector:"Distribuição de equipamentos pesados", base:"Contagem/MG",
+      age:"~45", wealth:"R$ 800M - 1,5 bi",
+      event:"Sucessão bem executada · lançou Tracbraz + Tracbel Agro (R$ 1bi)",
+      tags:["YPO","11 aquisições","Aviação Contagem","IoT industrial"],
+      context:"Filho do fundador (1969). Entrou aos 17 como estagiário. CEO 2013-2024, subiu o grupo de R$ 700M para R$ 4,3 bi. Conduziu 11 aquisições. Desde jan/2024 é Presidente da Holding e do Conselho (Gidalto Santos assumiu como CEO operacional). Perfil sereno, técnico, disciplinado na sucessão. Investe em energia limpa, diagnóstico remoto por IoT e suporte técnico remoto por IA — tema direto de Paulo.",
+      metrics:[["Idade","~45"],["Receita grupo 2023","R$ 4,3 bi"],["Funcionários","~1.600"],["Unidades","40 em 14 estados"],["Aquisições","11"],["Patrimônio","R$ 800M - 1,5 bi"]],
+      approach:[
+        "<b>Sucessão bem executada.</b> \"Como vocês desenharam a transição de CEO para Presidente da Holding sem ruído?\" — tema vivo com Pedro Penna / Atex.",
+        "<b>Aviação Contagem-Confins.</b> Sede em Contagem; Paulo com base BH. Hangaragem comum.",
+        "<b>IA em pós-venda e IoT.</b> Tracbel investe em telemetria; Tecai faz automação. Case conjunto.",
+        "<b>Compra de concorrentes.</b> Playbook de 11 aquisições — aplicável à consolidação construção MG."
+      ],
+      quote:"Luiz, vi que vocês têm suporte técnico remoto no roadmap. Eu rodo Control4 + agents IA na operação — podemos trocar notas?"
+    },
+    {
+      id:"camila-silva", num:"03", name:"Camila Silva", conf:"Alta", priority:"B",
+      role:"CFO · Tracbel", company:"Grupo Tracbel",
+      sector:"Financeiro corporativo", base:"Contagem/MG",
+      age:"—", wealth:"R$ 5-20 mi",
+      event:"Executive MBA Dom Cabral (2022) · rede PAEX/Pedro Penna",
+      tags:["CFO","Dom Cabral","Hedge cambial"],
+      context:"Economia Ibmec + MBA FGV + Executive MBA Dom Cabral (2022). Trajetória: Usiminas (modelos econométricos de aço) → Caixa → Controladoria Tracbel → CFO. Perfil técnico, discreta. Responde a Luiz Gustavo e a Gidalto. Executiva de carreira, não da família.",
+      metrics:[["Patrimônio","R$ 5-20 mi"],["Formação","FGV + Dom Cabral"]],
+      approach:[
+        "<b>Hedge cambial.</b> Tracbel importa Volvo; Tecai importa Control4; Paulo importa aeronaves. Conversa natural sobre hedge/NDF.",
+        "<b>11 aquisições.</b> Foi a engenheira financeira — lições de due diligence e earn-out.",
+        "<b>Governança holding familiar.</b> Tema que toca FII Starx e sucessão Penna."
+      ],
+      quote:"Camila, você conduziu 11 aquisições em infra de equipamentos — como desenha earn-out em family business?"
+    },
+    {
+      id:"cairon-faria", num:"04", name:"Cairon Costa Faria", conf:"Alta", priority:"B",
+      role:"Diretor Executivo (florestal/Tigercat) · Tracbel", company:"Grupo Tracbel",
+      sector:"Operação florestal · Tigercat", base:"Contagem/MG · operação PA/MA/Amazônia",
+      age:"—", wealth:"R$ 3-10 mi",
+      event:"Executive MBA Dom Cabral (2023) · opera florestal amazônico",
+      tags:["Dom Cabral","Florestal Amazônia","Vale do Jequitinhonha"],
+      context:"Eng. Florestal UFVJM + MBA FGV + Executive MBA Dom Cabral (2023). Trajetória: Vito Transportes → Gerente Comercial Florestal Tracbel → Diretor. Perfil operacional, engenheiro, raiz Vale do Jequitinhonha. Operação florestal PA/MA/Amazônia.",
+      metrics:[["Patrimônio","R$ 3-10 mi"],["Formação","UFVJM + FGV + Dom Cabral"]],
+      approach:[
+        "<b>Logística aérea para canteiro remoto.</b> Operação florestal PA/MA demanda voo executivo — ponte com CJ2+.",
+        "<b>Vale do Jequitinhonha.</b> Raiz MG profunda, tema cultural.",
+        "<b>Dom Cabral.</b> Colegas comuns com Pedro Penna / PAEX."
+      ],
+      quote:"Cairon, como é a operação florestal no interior do Pará em termos de logística aérea?"
+    },
+    {
+      id:"alexandre-azevedo", num:"05", name:"Alexandre Azevedo", conf:"AAA", priority:"AAA",
+      role:"CEO Holding · Grupo Seculus", company:"Seculus · Mondaine · Guess · Puma · Speedo + Banco Semear + Imóveis + Tech",
+      sector:"Conglomerado · relógios/bancário/imobiliário", base:"BH/MG",
+      age:"~54", wealth:"R$ 300-600 mi (ramo direto)",
+      event:"35 anos Seculus Amazônia · podcast YPO sobre empresas familiares",
+      tags:["YPO","3ª geração","8 ramos família","Conselho"],
+      context:"3ª geração Azevedo (saiu de Datas/MG em 1960 como mascates → joias → relógios → conglomerado). Filho de Artur Azevedo (Presidente do Conselho). Assumiu Seculus da Amazônia aos 31; hoje CEO do grupo inteiro (10 empresas, ~600 diretos, receita R$ 1,5-2,5 bi). IESE Barcelona + AMP IESE. Ativo em YPO Brasil.",
+      metrics:[["Idade","~54"],["Receita grupo","R$ 1,5-2,5 bi"],["Empresas","10"],["Funcionários","~600"],["Patrimônio","R$ 300-600 mi"],["Formação","Direito + IESE"]],
+      approach:[
+        "<b>3ª geração profissionalizando.</b> Tema #1 absoluto — Paulo/Pedro vivem o mesmo em Atex.",
+        "<b>Imóveis BH zona Funcionários/Savassi.</b> Território compartilhado com Atex.",
+        "<b>Banco próprio + wealth management.</b> Paulo tem FII Starx + carteira Raul Penna R$ 1,25 bi.",
+        "<b>Diversificação de holding.</b> Seculus rodou relógios → imóveis → banco → tech. Tecai como braço tech da família Penna."
+      ],
+      quote:"Alexandre, como vocês organizaram o conselho entre os 8 ramos da família? Estamos estruturando conselho na Atex."
+    },
+    {
+      id:"roberto-azevedo", num:"06", name:"Roberto Azevedo", conf:"Alta", priority:"AA",
+      role:"CEO Banco Semear", company:"Banco Semear · crédito PDV e consignado",
+      sector:"Banco de varejo · ~2mi clientes, 800 cidades", base:"BH/MG",
+      age:"50-58", wealth:"R$ 80-180 mi",
+      event:"Reperfilamento 2024 · R$ 20 mi/ano capex em tecnologia",
+      tags:["YPO","8 herdeiros","IA em banco","Capex IA real"],
+      context:"Um dos 8 herdeiros diretos Seculus. Saiu do jurídico (Senior Counsel) para presidir o banco. Formação: UFMG + BBA PUC Minas + MBA FGV + Pós Dom Cabral + SEP IESE Barcelona. Banco fez reperfilamento em 2024 (ROAE -11,4%); ciclo de tech e governança. R$ 20 mi/ano de capex em tecnologia — orçamento real para IA aplicada.",
+      metrics:[["Funding banco","R$ 957 mi"],["Clientes","~2 mi"],["Capex tech/ano","R$ 20 mi"],["Patrimônio","R$ 80-180 mi"]],
+      approach:[
+        "<b>IA em banco de varejo.</b> Ele tem orçamento; Paulo tem experiência prática.",
+        "<b>Família Azevedo 8 herdeiros.</b> Espelho perfeito da discussão sucessória Penna.",
+        "<b>Crédito ao comprador de imóvel Atex.</b> Parceria comercial viável."
+      ],
+      quote:"Roberto, onde vocês estão aplicando IA no Banco Semear hoje e onde ainda travam?"
+    },
+    {
+      id:"oswaldo-neto", num:"07", name:"Oswaldo Moreira Neto", conf:"Alta", priority:"B",
+      role:"Diretor Inovação & Marketing · Seculus da Amazônia", company:"Seculus · Mondaine · Guess · Puma · Speedo",
+      sector:"Marcas globais · smartwatches · ZFM", base:"Manaus/BH",
+      age:"40-50", wealth:"R$ 2-8 mi",
+      event:"Portfolio 5 marcas + smartwatches · opera ZFM",
+      tags:["Branding","Smartwatch","ZFM Manaus"],
+      context:"Não é família Azevedo — executivo de carreira. Começou como analista de risco no Banco Mercantil. Hoje comanda inovação de produto e marketing em portfolio de 5 marcas + smartwatches. Opera Zona Franca de Manaus.",
+      metrics:[["Patrimônio","R$ 2-8 mi"],["Especialidade","Branding + smartwatch"]],
+      approach:[
+        "<b>Smartwatch × Control4.</b> Ponte natural: relógio inteligente como controle de cenas Tecai.",
+        "<b>Branding Tecai Labs.</b> Ele gere marcas globais — conselho real para Tecai Labs/CORE.",
+        "<b>ZFM Manaus.</b> Se Tecai/Atex avaliar produção local de IoT, ele é o guia."
+      ],
+      quote:"Oswaldo, se for fazer smartwatch integrado com Control4 em escala, tu começaria pela ZFM?"
+    },
+    {
+      id:"pedro-azevedo", num:"08", name:"Pedro Azevedo", conf:"Baixa", priority:"C",
+      role:"E-commerce · identidade a confirmar", company:"possível 3ª geração Seculus",
+      sector:"E-commerce (genérico · confirmar)", base:"—",
+      age:"28-38 (hipótese)", wealth:"R$ 30-80 mi (hipótese)",
+      event:"⚠ Identidade não confirmada publicamente · confirmar in loco",
+      tags:["Confirmar identidade","3ª geração?","Abertura neutra"],
+      context:"Não há confirmação pública de \"Pedro Azevedo\" em e-commerce com vínculo ao Banco Semear/Seculus. Hipótese mais provável: herdeiro da 3ª geração Azevedo tocando o braço digital do grupo (relógios Seculus/Mondaine/Guess em 8.000 lojas físicas + online). Confirmar com o organizador ou perguntar naturalmente no primeiro contato.",
+      metrics:[["Idade (hip.)","28-38"],["Patrimônio (hip.)","R$ 30-80 mi"],["YPO","não confirmado"]],
+      approach:[
+        "<b>Abertura neutra.</b> \"Pedro, me conta — qual é o seu negócio principal?\" Deixar ele desenhar.",
+        "<b>Se confirmar Seculus:</b> puxar imediatamente Alexandre + Roberto como tema comum.",
+        "<b>E-commerce + IA.</b> Recomendação/chatbot/busca semântica — experiência real.",
+        "<b>Aviação.</b> Se for da família Seculus, provável usuário de táxi aéreo BH."
+      ],
+      quote:"Vi que o grupo tem boa operação digital. Estamos estudando levar Atex/Tecai pra venda direta em SKUs — como vocês estruturaram?"
+    },
+    {
+      id:"hegel-botinha", num:"09", name:"Hegel Passos Botinha", conf:"Alta", priority:"AA",
+      role:"Founder · Selpe + Holi Connection", company:"Grupo Selpe (RH/terceirização) · Holi Connection (IA Power Skills)",
+      sector:"RH · terceirização · IA aplicada", base:"BH/MG",
+      age:"45-50", wealth:"R$ 80-150 mi",
+      event:"Holi Connection com Heineken, Komatsu, AmCham como âncoras",
+      tags:["YPO","3x Founder","IA em HR","Órbi Conecta"],
+      context:"Parente (provável filho/sobrinho) de Tarcísio Botinha, um dos 3 fundadores da Selpe em 1965. Irmão Glaucus Botinha também sócio-diretor. Entrou em 2000, liderou digitalização do grupo. Formação UFMG + várias pós. Autointitula-se \"3x Founder\". Holi Connection é startup criada dentro do hub Órbi Conecta — IA conversacional que diagnostica e desenvolve Power Skills.",
+      metrics:[["Idade","45-50"],["Selpe receita","R$ 250-400 mi"],["Profissionais alocados","300.000 (histórico)"],["Clientes/ano","300+"],["Patrimônio","R$ 80-150 mi"]],
+      approach:[
+        "<b>IA em mão de obra de obra.</b> Atex tem dezenas de pedreiros, mestres, engenheiros. Holi pode mapear Power Skills para canteiros.",
+        "<b>Família 60 anos MG.</b> Selpe e Atex são coetâneas — PAEX, Dom Cabral, conselho familiar.",
+        "<b>Órbi Conecta.</b> Hub de inovação — Tecai Labs pode usar estrutura análoga.",
+        "<b>Staff para Tecai.</b> Instaladores Control4, suporte N1 — Selpe é fornecedor natural."
+      ],
+      quote:"Hegel, tô rodando Claude Code em produção pra 2 operações. O que vocês aprenderam colocando IA frente ao usuário final em HR?"
+    },
+    {
+      id:"salomao-souza", num:"10", name:"Salomão T. de Souza Filho", conf:"Alta", priority:"AA",
+      role:"CEO · Família 2ª geração", company:"Tangará Foods · lácteos, bacalhau, food service (R$ 1,1 bi)",
+      sector:"Food · grupo multi-empresas", base:"BH/Nova Lima",
+      age:"50-55", wealth:"R$ 200-400 mi individual",
+      event:"Tangará receita +49% (R$ 1,1 bi)",
+      tags:["Holding familiar","MBA IBMEC","Food industrial"],
+      context:"Herdeiro e executivo da 2ª geração Teixeira de Souza. Holding familiar começa com Comercial Alterosa, evolui para Nacional Comércio, consolida em Tangará Importadora (1993). MBA IBMEC Finanças. Holding R$ 800M-1,5 bi (Tangará + Alicerce construção + Masb incorporadora + Mundi Investe corretora + Max Clean + Mamoneira mogno africano R$ 225 mi).",
+      metrics:[["Idade","50-55"],["Patrimônio","R$ 200-400 mi"],["Receita Tangará","R$ 1,1 bi"],["Funcionários","937"]],
+      approach:[
+        "<b>Laje nervurada para planta industrial.</b> Atex + Manhuaçu + Alicerce = conversa técnica real.",
+        "<b>Mundi Investe × FII Starx.</b> Estrutura de family office.",
+        "<b>IA em lácteo/frigorífico.</b> Demanda, logística, inspeção visual.",
+        "<b>Sucessão 2ª→3ª geração.</b> Tema quente."
+      ],
+      quote:"Salomão, como a Mundi Investe roda a carteira do grupo? Tô estruturando algo análogo pro ramo Penna."
+    },
+    {
+      id:"diogo-junqueira", num:"11", name:"Diogo P. Junqueira", conf:"Alta", priority:"B",
+      role:"CFO + COO · Executivo profissional (não família)", company:"Tangará Foods",
+      sector:"Food · financeiro e operacional", base:"BH",
+      age:"40-45", wealth:"R$ 3-12 mi",
+      event:"Briefing cita \"Diego\" · nome correto Diogo (fonética)",
+      tags:["CFO+COO","PUC+FGV","Braço direito Salomão"],
+      context:"Executivo profissional. Começou como analista fiscal (Ceva Santé). Subiu pela trilha financeira. Hoje acumula CFO e COO — braço direito de Salomão na operação. PUC + MBA FGV.",
+      metrics:[["Idade","40-45"],["Patrimônio","R$ 3-12 mi"]],
+      approach:[
+        "<b>Operação integrada.</b> Ele vê caixa + operação — raro num CFO tradicional.",
+        "<b>Lácteos + tech.</b> Lighthouse Factory analogia (Sany) no chão de fábrica.",
+        "<b>Dom Cabral / FGV.</b> Rede comum."
+      ],
+      quote:"Diogo, acumular CFO+COO te deu visibilidade única. Como você prioriza capex entre planta e tech?"
+    },
+    {
+      id:"aloizio-jr", num:"12", name:"José Aloizio Teixeira de Souza Jr", conf:"Alta", priority:"B",
+      role:"VP Operações · Família 2ª geração", company:"Tangará Foods + 26 empresas do grupo",
+      sector:"Food · operações campo", base:"BH · atuação MG/MT/CE/DF/GO/RJ/TO",
+      age:"—", wealth:"R$ 200-350 mi",
+      event:"Sócio em 26 empresas · 1ª sociedade 1973",
+      tags:["Família","Campo","Hipótese \"Gabriel\""],
+      context:"Sócio em 26 empresas nos estados MG/MT/CE/DF/GO/RJ/TO. Primeira sociedade 1973. Se o nome \"Gabriel\" do briefing não corresponder a ele, é provavelmente herdeiro 3ª geração (filho de Salomão ou dele) sendo introduzido ao negócio — hipótese quente para road show YPO.",
+      metrics:[["Patrimônio (ramo)","R$ 200-350 mi"],["Sociedades","26 empresas"]],
+      approach:[
+        "<b>Operação de campo + logística remota.</b> Demanda aviação executiva.",
+        "<b>Se for herdeiro 3ª geração:</b> transição geracional é o gancho.",
+        "<b>Holding de 26 sociedades.</b> Governança multi-empresa."
+      ],
+      quote:"Aloizio, em 26 empresas distintas, como vocês padronizam governança sem matar autonomia local?"
+    },
+    {
+      id:"joao-resende", num:"13", name:"João Augusto Ferreira Resende", conf:"Alta", priority:"AA",
+      role:"Founder Horizonta · ex-Toro (exit 2024)", company:"Horizonta · venture-building (agritech/fintech)",
+      sector:"Venture-building · family office operacional", base:"BH/MG",
+      age:"34-36", wealth:"R$ 150-350 mi",
+      event:"Toro absorvida 100% pelo Santander em 2024 · liderou integração cultural",
+      tags:["YPO-BH","Pós-exit","Chicago Booth","Peer"],
+      context:"Cofundou Toro Investimentos aos 18 anos em 2010 com Gabriel Kallas e Marcio Placedino. Escalaram para 700+ funcionários e milhões de clientes. Santander entrou em 2020 e absorveu 100% em 2024. João liderou integração cultural como Senior Head Business Unit; saiu em 2024-2025. Horizonta: plataforma de venture-building/inovação em BH — agritech + fintech + tech. Modelo de family office operacional — exatamente o que Paulo está começando a pensar com Tecai Labs.",
+      metrics:[["Idade","34-36"],["Venda Toro (est.)","R$ 800 mi - 1,5 bi"],["Participação pós-diluição","15-20%"],["Patrimônio","R$ 150-350 mi"],["Network","YPO-BH + Booth"]],
+      approach:[
+        "<b>Peer YPO-BH pós-exit.</b> Perguntar como estruturou Horizonta operacionalmente — esqueleto para Tecai Labs.",
+        "<b>Agritech.</b> Paulo tem conexão com Manhuaçu/fazendas Penna — tema próximo.",
+        "<b>Chicago Booth.</b> Rede para futuro das filhas de Paulo.",
+        "<b>Fase 1 IA Atex.</b> Horizonta como possível co-investidor em vehicle formal."
+      ],
+      quote:"João, como você estruturou Horizonta legalmente? Tô olhando montar uma plataforma parecida com meu irmão na Atex e com a Tecai."
+    },
+    {
+      id:"wagner-ferreira", num:"14", name:"Wagner Ferreira", conf:"Alta", priority:"AA",
+      role:"Founder / CEO · Teddy Open Finance", company:"Teddy Open Finance · infratech de crédito",
+      sector:"Infratech de crédito · Open Finance", base:"São Bernardo do Campo/SP",
+      age:"~45", wealth:"R$ 420-750 mi (paper equity)",
+      event:"R$ 28 bi em crédito originado em 18 meses · compra majoritária ConKey (ago/25)",
+      tags:["Fintech","Open Finance","Banco→Founder","M&A earn-out"],
+      context:"22 anos em bancos (Bradesco, Santander, Safra, Daycoval) antes de fundar a Teddy em 2020 com aporte inicial R$ 2,5 mi. Plataforma B2B2C que conecta 30+ instituições a 30.000+ usuários em 5 verticais: consignado, imobiliário, home equity, veículos, consórcios. Breakeven em <3 anos (raro em fintech BR). Formação: Matemática + MBA Finanças FGV. ⚠ Briefing cita aporte Vinci, mas busca pública não confirma.",
+      metrics:[["Idade","~45"],["Receita 2024","R$ 57 mi"],["Projeção 2025","R$ 120-140 mi"],["Crédito originado (18m)","R$ 28 bi"],["Patrimônio (equity)","R$ 420-750 mi"]],
+      approach:[
+        "<b>IA em domínio regulado.</b> ConKey treina vendedores de consórcio com IA — Paulo quer o mesmo para engenharia de obra.",
+        "<b>Banco → founder.</b> Trajetória espelhada à de Paulo (arquiteto → Analogran → Tecai).",
+        "<b>M&A com earn-out.</b> Modelo para Fase 1 IA Atex (proposta a Pedro).",
+        "<b>Open Finance + family office.</b> Integrar dados do portfólio Penna."
+      ],
+      quote:"Wagner, como você estruturou o earn-out da ConKey? Tô desenhando algo análogo com o Pedro na Atex."
+    },
+    {
+      id:"valery-mello", num:"15", name:"Valery Oliveira Mello", conf:"Média", priority:"B",
+      role:"Head Comercial · Teddy Open Finance", company:"Teddy Open Finance (provável cônjuge do Wagner)",
+      sector:"Open Finance · gestão de canal B2B2C", base:"São Bernardo do Campo/SP",
+      age:"—", wealth:"—",
+      event:"Não é CFO (CFO é Luis Fernando) · histórico em Teddy Invest e Academia Bodywork",
+      tags:["Head Comercial","Par executivo","Baixa exposição"],
+      context:"Busca oficial retorna Valery Oliveira Mello, Head Comercial da Teddy (não CFO). Histórico em Teddy Invest (empresa pré-Teddy, provável de Wagner) e Academia Bodywork. Forte indício de ser esposa de Wagner — \"Ferreira\" seria sobrenome de casamento. Perfil discreto, sem exposição midiática.",
+      metrics:[["Função","Head Comercial"]],
+      approach:[
+        "<b>Trate como par executivo.</b> Cuidado com tom \"acompanhante\" — ela é Head Comercial ativa.",
+        "<b>Gestão de canal B2B2C.</b> Tecai tem modelo análogo (Control4 via integradores).",
+        "<b>Wellness + rotina executiva.</b> Histórico em academia — ponte leve."
+      ],
+      quote:"Valery, como vocês estruturam o relacionamento com os 30+ emissores na Teddy? É KAM dedicado ou pool?"
+    },
+    {
+      id:"bruna-maia", num:"16", name:"Bruna Maia", conf:"Baixa", priority:"C",
+      role:"Cofundadora Augo (ramo a confirmar)", company:"\"Augo\" · ramo não claro",
+      sector:"Possível sports-tech (Zurique) · ou Augo MG privada", base:"—",
+      age:"—", wealth:"R$ 2-10 mi (se for a Augo Zurique)",
+      event:"⚠ Identidade provavelmente errada · confirmar in loco",
+      tags:["Confirmar identidade","Abertura aberta","Hipótese sports-tech"],
+      context:"A Augo pública com Bruna Maia cofundadora é startup suíça de sports-tech em Zurique (IA para coaches de endurance). Não é fintech/gestão patrimonial. Três hipóteses: (a) mesma Bruna brasileira expatriada; (b) Augo mineira privada; (c) confusão de nome. Se for a de Zurique: engenheira elétrica + economista + data scientist, Imperial College Business School, 8 maratonas, 1 ultramaratona.",
+      metrics:[["Patrimônio (hip.)","R$ 2-10 mi"]],
+      approach:[
+        "<b>Abertura aberta.</b> \"Bruna, me conta sobre a Augo — é a sports tech de Zurique ou outra?\"",
+        "<b>Se for Zurique:</b> IA aplicada (Claude) e saúde executiva.",
+        "<b>Se for outra Augo MG:</b> descobrir ramo real antes de assumir.",
+        "<b>Possível vínculo com Gustavo Maia?</b> Conferir parentesco — pode abrir conversa dupla."
+      ],
+      quote:"Bruna, me conta sobre a Augo — tem alguma relação com endurance/IA ou é outra operação?"
+    },
+    {
+      id:"bernardo-gardini", num:"17", name:"Bernardo Gardini", conf:"Baixa", priority:"C",
+      role:"Identidade não confirmada", company:"ramo não identificado",
+      sector:"—", base:"—",
+      age:"—", wealth:"—",
+      event:"⚠ Pegada pública mínima · checar se sobrenome correto é \"Gradin\"",
+      tags:["Confirmar identidade","Pergunta aberta","Checar Gradin"],
+      context:"Busca exaustiva sem match direto. Pistas parciais: Guilherme Gardini (sócio ARM Invest, restaurantes BH — possível irmão/primo), Fernanda Gardini (moda feminina premium BH), Ricardo Gardini de Andrade (sócio DLA Piper). Vale checar se o nome correto é \"Gradin\" (família Braskem — LLM/briefing pode ter confundido).",
+      metrics:[["Status","Confirmar in loco"]],
+      approach:[
+        "<b>Abertura aberta sem mostrar que pesquisou.</b> \"Bernardo, me conta — qual é o seu negócio principal?\"",
+        "<b>Se mencionar ARM/restaurantes:</b> puxar Guilherme Gardini.",
+        "<b>Se mencionar Braskem/petroquímica:</b> provavelmente Gradin · construção industrial em escala.",
+        "<b>Se mencionar imobiliário BH:</b> Atex é vizinha técnica."
+      ],
+      quote:"Bernardo, me conta — qual é o seu negócio principal?"
+    },
+  ],
   nightlife:[
     // ============ HONG KONG ============
     {city:"Hong Kong",sub:"17–19 abr + 27–28 abr · cena Central / LKF / Soho",list:[
@@ -1623,6 +1919,80 @@ $('#nightlife').innerHTML = TRIP.nightlife.map(group=>`
       ${group.list.map(cityCard).join('')}
     </div>
   </div>`).join('');
+
+// Briefing — 17 participantes do roadshow
+const PRIO_COLORS = {
+  AAA:{bg:'linear-gradient(135deg,#6b3b2a,#2d1512)',badge:'color-mix(in oklab,var(--gold) 72%,transparent)',fg:'#fff'},
+  AA :{bg:'linear-gradient(135deg,#4a3421,#1f160f)',badge:'color-mix(in oklab,var(--gold) 45%,transparent)',fg:'#fff'},
+  B  :{bg:'linear-gradient(135deg,#2a2a3a,#141420)',badge:'color-mix(in oklab,var(--purple) 55%,transparent)',fg:'#fff'},
+  C  :{bg:'linear-gradient(135deg,#2a2a2a,#141414)',badge:'rgba(200,200,200,.25)',fg:'var(--text-2)'}
+};
+const PRIO_LABELS = {AAA:'Prioridade AAA',AA:'Prioridade AA',B:'Prioridade B',C:'Confirmar in loco'};
+let briefingFilter = 'ALL';
+
+function briefingCard(p){
+  const c = PRIO_COLORS[p.priority] || PRIO_COLORS.C;
+  return `<article class="card" id="briefing-${p.id}" data-priority="${p.priority}" style="padding:0;overflow:hidden;border:1px solid color-mix(in oklab,var(--line) 100%,transparent)">
+    <header style="background:${c.bg};color:${c.fg};padding:18px 22px;display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;opacity:.78">Perfil ${p.num} · ${p.conf}</div>
+        <span class="badge" style="background:${c.badge};color:${c.fg};font-size:10.5px;letter-spacing:1.8px;padding:4px 10px">${PRIO_LABELS[p.priority]||''}</span>
+      </div>
+      <h3 style="margin:2px 0 0;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4.8vw,32px);font-weight:500;line-height:1.1;letter-spacing:-.01em;color:${c.fg}">${p.name}</h3>
+      <div style="font-size:13px;line-height:1.45;opacity:.88">${p.role}</div>
+      <div style="font-size:12.5px;line-height:1.45;opacity:.7">${p.company}</div>
+    </header>
+    <div style="padding:18px 22px;display:grid;gap:14px">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${p.tags?p.tags.map(t=>`<span class="badge" style="background:var(--card-2);color:var(--text-2);border:1px solid var(--line);font-size:10.5px;padding:3px 9px">${t}</span>`).join(''):''}
+      </div>
+      ${p.event?`<div style="background:color-mix(in oklab,var(--gold) 12%,transparent);border-left:3px solid var(--gold);padding:10px 14px;border-radius:8px;font-size:12.5px;color:var(--text);line-height:1.5">${p.event}</div>`:''}
+      <div style="font-size:13.5px;line-height:1.6;color:var(--text-2)">${p.context}</div>
+      ${p.metrics&&p.metrics.length?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px">
+        ${p.metrics.map(([k,v])=>`<div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:8px 10px">
+          <div style="font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-3)">${k}</div>
+          <div style="font-size:13px;margin-top:3px;color:var(--text);font-weight:600">${v}</div>
+        </div>`).join('')}
+      </div>`:''}
+      ${p.approach&&p.approach.length?`<div>
+        <div style="font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Como abordar</div>
+        <ol style="margin:0;padding-left:18px;display:grid;gap:7px;font-size:13px;line-height:1.55;color:var(--text-2)">
+          ${p.approach.map(a=>`<li>${a}</li>`).join('')}
+        </ol>
+      </div>`:''}
+      ${p.quote?`<blockquote style="margin:0;padding:12px 16px;background:color-mix(in oklab,var(--purple) 18%,transparent);border-left:3px solid var(--purple-2);border-radius:8px;font-style:italic;font-size:13px;line-height:1.55;color:var(--text)">"${p.quote}"</blockquote>`:''}
+    </div>
+  </article>`;
+}
+
+function renderBriefing(){
+  const list = briefingFilter==='ALL' ? TRIP.briefing : TRIP.briefing.filter(p=>p.priority===briefingFilter);
+  $('#briefingList').innerHTML = list.map(briefingCard).join('');
+}
+
+function renderBriefingFilters(){
+  const counts = TRIP.briefing.reduce((acc,p)=>{acc[p.priority]=(acc[p.priority]||0)+1;return acc;},{});
+  const opts = [
+    {k:'ALL',label:'Todos',n:TRIP.briefing.length},
+    {k:'AAA',label:'AAA',n:counts.AAA||0},
+    {k:'AA',label:'AA',n:counts.AA||0},
+    {k:'B',label:'B',n:counts.B||0},
+    {k:'C',label:'Confirmar',n:counts.C||0},
+  ];
+  $('#briefingFilters').innerHTML = opts.map(o=>`
+    <button class="briefing-chip" data-prio="${o.k}" style="background:${briefingFilter===o.k?'color-mix(in oklab,var(--gold) 45%,transparent)':'var(--card-2)'};color:${briefingFilter===o.k?'var(--text)':'var(--text-2)'};border:1px solid ${briefingFilter===o.k?'color-mix(in oklab,var(--gold) 60%,transparent)':'var(--line)'};border-radius:99px;padding:6px 14px;font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;font-weight:600;cursor:pointer">${o.label} · ${o.n}</button>
+  `).join('');
+  $('#briefingFilters').querySelectorAll('.briefing-chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      briefingFilter = btn.dataset.prio;
+      renderBriefingFilters();
+      renderBriefing();
+    });
+  });
+}
+
+renderBriefingFilters();
+renderBriefing();
 
 // ============ HOJE · timeline checklist (date-aware, multi-day) ============
 const DAY_KEYS = Object.keys(TRIP.days).sort();
