@@ -484,9 +484,14 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
 <!-- BRIEFING -->
 <div class="section hide" data-pane="briefing">
   <div class="card" style="padding:22px 24px">
-    <h3 style="margin-top:0"><svg class="ico"><use href="#i-briefcase"/></svg>Os 17 do Roadshow · dossiês rápidos</h3>
-    <p style="color:var(--text-2);font-size:13.5px;line-height:1.55;margin:0 0 14px">17 participantes YPO-BH. Filtro por prioridade · clica no card pra abrir o dossiê completo: contexto, patrimônio, como abordar e frase-gancho.</p>
+    <h3 style="margin-top:0"><svg class="ico"><use href="#i-briefcase"/></svg>Os 19 do Roadshow · dossiês rápidos</h3>
+    <p style="color:var(--text-2);font-size:13.5px;line-height:1.55;margin:0 0 14px">19 participantes YPO-BH (17 originais + Daniel José líder no lugar do Geromel + Julianne Nicolau). Filtro por prioridade · clica no card pra abrir o dossiê completo: contexto, patrimônio, como abordar e frase-gancho.</p>
+    <div style="position:relative;margin:0 0 12px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text-2);pointer-events:none"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="briefingSearch" type="search" autocomplete="off" placeholder="Buscar por nome, empresa, setor, cidade..." style="width:100%;padding:11px 14px 11px 38px;background:var(--card-2);border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s,box-shadow .2s" />
+    </div>
     <div id="briefingFilters" style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px"></div>
+    <div id="briefingResultCount" style="color:var(--text-2);font-size:12px;margin-top:8px;letter-spacing:.5px"></div>
   </div>
   <div id="briefingList" style="display:grid;gap:14px"></div>
 </div>
@@ -1491,6 +1496,42 @@ const TRIP = {
       ],
       quote:"Bernardo, me conta — qual é o seu negócio principal?"
     },
+    {
+      id:"daniel-jose", num:"18", name:"Daniel José da Silva Oliveira", conf:"AAA", priority:"AAA",
+      role:"Líder do roadshow no lugar do Geromel · ex-deputado federal e estadual SP", company:"Atua como bridge Brasil↔China · vive em Beijing/Shanghai",
+      sector:"Public policy · empreendedorismo · relações Brasil-China", base:"China (residente atual) · São Paulo (origem)",
+      age:"38 (n. 14/02/1988)", wealth:"—",
+      event:"⚠ Líder operacional do roadshow inteiro — primeiro contato e gatekeeper do grupo",
+      tags:["LÍDER do roadshow","Yale Master","Insper","Forbes Under 30","Partido Novo","Vive na China"],
+      context:"Substituiu o Ricardo Geromel na liderança operacional deste roadshow YPO BH 2026. Mineiro/paulista com trajetória rara: economista pelo Insper, mestrado em International Relations em Yale, Forbes Under 30. Eleito deputado estadual SP pelo Partido Novo 2019-2023 (uma das vozes liberal-reformistas mais técnicas do Novo) e exerceu mandato federal como suplente de jun a out/2024. Saiu da política ativa e migrou para a China — hoje vive em Beijing/Shanghai, escreve no JOTA e atua como ponte entre empresários brasileiros e o ecossistema chinês de inovação e investimento. É a sua porta de entrada com o grupo todo: ele decide pauta, agenda, encaixe de visitas extras.",
+      metrics:[["Idade","38"],["Formação","Insper + Yale"],["Cargo passado","Deputado estadual SP 2019-2023"],["Federal","Suplente jun-out/2024"],["Residência","China"],["Forbes","Under 30"]],
+      approach:[
+        "<b>Trate como peer estratégico, não host.</b> Ele é o gatekeeper do grupo — relacionamento sólido com ele desbloqueia conversa com qualquer um dos 17.",
+        "<b>Eureka encaixa direto no que ele defende.</b> Tese liberal + IA aplicada + venture builder = pauta clássica do Novo. Posiciona Eureka como caso brasileiro de tech com escala global.",
+        "<b>Setor de IA na Atex.</b> Mostra que estás aplicando IA dentro de uma operação tradicional grande — narrativa que ele entende e amplifica.",
+        "<b>Trade China-Brasil.</b> Pergunta o que ele recomenda como porta de entrada (Tencent? Alibaba Cloud? Joint venture local?) para empresas brasileiras de tech.",
+        "<b>Cuidado.</b> Não puxe debate político brasileiro a fundo — ele saiu da arena e não quer ser pautado por isso aqui."
+      ],
+      quote:"Daniel, valeu por puxar essa operação. Tô construindo a Eureka — fábrica de micro-SaaS de IA — e inaugurei o setor de IA na Atex. Quem do grupo aqui você acha que vale eu sentar pra um café mais longo?"
+    },
+    {
+      id:"julianne-nicolau", num:"19", name:"Julianne Cristine Mendonça Nicolau", conf:"Alta (confirmado Paulo)", priority:"B",
+      role:"Herdeira Grupo Samel · 3ª geração saúde Amazonas", company:"Grupo Samel (hospitais, planos de saúde, Samel TV) · atua na HealthD",
+      sector:"Saúde · hospitalar · planos corporativos · healthtech", base:"Manaus/AM",
+      age:"—", wealth:"R$ 200-600 mi (família · valor estimado)",
+      event:"✓ Filha mais velha de Beto Nicolau (Luís Alberto), presidente do Samel · neta do fundador (neurologista Luiz Fernando Nicolau, 1981)",
+      tags:["Samel","Manaus","Saúde","3ª geração","Healthtech","Mulher founder"],
+      context:"Filha mais velha de Beto Nicolau (Luís Alberto Saldanha Nicolau, n. 1974, MBA FGV, presidente do Grupo Samel desde os 17 anos) e Jeane Mendonça. Neta do fundador Luiz Fernando Sarmento Nicolau, neurologista que criou a Samel em nov/1981. Tem 2 irmãos (Luiza Fernanda e Luís Alberto Filho). Trabalha na HealthD, braço healthtech da família. Samel é o maior grupo médico-hospitalar privado do Norte do Brasil — 44+ anos, hospitais (Samel Centro, novo hospital inaugurado nov/2023), planos de saúde corporativos, programa de residência médica próprio (pediatria, cirurgia, clínica) e até canal de TV (Samel TV). Família combativa: Beto fez denúncia pública 'Doa a quem doer' contra Bradesco e Hospital Adventista durante covid. Provável parente: Ricardo Nicolau, político de Manaus (candidato 2020). Paulo descreveu como 'farmacêutica' — na real é healthcare/hospitalar, mas o ecossistema vizinho da Novamed (única farmacêutica de Manaus, do Grupo NC) pode ter gerado a confusão. Confirmar com ela qual o foco dela hoje na HealthD.",
+      metrics:[["Família","Beto Nicolau · Samel"],["Irmãos","2 (Luiza + Luís Alberto Filho)"],["Atuação","HealthD"],["Grupo","Samel · 44 anos · maior do Norte"],["Patrimônio família","R$ 200-600 mi est."]],
+      approach:[
+        "<b>Valida o setor antes de chutar.</b> 'Julianne, me conta — você tá tocando hoje a HealthD ou o hospital? Quero entender o foco.' Evita errar farmacêutica vs hospitalar.",
+        "<b>Manaus underrated em IA aplicada à saúde.</b> Cita case Mayo/Cleveland Clinic + healthtech chinesa (Ping An Good Doctor, JD Health) — IA pra triagem, diagnóstico por imagem, agendamento.",
+        "<b>3ª geração + sucessão.</b> Bom paralelo com a tua história Atex (Pedro CEO, tu IA + Eureka). Fala de como dividir liderança entre irmãos sem ruído.",
+        "<b>Telemedicina + Amazônia.</b> Samel tem cobertura única do interior amazônico — pergunta como eles fazem last-mile médico em comunidade ribeirinha (paralelo com last-mile logístico da JD).",
+        "<b>Tom.</b> Trate como founder/operadora, não como herdeira. Ela é executiva ativa, não acionista passiva."
+      ],
+      quote:"Julianne, vi que vocês têm hospital + plano + canal próprio + residência médica. Como vocês decidem onde IA entra primeiro nesse stack todo?"
+    },
   ],
   nightlife:[
     // ============ HONG KONG ============
@@ -1982,9 +2023,39 @@ function briefingCard(p){
   </article>`;
 }
 
+let briefingQuery = '';
+function normalizeBriefingText(s){
+  return (s||'').toString().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+}
+function briefingMatches(p, q){
+  if(!q) return true;
+  const haystack = [
+    p.name, p.role, p.company, p.sector, p.base, p.event, p.context,
+    Array.isArray(p.tags)?p.tags.join(' '):'',
+    Array.isArray(p.approach)?p.approach.join(' '):'',
+    p.quote, p.num, p.priority
+  ].map(normalizeBriefingText).join(' ');
+  return q.split(/\s+/).filter(Boolean).every(term=>haystack.includes(term));
+}
 function renderBriefing(){
-  const list = briefingFilter==='ALL' ? TRIP.briefing : TRIP.briefing.filter(p=>p.priority===briefingFilter);
-  $('#briefingList').innerHTML = list.map(briefingCard).join('');
+  const q = normalizeBriefingText(briefingQuery).trim();
+  const byPrio = briefingFilter==='ALL' ? TRIP.briefing : TRIP.briefing.filter(p=>p.priority===briefingFilter);
+  const list = byPrio.filter(p=>briefingMatches(p,q));
+  const el = $('#briefingList');
+  if(list.length){
+    el.innerHTML = list.map(briefingCard).join('');
+  }else{
+    el.innerHTML = `<div class="card" style="padding:22px 24px;text-align:center;color:var(--text-2)"><b style="color:var(--text)">Nenhum participante encontrado.</b><br/><span style="font-size:13px">Tenta outro termo ou limpa o filtro de prioridade.</span></div>`;
+  }
+  const counter = $('#briefingResultCount');
+  if(counter){
+    if(q || briefingFilter!=='ALL'){
+      counter.textContent = `${list.length} de ${TRIP.briefing.length} participantes`;
+    }else{
+      counter.textContent = '';
+    }
+  }
 }
 
 function renderBriefingFilters(){
@@ -2010,6 +2081,32 @@ function renderBriefingFilters(){
 
 renderBriefingFilters();
 renderBriefing();
+
+(function wireBriefingSearch(){
+  const input = $('#briefingSearch');
+  if(!input) return;
+  let t = null;
+  input.addEventListener('input', e => {
+    clearTimeout(t);
+    t = setTimeout(()=>{
+      briefingQuery = e.target.value || '';
+      renderBriefing();
+    }, 80);
+  });
+  input.addEventListener('focus', ()=>{
+    input.style.borderColor = 'color-mix(in oklab,var(--gold) 55%,transparent)';
+    input.style.boxShadow = '0 0 0 3px color-mix(in oklab,var(--gold) 18%,transparent)';
+  });
+  input.addEventListener('blur', ()=>{
+    input.style.borderColor = 'var(--line)';
+    input.style.boxShadow = 'none';
+  });
+  input.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+      input.value=''; briefingQuery=''; renderBriefing();
+    }
+  });
+})();
 
 // ============ HOJE · timeline checklist (date-aware, multi-day) ============
 const DAY_KEYS = Object.keys(TRIP.days).sort();
