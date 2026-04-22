@@ -208,6 +208,8 @@ html[data-theme="light"] .hero-stat .i{background:rgba(107,70,193,.15);color:var
 .wx-pill .wx-txt{flex:1;display:flex;flex-direction:column;gap:2px}
 .wx-pill .wx-city{font-weight:600;color:var(--text);font-size:14px}
 .wx-pill .wx-sub{color:var(--text-3);font-size:12px}
+.wx-pill .wx-range{color:var(--text-2);font-size:11px;letter-spacing:.4px}
+.wx-pill .wx-range b{color:var(--text);font-weight:600}
 .wx-pill .wx-temp{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--text)}
 .progress .bar{flex:1;height:8px;background:var(--card);border-radius:99px;overflow:hidden}
 .progress .fill{height:100%;background:linear-gradient(90deg,var(--purple-2),var(--olive-2));border-radius:99px;transition:width .6s var(--ease);box-shadow:0 0 16px var(--purple-2)}
@@ -1766,11 +1768,14 @@ $('#itinerary').innerHTML = TRIP.itinerary.map((d,i)=>{
 async function weatherBlockForDay(dayObj){
   const cities=citiesFromDayString(dayObj.city);
   if(cities.length===0) return '';
+  const targetDate = dayObj && dayObj.d ? `2026-04-${dayObj.d}` : null;
   const parts=await Promise.all(cities.map(async (c,idx)=>{
-    const w=await fetchWx(c);
+    const w=await fetchWx(c, targetDate);
     const seq = cities.length>1 ? `<span style="color:var(--text-3);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-right:8px">${idx===0?'Partida':idx===cities.length-1?'Destino':'Passagem'}</span>` : '';
     if(!w) return `<div class="wx-pill">${seq}<b>${c.n}</b><span style="color:var(--text-3)">—</span></div>`;
-    return `<div class="wx-pill">${seq}<span class="wx-emoji">${wxEmoji(w.weather_code)}</span><div class="wx-txt"><div class="wx-city">${c.n}</div><div class="wx-sub">${wxLabel(w.weather_code)} · vento ${Math.round(w.wind_speed_10m)} km/h</div></div><div class="wx-temp">${Math.round(w.temperature_2m)}°</div></div>`;
+    const hasRange = typeof w.t_max==='number' && typeof w.t_min==='number';
+    const rangeLine = hasRange ? `<div class="wx-range">máx <b>${Math.round(w.t_max)}°</b> · mín <b>${Math.round(w.t_min)}°</b></div>` : '';
+    return `<div class="wx-pill">${seq}<span class="wx-emoji">${wxEmoji(w.weather_code)}</span><div class="wx-txt"><div class="wx-city">${c.n}</div><div class="wx-sub">${wxLabel(w.weather_code)} · vento ${Math.round(w.wind_speed_10m)} km/h</div>${rangeLine}</div><div class="wx-temp">${Math.round(w.temperature_2m)}°</div></div>`;
   }));
   return `<div class="wx-block">${parts.join('')}</div>`;
 }
@@ -2496,11 +2501,23 @@ function citiesFromDayString(s){
   }
   return out;
 }
-async function fetchWx(city){
-  const url=`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m&timezone=${encodeURIComponent(city.tz)}`;
+async function fetchWx(city, targetDate){
+  const base=`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m&timezone=${encodeURIComponent(city.tz)}`;
+  const url = targetDate
+    ? `${base}&daily=temperature_2m_max,temperature_2m_min&past_days=16&forecast_days=16`
+    : base;
   try{
     const r=await fetch(url); if(!r.ok) throw 0;
-    const j=await r.json(); return j.current;
+    const j=await r.json();
+    const out={...j.current};
+    if(targetDate && j.daily && Array.isArray(j.daily.time)){
+      const idx=j.daily.time.indexOf(targetDate);
+      if(idx>=0){
+        out.t_max=j.daily.temperature_2m_max[idx];
+        out.t_min=j.daily.temperature_2m_min[idx];
+      }
+    }
+    return out;
   }catch(e){ return null; }
 }
 async function updateHeroWeather(){
