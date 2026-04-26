@@ -1966,7 +1966,7 @@ function cityCard(r){
     ${r.note?`<div style="color:var(--text-3);font-size:12.5px;margin-top:6px;line-height:1.5">${r.note}</div>`:''}
     ${r.tags&&r.tags.length?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">${r.tags.map(t=>`<span class="badge" style="font-size:10.5px;padding:3px 8px;background:var(--card-2);color:var(--text-2);border:1px solid var(--line)">${t}</span>`).join('')}</div>`:''}
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=${r.map}" target="_blank">${ico('i-map')}Google Maps</a>
+      <a class="btn" href="https://maps.apple.com/?q=${r.map}" target="_blank">${ico('i-map')}Apple Maps</a>
       ${r.tel?`<a class="btn" href="tel:${r.tel.replace(/\s/g,'')}">${ico('i-phone')}${r.tel}</a>`:''}
     </div>
   </div>`;
@@ -2260,7 +2260,7 @@ function renderTodaySteps(){
         ${s.order?`<div class="trow">${ico('i-fork')}<span><b>O que fazer / pedir:</b> ${s.order}</span></div>`:''}
         ${s.tip?`<div class="tdetail"><b>💡 Dica:</b> ${s.tip}</div>`:''}
         ${tagHtml?`<div class="ttags">${tagHtml}</div>`:''}
-        ${s.map?`<div class="tbtns"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=${s.map}" target="_blank">${ico('i-map')}Abrir no Maps</a></div>`:''}
+        ${s.map?`<div class="tbtns"><a class="btn primary" href="https://maps.apple.com/?q=${s.map}" target="_blank">${ico('i-map')}Abrir no Apple Maps</a></div>`:''}
       </div>
     </li>`;
   }).join('') + '</ul>';
