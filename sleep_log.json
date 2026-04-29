@@ -1,0 +1,29 @@
+[
+  {
+    "start_utc": "2026-04-27T17:00:00+00:00",
+    "end_utc": "2026-04-28T00:00:00+00:00",
+    "duration_h": 7,
+    "location": "in flight HKG-CDG",
+    "aligned_to_offset": 8,
+    "quality": "decent",
+    "note": "Sono no voo CX 261 ~01:00-08:00 HK = 17:00-00:00 UTC. Boa parte alinhada com noite HK."
+  },
+  {
+    "start_utc": "2026-04-28T18:00:00+00:00",
+    "end_utc": "2026-04-28T20:00:00+00:00",
+    "duration_h": 2,
+    "location": "in flight CDG-GRU",
+    "aligned_to_offset": null,
+    "quality": "fragmented",
+    "note": "Cochilo curto, dia HK, nao conta como ancora."
+  },
+  {
+    "start_utc": "2026-04-29T05:00:00+00:00",
+    "end_utc": "2026-04-29T10:00:00+00:00",
+    "duration_h": 5,
+    "location": "Casa BH",
+    "aligned_to_offset": -3,
+    "quality": "interrupted",
+    "note": "Sono 02:00-07:00 BRT. Alinhado com noite local mas curto."
+  }
+]

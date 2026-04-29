@@ -74,6 +74,11 @@ body{min-height:100vh;min-height:100dvh;background:
 .logo{display:flex;align-items:center;gap:10px;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;letter-spacing:1px}
 .logo .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--purple-2),var(--olive-2));box-shadow:0 0 18px var(--purple-2)}
 .trip-pill{font-size:12px;color:var(--text-2);text-transform:uppercase;letter-spacing:1.8px;padding:6px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;gap:6px}
+.bc-pill{font-size:11px;color:var(--text-2);letter-spacing:1px;padding:6px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);display:none;align-items:center;gap:8px;font-variant-numeric:tabular-nums;cursor:pointer;transition:all .25s var(--ease)}
+.bc-pill.show{display:flex}
+.bc-pill:hover{background:var(--glass-hi)}
+.bc-pill .bc-sep{opacity:.4}
+.bc-pill .bc-pct{color:var(--gold,#c9a14a);font-weight:600}
 .theme-toggle{display:flex;gap:2px;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:99px}
 .theme-toggle button{border:0;background:transparent;color:var(--text-2);padding:8px 12px;border-radius:99px;cursor:pointer;font-size:13px;transition:all .25s var(--ease);min-height:36px;display:flex;align-items:center;gap:4px}
 .theme-toggle button.on{background:var(--glass-hi);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
@@ -414,6 +419,7 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
   <div class="topbar-in">
     <div class="logo"><span class="dot"></span>CARNET</div>
     <span class="trip-pill"><svg class="ico"><use href="#i-globe"/></svg><span id="tripPill">China · Abr 2026</span></span>
+    <span class="bc-pill" id="bcPill" title="Body clock — clique pra detalhes"><svg class="ico"><use href="#i-clock"/></svg><span id="bcLocal">—</span><span class="bc-sep">·</span><span>corpo <span id="bcBody">—</span></span><span class="bc-sep">·</span><span class="bc-pct" id="bcPct">—%</span></span>
     <div class="theme-toggle" id="themeToggle">
       <button data-t="system" title="Auto"><svg class="ico"><use href="#i-monitor"/></svg></button>
       <button data-t="light" title="Light"><svg class="ico"><use href="#i-sun"/></svg></button>
@@ -472,6 +478,42 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
     <div id="todayDayButtons" style="display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding:4px 0 6px;scroll-snap-type:x proximity"></div>
   </div>
   <div class="card" id="todayHero" style="color:#fff;padding:24px 26px"></div>
+  <div class="card" id="bodyClockCard" style="padding:22px 24px;display:none">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:14px">
+      <div>
+        <h3 style="margin:0 0 4px"><svg class="ico"><use href="#i-clock"/></svg>Body Clock · adaptação ao fuso</h3>
+        <div style="color:var(--text-2);font-size:12px" id="bcLocation">—</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-2);margin-bottom:2px">Adaptação</div>
+        <div id="bcPctBig" style="font-size:28px;font-weight:600;font-variant-numeric:tabular-nums">—%</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px">
+      <div style="padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line)">
+        <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-2);margin-bottom:6px">Hora local</div>
+        <div id="bcLocalBig" style="font-size:24px;font-weight:600;font-variant-numeric:tabular-nums">—</div>
+        <div id="bcLocalOffset" style="font-size:11px;color:var(--text-2);margin-top:2px">—</div>
+      </div>
+      <div style="padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line)">
+        <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-2);margin-bottom:6px">Hora corporal</div>
+        <div id="bcBodyBig" style="font-size:24px;font-weight:600;font-variant-numeric:tabular-nums">—</div>
+        <div id="bcBodyOffset" style="font-size:11px;color:var(--text-2);margin-top:2px">—</div>
+      </div>
+      <div style="padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line)">
+        <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-2);margin-bottom:6px">Descompasso</div>
+        <div id="bcShift" style="font-size:24px;font-weight:600;font-variant-numeric:tabular-nums">—</div>
+        <div id="bcShiftLabel" style="font-size:11px;color:var(--text-2);margin-top:2px">—</div>
+      </div>
+    </div>
+    <div style="padding:14px 16px;border-radius:14px;background:color-mix(in oklab,var(--gold,#c9a14a) 12%,transparent);border:1px solid color-mix(in oklab,var(--gold,#c9a14a) 30%,transparent)">
+      <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-2);margin-bottom:8px">Recomendações</div>
+      <ul id="bcAdvice" style="margin:0;padding-left:18px;font-size:13.5px;line-height:1.65;color:var(--text)"></ul>
+    </div>
+    <div style="margin-top:14px;font-size:11px;color:var(--text-2);font-style:italic">
+      Estimativa, não medição. Atualiza a cada 60s · adapt 1.5h/dia oeste, 1.0h/dia leste · sono ≥4h alinhado à noite local pesa como âncora.
+    </div>
+  </div>
   <div class="card" style="padding:22px 24px">
     <h3 style="margin-top:0"><svg class="ico"><use href="#i-route"/></svg>Passo a passo · checkável</h3>
     <p style="color:var(--text-2);font-size:13px;margin:0 0 18px">Cada parada tem endereço, como chegar, duração e o que fazer lá. Clica no círculo pra dar check. Progresso salvo no navegador por dia.</p>
@@ -2608,6 +2650,229 @@ window.addEventListener('load', measureStickyHeights);
 if(document.fonts && document.fonts.ready) document.fonts.ready.then(measureStickyHeights);
 // Estado inicial da mini progress (aba ativa = hoje)
 syncMiniProgress((document.querySelector('.tab.on')||{}).dataset?.tab || 'hoje');
+
+/* ============== BODY CLOCK ==============
+ * Porta JS do modelo Python em body_clock/body_clock.py.
+ * Lê timezone_history.json + sleep_log.json (servidos no mesmo path).
+ * Atualiza pill no topbar + card grande na aba Hoje a cada 60s.
+ */
+(function(){
+  const WEST = 1.5; // h/dia oeste
+  const EAST = 1.0; // h/dia leste
+  const SLEEP_PULL = 0.4; // h por hora de sono alinhado
+  const MIN_ANCHOR = 4;   // sono mínimo pra valer como âncora
+  const TARGET_BED = 22.5;
+
+  let TZ = null, SLP = null;
+
+  function parseUtc(iso){ return new Date(iso); }
+  function hoursBetween(a, b){ return (b - a) / 3600000; }
+
+  function passive(current, target, hours){
+    if (Math.abs(target - current) < 0.01 || hours <= 0) return current;
+    const dir = target > current ? 1 : -1;
+    const rate = dir < 0 ? WEST : EAST;
+    const next = current + rate * (hours / 24) * dir;
+    return dir > 0 ? Math.min(next, target) : Math.max(next, target);
+  }
+
+  function sleepAligned(start, end, targetOffset){
+    const mid = new Date((start.getTime() + end.getTime()) / 2);
+    // hora local no fuso target
+    const localH = ((mid.getUTCHours() + targetOffset) % 24 + 24) % 24
+                 + mid.getUTCMinutes() / 60;
+    return localH >= 21.5 || localH < 7.5;
+  }
+
+  function compute(now){
+    if (!TZ || !TZ.length) return null;
+    const history = TZ.slice().sort((a,b) => a.start_utc.localeCompare(b.start_utc));
+    const sleeps = (SLP || []).slice().sort((a,b) => a.start_utc.localeCompare(b.start_utc));
+
+    const initial = +history[0].utc_offset_h;
+    let body = initial;
+    let target = initial;
+    let cursor = parseUtc(history[0].start_utc);
+
+    const events = [];
+    for (let i = 1; i < history.length; i++){
+      events.push({ t: parseUtc(history[i].start_utc), kind: 'tz', payload: history[i] });
+    }
+    for (const s of sleeps){
+      events.push({ t: parseUtc(s.start_utc), kind: 'sleep', payload: s });
+    }
+    events.sort((a,b) => a.t - b.t);
+
+    for (const ev of events){
+      if (ev.t > now) break;
+      body = passive(body, target, hoursBetween(cursor, ev.t));
+      cursor = ev.t;
+      if (ev.kind === 'tz'){
+        target = +ev.payload.utc_offset_h;
+      } else {
+        let endT = parseUtc(ev.payload.end_utc);
+        if (endT > now) endT = now;
+        const dur = hoursBetween(ev.t, endT);
+        if (dur >= MIN_ANCHOR && sleepAligned(ev.t, endT, target)){
+          const pull = SLEEP_PULL * dur;
+          const gap = target - body;
+          if (Math.abs(pull) >= Math.abs(gap)){
+            body = target;
+          } else {
+            body += gap > 0 ? pull : -pull;
+          }
+        }
+        body = passive(body, target, dur);
+        cursor = endT;
+      }
+    }
+    body = passive(body, target, hoursBetween(cursor, now));
+
+    // Localização atual
+    let loc = history[0].location;
+    let localOffset = initial;
+    for (const h of history){
+      if (parseUtc(h.start_utc) <= now){
+        loc = h.location;
+        localOffset = +h.utc_offset_h;
+      } else break;
+    }
+
+    const pending = localOffset - body;
+    const totalShift = localOffset - initial;
+    const done = body - initial;
+    const pct = Math.abs(totalShift) < 0.1 ? 100 :
+                Math.max(0, Math.min(100, (done / totalShift) * 100));
+
+    return { now, localOffset, body, pending, pct, location: loc, initial };
+  }
+
+  function fmtTime(now, offsetH){
+    const t = new Date(now.getTime() + offsetH * 3600000);
+    const hh = String(t.getUTCHours()).padStart(2,'0');
+    const mm = String(t.getUTCMinutes()).padStart(2,'0');
+    return hh + ':' + mm;
+  }
+
+  function fmtOffset(o){
+    const sign = o >= 0 ? '+' : '-';
+    const v = Math.abs(o);
+    const h = Math.floor(v);
+    const m = Math.round((v - h) * 60);
+    return 'UTC' + sign + h + (m ? ':' + String(m).padStart(2,'0') : '');
+  }
+
+  function buildAdvice(s){
+    const tips = [];
+    const bodyT = new Date(s.now.getTime() + s.body * 3600000);
+    const bodyH = bodyT.getUTCHours() + bodyT.getUTCMinutes()/60;
+    const localT = new Date(s.now.getTime() + s.localOffset * 3600000);
+    const localH = localT.getUTCHours() + localT.getUTCMinutes()/60;
+
+    if (Math.abs(s.pending) < 0.5){
+      tips.push('Praticamente adaptado ao fuso local.');
+      return tips;
+    }
+
+    const bodyHHMM = fmtTime(s.now, s.body);
+    if (bodyH >= 22 || bodyH < 5){
+      tips.push('Corpo em modo NOITE PROFUNDA (' + bodyHHMM + ' interno). Cognição cai forte; adia tarefas pesadas.');
+    } else if (bodyH < 9){
+      tips.push('Corpo em modo MADRUGADA/AMANHECER (' + bodyHHMM + '). Cortisol subindo, ainda groggy.');
+    } else if (bodyH < 12){
+      tips.push('Corpo em PICO MATINAL (' + bodyHHMM + '). Janela cognitiva alta.');
+    } else if (bodyH < 17){
+      tips.push('Corpo em modo TARDE (' + bodyHHMM + '). Estável.');
+    } else {
+      tips.push('Corpo em FIM-DE-TARDE/NOITE (' + bodyHHMM + '). Energia caindo, vontade de relaxar.');
+    }
+
+    if (s.pending < -0.5){
+      tips.push('Jet lag OESTE: meta hoje é dormir no horário local (22:00–23:00).');
+      if (localH < 11)        tips.push('Manhã: refeição firme + luz solar 20–30min. Cafeína OK até ~14:30.');
+      else if (localH < 14)   tips.push('Almoço local: comer firme. Cafeína até ~14:30; depois só água.');
+      else if (localH < 17)   tips.push('Tarde: NÃO deita, NÃO cochila. Caminhada ao ar livre 20min se puder.');
+      else if (localH < 21)   tips.push('Começo da noite: jantar leve, luz ambiente normal. Aguenta até 22h.');
+      else if (localH < 23)   tips.push('Janela de sono local abrindo. Reduza luz/telas, vai pra cama logo.');
+      else                    tips.push('Tarde da noite local: dormir agora.');
+    } else if (s.pending > 0.5){
+      tips.push('Jet lag LESTE: dormir mais cedo, luz forte pela manhã, evitar luz noturna.');
+    }
+
+    const cutoff = ((TARGET_BED - 8) % 24 + 24) % 24;
+    const cutoffH = Math.floor(cutoff);
+    const cutoffM = Math.round((cutoff - cutoffH) * 60);
+    if (localH < cutoff){
+      tips.push('Cafeína cutoff: ' + String(cutoffH).padStart(2,'0') + ':' + String(cutoffM).padStart(2,'0') + ' local.');
+    } else {
+      tips.push('Cafeína agora compromete o sono de hoje.');
+    }
+
+    return tips;
+  }
+
+  function render(){
+    if (!TZ) return;
+    const s = compute(new Date());
+    if (!s) return;
+
+    const localStr = fmtTime(s.now, s.localOffset);
+    const bodyStr = fmtTime(s.now, s.body);
+    const pct = Math.round(s.pct);
+    const shiftAbs = Math.abs(s.pending).toFixed(1) + 'h';
+    const dirLabel = Math.abs(s.pending) < 0.1 ? 'alinhado'
+                  : (s.pending < 0 ? 'corpo adiantado' : 'corpo atrasado');
+
+    // Pill no topbar
+    const pill = document.getElementById('bcPill');
+    if (pill){
+      pill.classList.add('show');
+      document.getElementById('bcLocal').textContent = localStr + ' local';
+      document.getElementById('bcBody').textContent = bodyStr;
+      document.getElementById('bcPct').textContent = pct + '%';
+    }
+
+    // Card grande na aba Hoje
+    const card = document.getElementById('bodyClockCard');
+    if (card){
+      card.style.display = '';
+      document.getElementById('bcLocation').textContent = s.location;
+      document.getElementById('bcPctBig').textContent = pct + '%';
+      document.getElementById('bcLocalBig').textContent = localStr;
+      document.getElementById('bcLocalOffset').textContent = fmtOffset(s.localOffset);
+      document.getElementById('bcBodyBig').textContent = bodyStr;
+      document.getElementById('bcBodyOffset').textContent = fmtOffset(Math.round(s.body * 10) / 10);
+      document.getElementById('bcShift').textContent = (s.pending >= 0 ? '+' : '−') + shiftAbs;
+      document.getElementById('bcShiftLabel').textContent = dirLabel;
+
+      const ul = document.getElementById('bcAdvice');
+      ul.innerHTML = '';
+      for (const tip of buildAdvice(s)){
+        const li = document.createElement('li');
+        li.textContent = tip;
+        ul.appendChild(li);
+      }
+    }
+  }
+
+  async function load(){
+    try {
+      const [tzR, slR] = await Promise.all([
+        fetch('timezone_history.json', { cache: 'no-cache' }),
+        fetch('sleep_log.json',         { cache: 'no-cache' })
+      ]);
+      if (!tzR.ok) return;
+      TZ = await tzR.json();
+      SLP = slR.ok ? await slR.json() : [];
+      render();
+      setInterval(render, 60000);
+    } catch (e){
+      // sem body clock: fallback silencioso (sem viagem registrada)
+    }
+  }
+
+  load();
+})();
 </script>
 </body>
 </html>

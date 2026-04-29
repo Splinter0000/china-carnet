@@ -1,0 +1,44 @@
+[
+  {
+    "start_utc": "2026-04-17T06:15:00+00:00",
+    "location": "Hong Kong (Park Lane / Causeway Bay)",
+    "utc_offset_h": 8,
+    "note": "Pouso CX 251, body assumido 100% adaptado a HK ate 27/abr"
+  },
+  {
+    "start_utc": "2026-04-19T17:15:00+00:00",
+    "location": "Beijing (Rosewood)",
+    "utc_offset_h": 8,
+    "note": "Mesmo fuso de HK"
+  },
+  {
+    "start_utc": "2026-04-22T15:30:00+00:00",
+    "location": "Suzhou/Shanghai (MO Pudong)",
+    "utc_offset_h": 8,
+    "note": "Mesmo fuso"
+  },
+  {
+    "start_utc": "2026-04-26T08:00:00+00:00",
+    "location": "Macau",
+    "utc_offset_h": 8,
+    "note": "Mesmo fuso"
+  },
+  {
+    "start_utc": "2026-04-27T08:00:00+00:00",
+    "location": "Hong Kong (return)",
+    "utc_offset_h": 8,
+    "note": "Ultimo dia HK"
+  },
+  {
+    "start_utc": "2026-04-27T16:05:00+00:00",
+    "location": "in flight HKG -> CDG (CX 261)",
+    "utc_offset_h": 8,
+    "note": "Takeoff 28/abr 00:05 HK = 27/abr 16:05 UTC. Body alvo continua +8 ate pouso BR."
+  },
+  {
+    "start_utc": "2026-04-29T04:25:00+00:00",
+    "location": "Belo Horizonte (CNF pouso)",
+    "utc_offset_h": -3,
+    "note": "Pouso LA 3545 01:25 BRT 29/abr. Alvo agora -3, comeca adaptacao."
+  }
+]
