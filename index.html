@@ -74,11 +74,10 @@ body{min-height:100vh;min-height:100dvh;background:
 .logo{display:flex;align-items:center;gap:10px;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;letter-spacing:1px}
 .logo .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--purple-2),var(--olive-2));box-shadow:0 0 18px var(--purple-2)}
 .trip-pill{font-size:12px;color:var(--text-2);text-transform:uppercase;letter-spacing:1.8px;padding:6px 12px;border-radius:99px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;gap:6px}
-.bc-pill{font-size:11px;color:var(--text-2);letter-spacing:1px;padding:6px 10px;border-radius:99px;background:var(--card);border:1px solid var(--line);display:none;align-items:center;gap:8px;font-variant-numeric:tabular-nums;cursor:pointer;transition:all .25s var(--ease)}
-.bc-pill.show{display:flex}
-.bc-pill:hover{background:var(--glass-hi)}
-.bc-pill .bc-sep{opacity:.4}
-.bc-pill .bc-pct{color:var(--gold,#c9a14a);font-weight:600}
+.hero-stat.bc{display:none}
+.hero-stat.bc.show{display:flex}
+.hero-stat.bc .v{font-variant-numeric:tabular-nums}
+.hero-stat.bc .bc-sub{font-size:10px;color:var(--text-2);margin-top:2px;letter-spacing:.5px}
 .theme-toggle{display:flex;gap:2px;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:99px}
 .theme-toggle button{border:0;background:transparent;color:var(--text-2);padding:8px 12px;border-radius:99px;cursor:pointer;font-size:13px;transition:all .25s var(--ease);min-height:36px;display:flex;align-items:center;gap:4px}
 .theme-toggle button.on{background:var(--glass-hi);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.12)}
@@ -419,7 +418,6 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
   <div class="topbar-in">
     <div class="logo"><span class="dot"></span>CARNET</div>
     <span class="trip-pill"><svg class="ico"><use href="#i-globe"/></svg><span id="tripPill">China · Abr 2026</span></span>
-    <span class="bc-pill" id="bcPill" title="Body clock — clique pra detalhes"><svg class="ico"><use href="#i-clock"/></svg><span id="bcLocal">—</span><span class="bc-sep">·</span><span>corpo <span id="bcBody">—</span></span><span class="bc-sep">·</span><span class="bc-pct" id="bcPct">—%</span></span>
     <div class="theme-toggle" id="themeToggle">
       <button data-t="system" title="Auto"><svg class="ico"><use href="#i-monitor"/></svg></button>
       <button data-t="light" title="Light"><svg class="ico"><use href="#i-sun"/></svg></button>
@@ -441,6 +439,7 @@ a:hover{color:var(--accent-2);border-bottom-color:var(--accent-2)}
     <div class="hero-stat"><div class="i"><svg class="ico ico-lg"><use href="#i-clock"/></svg></div><div><div class="l">Dias</div><div class="v">14</div></div></div>
     <div class="hero-stat"><div class="i"><svg class="ico ico-lg"><use href="#i-map"/></svg></div><div><div class="l">Cidades</div><div class="v">7</div></div></div>
     <div class="hero-stat" id="heroWx"><div class="i" style="font-size:32px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))" id="heroWxIcon">🌤️</div><div><div class="l" id="heroWxCity">Clima agora</div><div class="v" id="heroWxTemp">—</div></div></div>
+    <div class="hero-stat bc" id="heroBc" title="Body clock — abrir aba Hoje pra detalhes"><div class="i"><svg class="ico ico-lg"><use href="#i-clock"/></svg></div><div><div class="l">Corpo · <span id="bcPctMini">—%</span></div><div class="v"><span id="bcBodyMini">—</span></div><div class="bc-sub"><span id="bcLocalMini">—</span> local</div></div></div>
   </div>
 </div>
 
@@ -2823,13 +2822,13 @@ syncMiniProgress((document.querySelector('.tab.on')||{}).dataset?.tab || 'hoje')
     const dirLabel = Math.abs(s.pending) < 0.1 ? 'alinhado'
                   : (s.pending < 0 ? 'corpo adiantado' : 'corpo atrasado');
 
-    // Pill no topbar
-    const pill = document.getElementById('bcPill');
-    if (pill){
-      pill.classList.add('show');
-      document.getElementById('bcLocal').textContent = localStr + ' local';
-      document.getElementById('bcBody').textContent = bodyStr;
-      document.getElementById('bcPct').textContent = pct + '%';
+    // Stat no hero (primeiro card visual da página)
+    const heroBc = document.getElementById('heroBc');
+    if (heroBc){
+      heroBc.classList.add('show');
+      document.getElementById('bcPctMini').textContent = pct + '%';
+      document.getElementById('bcBodyMini').textContent = bodyStr;
+      document.getElementById('bcLocalMini').textContent = localStr;
     }
 
     // Card grande na aba Hoje
